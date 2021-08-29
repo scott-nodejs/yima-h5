@@ -1,7 +1,7 @@
 <script>
 // import PreView from '@/pages/preview';
 // import Sidebar from './components/sidebar.vue'
-import '@/components/core/styles/index.scss'
+import 'core/styles/index.scss'
 import LogoOfHeader from '@/components/common/header/logo.js'
 import Header from '@/components/common/header/index'
 import Links from '@/components/common/header/links.js'

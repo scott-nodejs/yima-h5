@@ -19,6 +19,11 @@ export default new Router({
           component: () => import('@/views/work-manager/list.vue')
         }
       ]
-    }
+    },
+      {
+          path: '/editor/:workId', // #!zh 编辑器页面，核心功能部分
+          name: 'editor',
+          component: () => import('./views/Editor.vue')
+      }
   ]
 })
