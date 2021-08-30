@@ -4,6 +4,11 @@ import Page from 'core/models/page'
 import Work from 'core/models/work'
 import { AxiosWrapper, handleError } from '@/utils/http.js'
 import router from '@/router.js'
+import { takeScreenshot, downloadPoster } from '@/utils/canvas-helper.js'
+
+function setLoading (commit, loadingName, isLoading) {
+  commit('loading/update', { type: loadingName, payload: isLoading }, { root: true })
+}
 
 export const actions = {
   previewWork ({ commit }, payload = {}) {
@@ -36,6 +41,36 @@ export const actions = {
       ...payload
     }
     commit('setWork', work)
+  },
+  /**
+  * isSaveCover {Boolean} 保存作品时，是否保存封面图
+  * loadingName {String} saveWork_loading, previewWork_loading
+  * 预览作品之前需要先保存，但希望 用户点击保存按钮 和 点击预览按钮 loading_name 能够不同（虽然都调用了 saveWork）
+  * 因为 loading 效果要放在不同的按钮上
+  */
+  saveWork ({ commit, dispatch, state }, { isSaveCover = false, loadingName = 'saveWork_loading', successMsg = '保存作品成功' } = {}) {
+    const fn = (callback) => {
+      new AxiosWrapper({
+        dispatch,
+        commit,
+        loading_name: loadingName,
+        successMsg,
+        customRequest: strapi.updateEntry.bind(strapi)
+      }).put('works', state.work.id, state.work).then(callback)
+    }
+    return new Promise((resolve, reject) => {
+      if (isSaveCover) {
+        setLoading(commit, 'uploadWorkCover_loading', true)
+        takeScreenshot().then(file => {
+          dispatch('uploadCover', { file }).then(() => {
+            setLoading(commit, 'uploadWorkCover_loading', false)
+            fn(resolve)
+          }) // uploadCover
+        }) // takeScreenshot
+      } else {
+        fn(resolve)
+      }
+    })
   },
   fetchWork ({ commit, state }, workId) {
     return strapi.getEntry('works', workId).then(entry => {

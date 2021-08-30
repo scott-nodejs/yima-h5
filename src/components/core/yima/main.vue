@@ -94,6 +94,7 @@
   import pageOption from '@/config/page.config.js'
   // 组件默认配置
   import compConfig from '@/config/comp.config.js'
+  import { mapState, mapActions } from 'vuex'
 
   export default {
     name: 'AppMain',
@@ -166,6 +167,9 @@
       }
     },
     methods: {
+      ...mapActions('editor', [
+        'saveWork',
+      ]),
       showPageSet() {
         this.resetCompUnchecked()
         this.currentIndex = -1
@@ -177,6 +181,7 @@
           message: '打开chomre devtool查看保存的信息！',
           type: 'success'
         })
+        this.saveWork({ isSaveCover: false })
       },
       showPreview() {
         localStorage.setItem('pageConfig', JSON.stringify(this.pageConfig))
