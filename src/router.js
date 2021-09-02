@@ -20,10 +20,15 @@ export default new Router({
         }
       ]
     },
-      {
-          path: '/editor/:workId', // #!zh 编辑器页面，核心功能部分
-          name: 'editor',
-          component: () => import('./views/Editor.vue')
-      }
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('./views/Home')
+    },
+    {
+      path: '/editor/:workId', // #!zh 编辑器页面，核心功能部分
+      name: 'editor',
+      component: () => import('./views/Editor.vue')
+    }
   ]
 })

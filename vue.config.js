@@ -11,7 +11,7 @@
 const path = require('path')
 const webpack = require('webpack')
 // const isProd = process.env.NODE_ENV === 'production'
-const target = 'https://h5.luban-h5.com'
+const target = 'http://localhost:9080/oneCode'
 const engineOutputDir = path.join(__dirname, '../../back-end/h5-api/public/engine-assets')
 const mainAppOutputDir = path.join(__dirname, '../../back-end/h5-api/build-editor')
 const coreEditorOutputDir = path.join(__dirname, '../../front-end/h5/src/components/core/dist')
@@ -68,7 +68,7 @@ module.exports = {
   pages: { index: page },
   devServer: {
     proxy: {
-      '^/auth|upload|content-manager|users-permissions|works|scripts|datasources|admin|psd-files|workforms|third-libs|engine-assets/': {
+      '^/auth|upload|content-manager|users-permissions|works|qrConfig|scripts|datasources|admin|psd-files|workforms|third-libs|engine-assets/': {
         target,
         changeOrigin: true,
         ws: false

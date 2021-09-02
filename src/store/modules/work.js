@@ -2,6 +2,7 @@ import strapi from '@/utils/strapi'
 import Element from 'core/models/element'
 import Page from 'core/models/page'
 import Work from 'core/models/work'
+import Config from 'core/models/config'
 import { AxiosWrapper, handleError } from '@/utils/http.js'
 import router from '@/router.js'
 import { takeScreenshot, downloadPoster } from '@/utils/canvas-helper.js'
@@ -42,6 +43,13 @@ export const actions = {
     }
     commit('setWork', work)
   },
+  updateData ({commit, state}, data = {}) {
+    const config = {
+      ...state.config,
+      ...data
+    }
+    commit('setConfig', config)
+  },
   /**
   * isSaveCover {Boolean} 保存作品时，是否保存封面图
   * loadingName {String} saveWork_loading, previewWork_loading
@@ -56,7 +64,7 @@ export const actions = {
         loading_name: loadingName,
         successMsg,
         customRequest: strapi.updateEntry.bind(strapi)
-      }).put('works', state.work.id, state.work).then(callback)
+      }).put('qrConfig/insert', state.work.id, state.config).then(callback)
     }
     return new Promise((resolve, reject) => {
       if (isSaveCover) {
@@ -262,13 +270,17 @@ export const mutations = {
     value.sort((a, b) => b.id - a.id)
     state.workTemplates = value
   },
-  setWork (state, work) {
+  setConfig (state, data){
+    state.config = new Config(data)
+  },
+  setWork (state, work){
     window.__work = work
-    work.pages = work.pages.map(page => {
-      page.elements = page.elements.map(element => new Element(element))
-      return new Page(page)
-    })
+    // work.pages = work.pages.map(page => {
+    //   page.elements = page.elements.map(element => new Element(element))
+    //   return new Page(page)
+    // })
     state.work = new Work(work)
+    console.log(state.work)
   },
   previewWork (state, { type, value }) {},
   deployWork (state, { type, value }) {},

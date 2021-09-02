@@ -1,84 +1,87 @@
 <template>
-  <div class="app-body">
-    <app-sidebar></app-sidebar>
-    <div class="app-main">
-      <app-toolbar v-on:showPageSet="showPageSet"
-                   v-on:savePageSet="savePageSet"
-                   v-on:showPreview="showPreview"></app-toolbar>
-      <div class="scroll-y">
-        <div class="app-phone"
-             @dragover.self="dragPhoneOver"
-             @dragleave.self="dragPhoneLeave"
-             @drop.self="dropPhone"
-             @dragover.prevent>
+  <div id="app" class="app-wrapper">
+    <app-header></app-header>
+    <div class="app-body">
+      <app-sidebar></app-sidebar>
+      <div class="app-main">
+        <app-toolbar v-on:showPageSet="showPageSet"
+                     v-on:savePageSet="savePageSet"
+                     v-on:showPreview="showPreview"></app-toolbar>
+        <div class="scroll-y">
+          <div class="app-phone"
+               @dragover.self="dragPhoneOver"
+               @dragleave.self="dragPhoneLeave"
+               @drop.self="dropPhone"
+               @dragover.prevent>
 
-          <template v-for="(comp, idx) in compList">
+            <template v-for="(comp, idx) in compList">
 
-            <!--占位提示控件-->
-            <div v-if="comp.type === 'placeholder'"
-                 class="place-holder"
-                 @dragover.stop="dragover"
-                 @dragleave.stop="dragleave"
-                 @drop.stop="drop"
-                 @dragover.prevent
-                 :data-index="idx">放在这里</div>
+              <!--占位提示控件-->
+              <div v-if="comp.type === 'placeholder'"
+                   class="place-holder"
+                   @dragover.stop="dragover"
+                   @dragleave.stop="dragleave"
+                   @drop.stop="drop"
+                   @dragover.prevent
+                   :data-index="idx">放在这里</div>
 
-            <div v-else :class="['tpl-container', comp.active ? 'current' : '']"
-                 :data-index="idx" @click.capture="clickComp">
-              <component :is="comp.type" :component="comp"></component>
+              <div v-else :class="['tpl-container', comp.active ? 'current' : '']"
+                   :data-index="idx" @click.capture="clickComp">
+                <component :is="comp.type" :component="comp"></component>
 
-              <!--控件操作-->
-              <div class="comp-menu">
-                <a href="javascript:void(0)"
-                   :class="[idx == 1 ? 'disabled' : '']"
-                   @click="upComp(idx)">
-                  <span class="tips">上移</span>
-                  <i class="fa fa-arrow-circle-up"></i>
-                </a>
-                <a href="javascript:void(0)"
-                   :class="[idx == compList.length - 2 ? 'disabled' : '']"
-                   @click="downComp(idx)">
-                  <span class="tips">下移</span>
-                  <i class="fa fa-arrow-circle-down"></i>
-                </a>
-                <a href="javascript:void(0)"
-                   @click="delComp(idx)">
-                  <span class="tips">删除</span>
-                  <i class="fa fa-trash"></i>
-                </a>
+                <!--控件操作-->
+                <div class="comp-menu">
+                  <a href="javascript:void(0)"
+                     :class="[idx == 1 ? 'disabled' : '']"
+                     @click="upComp(idx)">
+                    <span class="tips">上移</span>
+                    <i class="fa fa-arrow-circle-up"></i>
+                  </a>
+                  <a href="javascript:void(0)"
+                     :class="[idx == compList.length - 2 ? 'disabled' : '']"
+                     @click="downComp(idx)">
+                    <span class="tips">下移</span>
+                    <i class="fa fa-arrow-circle-down"></i>
+                  </a>
+                  <a href="javascript:void(0)"
+                     @click="delComp(idx)">
+                    <span class="tips">删除</span>
+                    <i class="fa fa-trash"></i>
+                  </a>
+                </div>
               </div>
-            </div>
 
-          </template>
-        </div>
-
-        <!--底部导航控件-->
-        <div v-if="bottomMenu"
-             :class="['absolute-tpl', bottomMenu.active ? 'current' : '']"
-             @click="clickBtmMenu">
-          <bottom-menu :component="bottomMenu"></bottom-menu>
-          <div class="comp-menu">
-            <a href="javascript:void(0)"
-               @click="delBtmMenu">
-              <span class="tips">删除</span>
-              <i class="fa fa-trash"></i>
-            </a>
+            </template>
           </div>
+
+          <!--底部导航控件-->
+          <div v-if="bottomMenu"
+               :class="['absolute-tpl', bottomMenu.active ? 'current' : '']"
+               @click="clickBtmMenu">
+            <bottom-menu :component="bottomMenu"></bottom-menu>
+            <div class="comp-menu">
+              <a href="javascript:void(0)"
+                 @click="delBtmMenu">
+                <span class="tips">删除</span>
+                <i class="fa fa-trash"></i>
+              </a>
+            </div>
+          </div>
+
         </div>
-
       </div>
+
+      <preview-dialog :show.sync="previewShow"></preview-dialog>
+
+      <app-opt v-if="currentConfig" :option="currentConfig"></app-opt>
+      <app-page-opt v-else :option="pageConfig"></app-page-opt>
+
+      <click-config :show.sync="clickShow"
+                    :option="currentConfig"
+                    :comps="compList"
+                    :index="click.index"
+                    :tabs="click.tabs"></click-config>
     </div>
-
-    <preview-dialog :show.sync="previewShow"></preview-dialog>
-
-    <app-opt v-if="currentConfig" :option="currentConfig"></app-opt>
-    <app-page-opt v-else :option="pageConfig"></app-page-opt>
-
-    <click-config :show.sync="clickShow"
-                  :option="currentConfig"
-                  :comps="compList"
-                  :index="click.index"
-                  :tabs="click.tabs"></click-config>
   </div>
 </template>
 
@@ -94,17 +97,24 @@
   import pageOption from '@/config/page.config.js'
   // 组件默认配置
   import compConfig from '@/config/comp.config.js'
+  import appHeader from 'core/yima/layout/header.vue'
   import { mapState, mapActions } from 'vuex'
 
   export default {
     name: 'AppMain',
+    props: {
+      workId: {
+        type: [Number, String]
+      }
+    },
     components: {
       appSidebar,
       appToolbar,
       appOpt,
       appPageOpt,
       clickConfig,
-      previewDialog
+      previewDialog,
+      appHeader
     },
     data() {
       return {
@@ -121,6 +131,13 @@
         pageConfig: util.copyObj(pageOption),
         currentIndex: -1,
         currentConfig: null
+      }
+    },
+    created () {
+      if (this.workId) {
+        this.fetchWork(this.workId)
+      } else {
+        this.$message.error('no work id!')
       }
     },
     mounted() {
@@ -169,6 +186,8 @@
     methods: {
       ...mapActions('editor', [
         'saveWork',
+        'fetchWork',
+        'updateData'
       ]),
       showPageSet() {
         this.resetCompUnchecked()
@@ -356,6 +375,7 @@
             this.$message.warning('没有查询到该组件的配置信息。。。')
           }
         }
+        this.updateData({configList: this.compList})
       },
       dragPhoneLeave() {
         const target = document.querySelector('.place-holder:last-child')
@@ -366,6 +386,23 @@
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
+  #app {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    width: 100%;
+    height: 100%;
+    min-width: 1000px;
+
+    .app-body {
+      display: flex;
+      position: absolute;
+      top: 60px;
+      bottom: 0;
+      width: 100%;
+    }
+  }
+
   .app-main {
     position: relative;
     flex: 1;
