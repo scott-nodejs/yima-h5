@@ -73,6 +73,8 @@
 
       <preview-dialog :show.sync="previewShow"></preview-dialog>
 
+      <submit-dialog :show.sync="submitShow" v-on:submitConfig="submitConfig"></submit-dialog>
+
       <app-opt v-if="currentConfig" :option="currentConfig"></app-opt>
       <app-page-opt v-else :option="pageConfig"></app-page-opt>
 
@@ -93,6 +95,7 @@
   import appPageOpt from 'core/yima/layout/pageOption.vue'
   import clickConfig from '@/common/click.vue'
   import previewDialog from '@/common/preview.vue'
+  import submitDialog from '@/common/submit.vue'
   // 页面默认配置
   import pageOption from '@/config/page.config.js'
   // 组件默认配置
@@ -114,12 +117,14 @@
       appPageOpt,
       clickConfig,
       previewDialog,
+      submitDialog,
       appHeader
     },
     data() {
       return {
         clickShow: false,
         previewShow: false,
+        submitShow: false,
         click: {
           index: 0,
           tabs: []
@@ -195,16 +200,20 @@
         this.currentConfig = null
       },
       savePageSet() {
+        this.submitShow = true
+      },
+      showPreview() {
+        localStorage.setItem('pageConfig', JSON.stringify(this.pageConfig))
+        this.previewShow = true
+      },
+      submitConfig(data){
+        this.updateData({client: data})
         console.warn('save Info: ', JSON.stringify(this.compList))
         this.$message({
           message: '打开chomre devtool查看保存的信息！',
           type: 'success'
         })
         this.saveWork({ isSaveCover: false })
-      },
-      showPreview() {
-        localStorage.setItem('pageConfig', JSON.stringify(this.pageConfig))
-        this.previewShow = true
       },
       readLocalData() {
         const tmp = localStorage.getItem('pageDateSet')

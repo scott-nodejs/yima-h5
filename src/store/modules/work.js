@@ -105,7 +105,7 @@ export const actions = {
       loading_name: 'fetchWorks_loading',
       successMsg: '获取作品列表成功',
       customRequest: strapi.getEntries.bind(strapi)
-    }).get('works', payload).catch(handleError)
+    }).get('qrConfig/codes', payload).catch(handleError)
   },
   fetchWorksWithForms ({ commit, dispatch, state }, workId) {
     new AxiosWrapper({
@@ -257,8 +257,10 @@ export const mutations = {
    * }
    */
   setWorks (state, { type, value }) {
-    value.sort((a, b) => b.id - a.id)
-    state.works = value
+    let v = value['data']['data']
+    //v.sort((a, b) => b.id - a.id)
+    state.works = v
+    state.total['works'] = value['data']['count']
   },
   /**
    * payload: {
@@ -280,7 +282,6 @@ export const mutations = {
     //   return new Page(page)
     // })
     state.work = new Work(work)
-    console.log(state.work)
   },
   previewWork (state, { type, value }) {},
   deployWork (state, { type, value }) {},

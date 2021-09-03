@@ -28,7 +28,7 @@ export default {
     ...mapState('loading', ['fetchWorks_loading', 'fetchWorkTemplates_loading']),
     workList () {
       const workList = this.isTemplate ? this.workTemplates : this.works
-      return workList.sort((a, b) => a.id - b.id)
+      return workList.sort((a, b) => b.id - a.id)
     },
     loading () {
       return this.isTemplate ? this.fetchWorkTemplates_loading : this.fetchWorks_loading
@@ -171,6 +171,6 @@ export default {
   },
   created () {
     this.handleSearch()
-    this.fetchCount({ is_template: this.isTemplate })
+    //this.fetchCount({ is_template: this.isTemplate })
   }
 }

@@ -82,7 +82,7 @@ export default {
           <div slot="description" style="font-size: 12px;">
             {/** 描述 时间 */}
             <div>{this.$t('workCard.description')}: {this.work.description}</div>
-            <div>{this.$t('workCard.createTime')}: {this.timeFmt(this.work.created_at)}</div>
+            <div>{this.$t('workCard.createTime')}: {this.timeFmt(this.work.createTime)}</div>
           </div>
         </a-card-meta>
       </a-card>
