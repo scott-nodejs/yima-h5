@@ -10,7 +10,7 @@
                 ref="login">
             <!-- 正常登录登录名输入框 -->
             <div class="input-prepend restyle js-normal">
-              <input placeholder="邮箱"
+              <input placeholder="手机号"
                      type="text"
                      v-model="formData.username"
                      @keyup.enter="login"
@@ -47,9 +47,6 @@
                     @click="login">
               登录
             </button>
-
-            <router-link class="return-home"
-                         :to="{ name: 'home' }">返回首页</router-link>
           </form>
 
         </div>
@@ -61,8 +58,10 @@
 
 <script>
 
-// import ClientOnly from 'vue-client-only'
-// import {cookie} from "../../utils/cookie";
+import ClientOnly from 'vue-client-only'
+import {cookie} from "../utils/cookie";
+import { mapState, mapActions } from 'vuex'
+import strapi from '../utils/strapi'
 
 export default {
   name: 'SignIn',
@@ -77,21 +76,21 @@ export default {
     }
   },
   methods: {
+      ...mapActions("user",['userLogin']),
       login () {
-          // this.$store.dispatch('sign/LOGIN',this.formData)
-          //     .then(res => {
-          //         if (res.code === 200) {
-          //             this.$message.success(res.msg)
-          //             cookie.set('accessToken', res.data, 7)
-          //             this.$refs.login.reset()
-          //             this.$router.push({ name: 'home' })
-          //         } else {
-          //             this.$message.warning(res.msg)
-          //         }
-          //     })
+          this.userLogin(this.formData).then(res=>{
+              if(res.code == 200){
+                  strapi.setToken(res['data'])
+                  cookie.set('islogin', '1', 7)
+                  this.$refs.login.reset()
+                  this.$router.push({ name: 'home'})
+              }else{
+                  this.$message.warning(res.msg)
+              }
+          })
       },
       tapRegister () {
-          this.$router.push({ name: 'signUp' })
+          this.$router.push({ name: 'logout' })
       },
       tapResetPassword () {
           this.$router.push({ name: 'resetPassword' })

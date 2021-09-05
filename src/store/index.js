@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import loading from './modules/loading'
 import editor from './modules/editor'
 import client from './modules/client'
+import user from './modules/user'
 
 Vue.use(Vuex)
 
@@ -19,6 +20,7 @@ export default new Vuex.Store({
   modules: {
     editor,
     loading,
-    client
+    client,
+    user
   }
 })

@@ -6,10 +6,25 @@ export const columns = [
     scopedSlots: { customRender: 'id' }
   },
   {
-    title: 'Title',
-    dataIndex: 'title',
-    key: 'title'
+    title: '客户',
+    dataIndex: 'company',
+    key: 'company'
   },
+    {
+        title: '电话',
+        dataIndex: 'phone',
+        key: 'phone'
+    },
+    {
+        title: '联系人',
+        dataIndex: 'nickname',
+        key: 'nickname'
+    },
+    {
+        title: '地址',
+        dataIndex: 'address',
+        key: 'address'
+    },
   // {
   //   title: 'PV',
   //   dataIndex: 'pv',
@@ -20,13 +35,13 @@ export const columns = [
   //   dataIndex: 'uv',
   //   key: 'uv'
   // },
-  {
-    // i18n for title
-    title: 'Forms',
-    key: 'formCount',
-    dataIndex: 'formCount',
-    align: 'center'
-  },
+  // {
+  //   // i18n for title
+  //   title: 'Forms',
+  //   key: 'formCount',
+  //   dataIndex: 'formCount',
+  //   align: 'center'
+  // },
   {
     title: 'Action',
     key: 'action',

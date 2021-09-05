@@ -14,33 +14,54 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import { columns } from './column'
+import CreateClient from 'core/editor/modals/client.vue'
 
 export default {
   components: {
   },
   data: () => ({
+      visible: false,
+      confirmLoading: false,
   }),
   computed: {
-    ...mapState('editor', ['works']),
+    ...mapState('client', ['clientList']),
     computedWorks () {
-      return this.works.map(w => ({
+      return this.clientList.map(w => ({
         id: w.id,
-        title: w.title,
-        pv: w.pv || 0,
-        uv: w.uv || 0,
-        formCount: w.form_count || 0
+        company: w.name,
+        phone: w.phone || '',
+        nickname: w.nickname || '',
+        address: w.address || ''
       }))
     }
   },
   methods: {
-    ...mapActions('editor', [
-      'fetchWorksWithForms'
-    ])
+    ...mapActions('client', [
+      'fetchClient'
+    ]),
+      handleOk(e) {
+        this.confirmLoading = true;
+          setTimeout(() => {
+              this.visible = false;
+              this.confirmLoading = false;
+          }, 2000);
+      },
+      handleCancel(e) {
+          console.log('Clicked cancel button');
+          this.visible = false;
+      },
   },
   render (h) {
     const that = this
     return (
       <div class="works-wrapper" style="background-color:white;padding: 12px;margin-top: 24px;">
+          <a-button onClick={() => {
+                this.visible = true
+          }}>新建客户</a-button>
+          <CreateClient
+              visible={this.visible}
+              handleClose={() => { this.visible = false }}
+          />
         <a-table size="middle" columns={columns} dataSource={this.computedWorks} row-key="id" scopedSlots={{
           id: (props) => {
             return (
@@ -60,7 +81,7 @@ export default {
     )
   },
   created () {
-    this.fetchWorksWithForms()
+    this.fetchClient()
   }
 }
 </script>

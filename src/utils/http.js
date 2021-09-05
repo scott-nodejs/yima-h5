@@ -98,17 +98,21 @@ export class AxiosWrapper {
   getCommonResponseHandler ({ failMsg } = {}) {
     return (response) => {
       const { status, data } = response
-      if (status === 200) {
-        this.successMsg && message.success(this.successMsg)
-        if (this.successCallback) {
-          return this.successCallback(response)
-        } else {
-          if (!this.name) return data
-          this.commit({ type: this.name, value: data, ...this.actionPayloadExtra }, { root: true })
-        }
+        if (status === 200) {
+          if(data.code === 200){
+              this.successMsg && message.success(this.successMsg)
+              if (this.successCallback) {
+                  return this.successCallback(response)
+              } else {
+                  if (!this.name) return data
+                  this.commit({ type: this.name, value: data, ...this.actionPayloadExtra }, { root: true })
+              }
+          }else{
+            message.error(data.msg)
+          }
       } else if (this.responseType === 'json') {
         message.error(data.msg)
-        if (status === 401) {
+        if (status === 405) {
           message.error('401 Session Expired')
           if (this.router) {
             this.router.push('/login')

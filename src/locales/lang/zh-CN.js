@@ -20,8 +20,8 @@ export default {
   },
   sidebar: {
     myWorks: '我的作品',
-    dataCenter: '数据中心',
-    basicData: '基础数据',
+    dataCenter: '我的客户',
+    basicData: '客户数据',
     templateCenter: '模板中心',
     freeTemplates: '模板列表',
     accountCenter: '账号中心'

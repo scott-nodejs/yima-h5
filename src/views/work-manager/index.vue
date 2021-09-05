@@ -1,11 +1,13 @@
 <script>
 // import PreView from '@/pages/preview';
 // import Sidebar from './components/sidebar.vue'
+import strapi from '../../utils/strapi'
 import 'core/styles/index.scss'
 import LogoOfHeader from '@/components/common/header/logo.js'
 import Header from '@/components/common/header/index'
 import Links from '@/components/common/header/links.js'
 import LangSelect from '@/components/common/header/LangSelect.vue'
+import {mapActions} from 'vuex'
 
 const sidebarMenus = [
   {
@@ -15,7 +17,24 @@ const sidebarMenus = [
     antIcon: 'bars',
     key: '1',
     routerName: 'work-manager-list'
-  }
+  },
+    {
+        label: '我的客户',
+        i18nLabel: 'sidebar.dataCenter',
+        value: 'dataCenter',
+        antIcon: 'snippets',
+        key: '2',
+        children: [
+            {
+                label: '客户数据',
+                i18nLabel: 'sidebar.basicData',
+                value: 'basicData',
+                antIcon: 'snippets',
+                key: '2-1',
+                routerName: 'form-stat'
+            }
+        ]
+    },
 ]
 
 export default {
@@ -27,6 +46,7 @@ export default {
     LangSelect
   },
   methods: {
+      ...mapActions('user', ['logout']),
     renderSidebar (menus) {
       // const renderLabel = menu => menu.routerName ? <router-link class="default-router-link" to={{ name: menu.routerName }}>{menu.label}</router-link> : menu.label
       const renderLabel = menu =>
@@ -86,9 +106,12 @@ export default {
                 <a-icon type="setting" />
                 账号设置
               </a-menu-item>
-              <a-menu-item key="3">
+              <a-menu-item key="3" onClick={e=>{
+                  strapi.clearToken()
+                  this.$router.push({ name : 'login'})
+              }}>
                 <a-icon type="logout" />
-                退出登录
+                  退出登录
               </a-menu-item>
             </a-menu>
             <a class="user-avatar-activator" href="#">
