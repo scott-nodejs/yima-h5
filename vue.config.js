@@ -10,7 +10,7 @@
  */
 const path = require('path')
 const webpack = require('webpack')
-// const isProd = process.env.NODE_ENV === 'production'
+const isProd = process.env.NODE_ENV === 'production'
 const target = 'http://localhost:9080/oneCode'
 const engineOutputDir = path.join(__dirname, '../../back-end/h5-api/public/engine-assets')
 const mainAppOutputDir = path.join(__dirname, '../../back-end/h5-api/build-editor')
@@ -38,8 +38,8 @@ switch (process.env.PAGE) {
       filename: 'index.html',
       title: 'Index Page',
       // outputDir: 'dist',
-      outputDir: mainAppOutputDir
-      // publicPath: isProd ? '/main/' : '/'
+      outputDir: mainAppOutputDir,
+      publicPath: isProd ? '/main/' : '/'
     }
 }
 
