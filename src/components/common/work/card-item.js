@@ -23,10 +23,22 @@ export default {
       return displayTime
     },
     genQRCodeUrl (work) {
-      const url = `${window.location.origin}/works/preview/${work.id}`
+      const url = `http://yima.appshuo.club/h5/?clientId=${work.clientId}`
+      console.log(url)
       QRCode.toDataURL(url, (err, url) => {
         if (err) console.log(err)
         this.qrcodeUrl = url
+      })
+    },
+    downloadQRCodeUrl(work){
+      const url = `http://yima.appshuo.club/h5/?clientId=${work.clientId}`
+      QRCode.toDataURL(url, (err, url) => {
+        if (err) console.log(err)
+        const imgUrl = url
+        let a = document.createElement("a");
+        a.href = imgUrl;
+        a.setAttribute("download", work.title);
+        a.click();
       })
     }
   },
@@ -36,7 +48,7 @@ export default {
         <CardCover
           slot="cover"
           qrcodeUrl={this.qrcodeUrl}
-          coverImageUrl={this.work.cover_image_url}
+          coverImageUrl={this.work.coverImage}
         />
         <template class="ant-card-actions" slot="actions">
           {
@@ -73,6 +85,7 @@ export default {
               ? <a-icon type="close-circle" onClick={() => { this.qrcodeUrl = '' }} />
               : <a-icon type="qrcode" onClick={() => this.genQRCodeUrl(this.work)} />
           }
+          <a-icon type="download" onClick={() => this.downloadQRCodeUrl(this.work)} />
         </template>
         <a-card-meta
         >

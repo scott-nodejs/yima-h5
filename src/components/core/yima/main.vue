@@ -208,12 +208,7 @@
       },
       submitConfig(data){
         this.updateData({client: data})
-        console.warn('save Info: ', JSON.stringify(this.compList))
-        this.$message({
-          message: '打开chomre devtool查看保存的信息！',
-          type: 'success'
-        })
-        this.saveWork({ isSaveCover: false })
+        this.saveWork({ isSaveCover: true })
       },
       readLocalData() {
         const tmp = localStorage.getItem('pageDateSet')

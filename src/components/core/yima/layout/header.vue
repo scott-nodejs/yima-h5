@@ -1,6 +1,6 @@
 <template>
   <header class="app-header">
-    <img class="header-logo" src="https://yangyuji.github.io/h5-factory/static/img/logo.png">h5-factory
+    <img class="header-logo" src="https://yangyuji.github.io/h5-factory/static/img/logo.png">yima-h5
   </header>
 </template>
 

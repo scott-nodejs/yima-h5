@@ -127,66 +127,6 @@ export const actions = {
       customRequest: strapi.getEntries.bind(strapi)
     }).get('works', payload).catch(handleError)
   },
-  /**
-   *
-   * @param {*} workId
-   * response demo:
-   {
-    "uuidMap2Name": {
-        "1565596393441": "姓名",
-        "1565596397671": "学校"
-    },
-    "formRecords": [
-        {
-            "id": 3,
-            "form": {
-                "1565369322603": "abc"
-            },
-            "work": 8,
-            "created_at": "2019-08-09T16:52:28.826Z",
-            "updated_at": "2019-08-09T16:52:28.832Z"
-        },
-        {
-            "id": 4,
-            "form": {
-                "1565595388440": "ddd"
-            },
-            "work": 8,
-            "created_at": "2019-08-11T07:36:54.521Z",
-            "updated_at": "2019-08-11T07:36:54.526Z"
-        },
-        {
-            "id": 5,
-            "form": {
-                "1565595388440": "acd"
-            },
-            "work": 8,
-            "created_at": "2019-08-11T07:45:22.000Z",
-            "updated_at": "2019-08-11T07:45:22.005Z"
-        },
-        {
-            "id": 6,
-            "form": {
-                "1565596393441": "b",
-                "1565596397671": "a"
-            },
-            "work": 8,
-            "created_at": "2019-08-11T07:59:00.938Z",
-            "updated_at": "2019-08-11T07:59:00.943Z"
-        },
-        {
-            "id": 7,
-            "form": {
-                "1565596393441": "b",
-                "1565596397671": "a"
-            },
-            "work": 8,
-            "created_at": "2019-08-11T07:59:37.065Z",
-            "updated_at": "2019-08-11T07:59:37.070Z"
-        }
-      ]
-    }
-   */
   fetchFormsOfWork ({ commit, state, dispatch }, workId) {
     // 可以 return Promise
     new AxiosWrapper({
@@ -214,37 +154,31 @@ export const actions = {
       loading_name: 'useTemplate_loading',
       successMsg: '使用模板成功'
     }).post(`/works/use-template/${workId}`)
-  }
+  },
+  uploadCover ({ commit, state, dispatch }, { file } = {}) {
+    const formData = new FormData()
+    formData.append('files', file, `${+new Date()}.png`)
+    formData.append('workId', state.work.id)
+    return new AxiosWrapper({
+      dispatch,
+      commit,
+      name: 'editor/setConfigCover',
+      loading_name: 'uploadWorkCover_loading',
+      successMsg: '上传封面图成功!',
+    }).post(`/upload/`, formData)
+  },
 }
 
 // mutations
 export const mutations = {
-  /**
-   *
-   * @param {*} state
-   * @param {Object} payload
-   *
-    value example: [
-      {
-        "id": 1,
-        "name": "1567769149231.png",
-        "hash": "1660b11229e7473b90f99a9f9afe7675",
-        "sha256": "lKl7f_csUAgOjf0VRYkBZ64EcTjvt4Dt4beNIhELpTU",
-        "ext": ".png",
-        "mime": "image/png",
-        "size": "6.57",
-        "url": "/uploads/1660b11229e7473b90f99a9f9afe7675.png",
-        "provider": "local",
-        "public_id": null,
-        "created_at": "2019-09-06T11:25:49.255Z",
-        "updated_at": "2019-09-06T11:25:49.261Z",
-        "related": []
-      }
-    ]
-   */
   setWorkCover (state, { type, value }) {
     const [cover] = value
-    state.work.cover_image_url = cover.url
+    console.log(value)
+    this.updateData({coverImage: cover.data})
+  },
+  setConfigCover (state, { type, value }) {
+    console.log(value.data)
+    state.config.coverImage = value.data
   },
   setWorksTotal (state, { type, value, ...other }) {
     const { isTemplate } = other
@@ -273,7 +207,9 @@ export const mutations = {
     state.workTemplates = value
   },
   setConfig (state, data){
-    state.config = new Config(data)
+    let conf = Object.assign({}, {coverImage: state.config.coverImage}, data)
+    console.log(conf)
+    state.config = new Config(conf)
   },
   setWork (state, work){
     window.__work = work

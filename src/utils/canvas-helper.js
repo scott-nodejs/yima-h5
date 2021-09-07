@@ -31,7 +31,7 @@ function dataURItoBlob (dataURI) {
  * @param {文件名} fileName
  */
 export function takeScreenshot ({
-  selector = '.canvas-wrapper',
+  selector = '.app-phone',
   fileName = `${+new Date()}`,
   type = 'file'
 } = {}) {
