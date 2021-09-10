@@ -9,6 +9,7 @@ import GridMenu from './general/grid-menu'
 import BaseImage from './general/image'
 import BaseText from './general/text'
 import Timeout from './general/timeout'
+import BaseVideo from './general/video'
 
 import ScrollLeft from './swiper/scroll-left'
 import SwiperBanner from './swiper/swiper-banner'
@@ -41,5 +42,6 @@ export default {
     Vue.component(PageIntro.name, PageIntro)
     Vue.component(PageParagraph.name, PageParagraph)
     Vue.component(PageTitle.name, PageTitle)
+    Vue.component(BaseVideo.name, BaseVideo)
   }
 }

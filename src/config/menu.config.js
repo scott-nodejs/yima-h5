@@ -31,6 +31,10 @@ module.exports = [
         key: 'grid-menu',
         text: '金刚位',
         icon: 'fa-th'
+      }, {
+        key: 'base-video',
+        text: '视频',
+        icon: 'fa-file-video-o'
       }
     ]
   }, {
