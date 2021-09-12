@@ -86,6 +86,14 @@
             v-on:uploadSuccess="uploadSuccess">
     </upload>
 
+    <videoGallery v-if="item.type === 'uploadVideo'"
+            :value="item.val"
+            :visible="item.visible"
+            v-on:change="change"
+    >
+
+    </videoGallery>
+
     <el-form-item class="small" v-if="item.type == 'desc'" :label="item.label + '：'">
       <span class="form-item-desc" v-html="item.val"></span>
     </el-form-item>
@@ -95,6 +103,8 @@
 
 <script>
   import upload from '@/common/upload.vue'
+  import videoGallery from '@/common/video-gallery/gallery.js'
+
   export default {
     props: {
       item: {
@@ -105,7 +115,8 @@
       }
     },
     components: {
-      upload
+      upload,
+        videoGallery
     },
     methods: {
       setFont(item, attr) {
@@ -132,6 +143,9 @@
       },
       uploadSuccess(item, img) {
         console.log('uploadSuccess', item)
+      },
+      change(url){
+
       }
     }
   }

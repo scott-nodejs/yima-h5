@@ -233,10 +233,11 @@ module.exports = {
         val: '',
         isNecessary: false
       }, {
-        type: 'upload',
+        type: 'uploadVideo',
         label: '上传视频',
         attr: 'src',
         val: '',
+        visible: false,
         /* limit: {
           w: 750,
           h: 200,
