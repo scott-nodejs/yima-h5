@@ -2,7 +2,9 @@
   <div :class="['comp-content', component.active ? 'active' : '']"
        :style="getStyle">
     <div class="video-box">
-      <video v-if="videoUrl" :src="videoUrl"></video>
+      <video v-if="videoUrl" playsinline="true" webkit-playsinline="" width="100%" height="100%" poster={playIcon} ref="videoTag" controls>
+        <source type="video/mp4" :src="videoUrl" />
+      </video>
       <div v-else class="video-placeholder"><i class="fa fa-video-camera"></i></div>
     </div>
   </div>

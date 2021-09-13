@@ -87,7 +87,7 @@
     </upload>
 
     <videoGallery v-if="item.type === 'uploadVideo'"
-            :value="item.val"
+            :item="item"
             :visible="item.visible"
             v-on:change="change"
     >

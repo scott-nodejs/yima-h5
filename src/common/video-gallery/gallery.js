@@ -13,6 +13,9 @@ export default {
     value: {
       type: String,
       default: ''
+    },
+    item: {
+      type: Object
     }
   },
   data: () => ({
@@ -46,7 +49,7 @@ export default {
     handleSelectImage (item) {
       this.handleClose()
       // this.$emit('change', item.url)
-      this.value = item.url
+      this.item.val = item.url
     },
     renderContent () {
       switch (this.activeTab) {
@@ -68,7 +71,7 @@ export default {
 
       const activatorWithImg = (
         <div onClick={this.showGallery}>
-          <div class="default-activator cursor-pointer "><video src={this.value} width="50%" style={{ margin: 'auto' }} /></div>
+          <div class="default-activator cursor-pointer "><video src={this.item.val} width="50%" style={{ margin: 'auto' }} /></div>
           <div class="flex-space-between" style="margin-top: 8px;">
             <a-button size="small">更换</a-button>
             <a-button size="small" onClick={(e) => {
@@ -78,7 +81,7 @@ export default {
           </div>
         </div>
       )
-      return (this.value ? activatorWithImg : activatorWithoutImg)
+      return (this.item.val ? activatorWithImg : activatorWithoutImg)
     }
   },
   render (h) {
