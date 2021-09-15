@@ -18,6 +18,7 @@ module.exports = {
     base: [
       {
         type: 'textarea',
+        attr: 'txt',
         label: '文本内容',
         val: '默认文本',
         isNecessary: true
@@ -220,6 +221,68 @@ module.exports = {
         click: null
       }]
     }
+  },
+  'header1':{
+    title: '头部1',
+    domId: '',
+    domName: '',
+    base:[
+      {
+        type: 'text',
+        label: '联系人',
+        attr: 'userName',
+        val: '',
+        placeholder: '填写联系人',
+        isNecessary: true
+      }, {
+        type: 'text',
+        label: '电话',
+        attr: 'phone',
+        val: '',
+        placeholder: '填写电话',
+        isNecessary: false
+      },{
+        type: 'text',
+        label: '地址',
+        attr: 'address',
+        val: '',
+        placeholder: '填写地址',
+        isNecessary: false
+      },{
+        type: 'text',
+        label: '公司名称',
+        attr: 'company',
+        val: '',
+        placeholder: '填写公司名称',
+        isNecessary: false
+      }
+    ],
+    style: [
+      {
+        type: 'upload',
+        label: '上传图片',
+        attr: 'bgImg',
+        val: 'http://img.hazer.top/tag/h5-yima-1631004841960.jpeg',
+        /* limit: {
+          w: 750,
+          h: 200,
+          s: 500
+        },*/
+        isNecessary: true
+      },
+      {
+        type: 'upload',
+        label: '上传图片',
+        attr: 'avterUrl',
+        val: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+        /* limit: {
+          w: 750,
+          h: 200,
+          s: 500
+        },*/
+        isNecessary: true
+      }
+    ]
   },
   'base-video': {
     title: '视频',

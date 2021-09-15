@@ -35,6 +35,10 @@ module.exports = [
         key: 'base-video',
         text: '视频',
         icon: 'fa-file-video-o'
+      },{
+        key: 'header1',
+        text: 'header1',
+        icon: 'fa-vcard'
       }
     ]
   }, {

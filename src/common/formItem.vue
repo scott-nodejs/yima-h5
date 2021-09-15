@@ -41,6 +41,13 @@
     </el-form-item>
 
     <el-form-item class="small"
+                  v-if="item.type === 'text'"
+                  :label="item.label + '：'">
+      <el-input v-model="item.val"
+                :placeholder="item.placeholder"></el-input>
+    </el-form-item>
+
+    <el-form-item class="small"
                   v-if="item.type === 'input-number'"
                   :label="item.label + '：'">
       <el-input-number v-model="item.val"

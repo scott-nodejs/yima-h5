@@ -11,6 +11,8 @@ import BaseText from './general/text'
 import Timeout from './general/timeout'
 import BaseVideo from './general/video'
 
+import Header1 from './general/header1'
+
 import ScrollLeft from './swiper/scroll-left'
 import SwiperBanner from './swiper/swiper-banner'
 
@@ -43,5 +45,6 @@ export default {
     Vue.component(PageParagraph.name, PageParagraph)
     Vue.component(PageTitle.name, PageTitle)
     Vue.component(BaseVideo.name, BaseVideo)
+    Vue.component(Header1.name, Header1)
   }
 }
