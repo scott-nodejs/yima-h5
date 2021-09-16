@@ -9,15 +9,12 @@
                   :src="imgUrl"
           />
           <a-card-meta :title="company">
-            <a-avatar
-                    slot="avatar"
-                    :src="avterUrl"
-            />
             <template slot="description">
               <a-form>
                 <a-form-item label="联系人" :label-col="{ span: 5 }" :wrapper-col="{ span: 7 }">{{userName}}</a-form-item>
-                <a-form-item label="电话" :label-col="{ span: 5 }" :wrapper-col="{ span: 7 }">{{phone}}</a-form-item>
-                <a-form-item label="地址" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">{{address}}</a-form-item>
+                <a-form-item label="电  话" :label-col="{ span: 5 }" :wrapper-col="{ span: 7 }">{{phone}}</a-form-item>
+                <a-form-item label="微  信" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">{{weixin}}</a-form-item>
+                <a-form-item label="地  址" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">{{address}}</a-form-item>
               </a-form>
             </template>
           </a-card-meta>
@@ -37,11 +34,11 @@
     data() {
       return {
         imgUrl: this.component.style[0].val,
-        avterUrl: this.component.style[1].val,
         userName: this.component.base[0].val,
         phone: this.component.base[1].val,
         address: this.component.base[2].val,
-        company: this.component.base[3].val
+        company: this.component.base[3].val,
+        weixin: this.component.base[4].val
       }
     },
     computed: {
@@ -58,11 +55,11 @@
       component: {
         handler() {
           this.imgUrl = this.component.style[0].val,
-          this.avterUrl = this.component.style[1].val,
           this.userName = this.component.base[0].val,
           this.phone = this.component.base[1].val,
           this.address = this.component.base[2].val,
-          this.company = this.component.base[3].val
+          this.company = this.component.base[3].val,
+          this.weixin = this.component.base[4].val
         },
         deep: true
       }

@@ -252,8 +252,15 @@ module.exports = {
         type: 'text',
         label: '公司名称',
         attr: 'company',
-        val: '',
+        val: '这里显示公司名称',
         placeholder: '填写公司名称',
+        isNecessary: false
+      },{
+        type: 'text',
+        label: '微信',
+        attr: 'weixin',
+        val: '',
+        placeholder: '填写微信名',
         isNecessary: false
       }
     ],
@@ -263,18 +270,6 @@ module.exports = {
         label: '上传图片',
         attr: 'bgImg',
         val: 'http://img.hazer.top/tag/h5-yima-1631004841960.jpeg',
-        /* limit: {
-          w: 750,
-          h: 200,
-          s: 500
-        },*/
-        isNecessary: true
-      },
-      {
-        type: 'upload',
-        label: '上传图片',
-        attr: 'avterUrl',
-        val: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
         /* limit: {
           w: 750,
           h: 200,
