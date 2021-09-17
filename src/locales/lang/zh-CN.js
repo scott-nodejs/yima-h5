@@ -10,7 +10,7 @@
  */
 export default {
   app: {
-    title: '鲁班 H5'
+    title: 'YIMA H5'
   },
   header: {
     chineseDocument: '中文文档',

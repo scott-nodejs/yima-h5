@@ -112,15 +112,6 @@
                         this.isSendCode = true
                     )
                 }
-                // this.$store.dispatch('sign/SIGN_SEND_CODE', { email: this.formData.email, type: 1 })
-                //     .then(res => {
-                //         this.isSendCodeSuccess = false
-                //         if (res.code === 200) {
-                //             this.isSendCode = true
-                //         } else {
-                //             this.$message.warning(res.msg)
-                //         }
-                //     })
             },
             async register () {
                 this.userRegister(this.formData).then(data=> {
@@ -129,16 +120,6 @@
                            this.$router.push({ name: 'login' })
                    }
                 })
-                // await this.$store.dispatch('sign/REGISTER', this.formData)
-                //         .then(res => {
-                //           if (res.code === 200) {
-                //               this.$message.success(res.msg)
-                //               this.$refs.register.reset();
-                //               this.$router.push({ name: 'signIn' })
-                //           } else {
-                //               this.$message.warning(res.msg)
-                //           }
-                //     })
             },
             tapSign () {
                 this.$router.push({ name: 'login' })

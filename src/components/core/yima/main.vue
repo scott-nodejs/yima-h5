@@ -71,7 +71,7 @@
         </div>
       </div>
 
-      <preview-dialog :show.sync="previewShow"></preview-dialog>
+      <preview-dialog :show.sync="previewShow" :viewUrl="viewUrl"></preview-dialog>
 
       <submit-dialog :show.sync="submitShow" v-on:submitConfig="submitConfig"></submit-dialog>
 
@@ -125,13 +125,14 @@
         clickShow: false,
         previewShow: false,
         submitShow: false,
+        viewUrl: 'http://yima.appshuo.club/h5/?clientId=6',
         click: {
           index: 0,
           tabs: []
         },
-        compList: [{
-          type: 'placeholder'
-        }],
+        // compList: [{
+        //   type: 'placeholder'
+        // }],
         bottomMenu: null,
         pageConfig: util.copyObj(pageOption),
         currentIndex: -1,
@@ -143,6 +144,13 @@
         this.fetchWork(this.workId)
       } else {
         this.$message.error('no work id!')
+      }
+    },
+    computed: {
+      ...mapState('editor', ['editingElement', 'work']),
+      compList(){
+        this.updateData({configList: this.work.config})
+        return this.work.config;
       }
     },
     mounted() {
@@ -203,8 +211,8 @@
         this.submitShow = true
       },
       showPreview() {
-        localStorage.setItem('pageConfig', JSON.stringify(this.pageConfig))
         this.previewShow = true
+        this.viewUrl = ''
       },
       submitConfig(data){
         this.updateData({client: data})
@@ -222,6 +230,7 @@
             center: true
           }).then(() => {
             this.compList = localData.config
+            this.updateData({configList: this.compList})
             this.bottomMenu = localData.menu
             this.resetCompUnchecked()
           }).catch(() => {

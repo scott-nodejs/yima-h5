@@ -1,5 +1,6 @@
 import { mapState, mapActions } from 'vuex'
 import ListItemCard, { AddNewCard } from '@/components/common/work/card-item.js'
+import previewDialog from '@/common/rpreview.vue'
 import './list.scss'
 
 export default {
@@ -16,6 +17,7 @@ export default {
   data: () => ({
     activeWork: null,
     previewVisible: false,
+    viewUrl: 'http://yima.appshuo.club/h5/?clientId=6',
     useTemplateDialogVisible: false,
     clonedWorkFromTemplate: null,
     pagination: {
@@ -48,7 +50,7 @@ export default {
       this.deleteWork(work.id).then(res => {
         const index = this.workList.findIndex(item => item.id === work.id)
         this.workList.splice(index, 1)
-        this.fetchCount({ is_template: this.isTemplate })
+        //this.fetchCount({ is_template: this.isTemplate })
         this.handleSearch()
       })
     },
@@ -68,6 +70,7 @@ export default {
             isTemplate={this.isTemplate}
             work={work}
             onPreview={e => {
+              console.log(this.previewVisible)
               this.previewVisible = true
               this.activeWork = work
               this.updateWork(work)
@@ -87,6 +90,7 @@ export default {
   render (h) {
     return (
       <div class="works-wrapper">
+        <previewDialog visible={this.previewVisible} handleClose={() => { this.previewVisible = false }} work={this.activeWork || {}}></previewDialog>
         <a-row gutter={12}>
           {
             !this.isTemplate &&

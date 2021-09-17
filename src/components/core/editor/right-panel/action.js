@@ -290,7 +290,7 @@ export default {
             <a-tooltip >
               <template slot="title">
                 <ul>
-                  <li>鲁班H5 ｜ 王者荣耀</li>
+                  <li>YIMAH5 ｜ 王者荣耀</li>
                   <li>脚本：装备</li>
                   <li>动作：装备附带的技能</li>
                   <li>So，要先买装备，才能使用技能哦</li>

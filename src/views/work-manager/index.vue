@@ -8,6 +8,7 @@ import Header from '@/components/common/header/index'
 import Links from '@/components/common/header/links.js'
 import LangSelect from '@/components/common/header/LangSelect.vue'
 import {mapActions} from 'vuex'
+import {cookie} from "../../utils/cookie";
 
 const sidebarMenus = [
   {
@@ -108,6 +109,8 @@ export default {
               </a-menu-item>
               <a-menu-item key="3" onClick={e=>{
                   strapi.clearToken()
+                  cookie.delete('islogin')
+                  cookie.delete('jwt')
                   this.$router.push({ name : 'login'})
               }}>
                 <a-icon type="logout" />

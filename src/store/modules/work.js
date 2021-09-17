@@ -72,6 +72,7 @@ export const actions = {
         takeScreenshot().then(file => {
           dispatch('uploadCover', { file }).then(() => {
             setLoading(commit, 'uploadWorkCover_loading', false)
+            localStorage.setItem('pageDateSet', '')
             fn(resolve)
           }) // uploadCover
         }) // takeScreenshot
@@ -83,7 +84,7 @@ export const actions = {
   fetchWork ({ commit, state }, workId) {
     return strapi.getEntry('works', workId).then(entry => {
       commit('setWork', entry)
-      commit('setEditingPage')
+      //commit('setEditingPage')
     }).catch(handleError)
   },
   fetchCount ({ commit, dispatch, state }, payload = { is_template: false }) {

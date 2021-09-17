@@ -19,6 +19,9 @@ export default class Work {
     this.description = work.description || '描述'
     this.pages = work.pages || [new Page()]
     this.datasources = (work.datasources || []).map(item => new DataSource(item))
+    this.config = work.config || [{
+      type: 'placeholder'
+    }]
 
     // this.id = this.id
     // TODO 用id 并不是一个好办法，有心人会得知整个系统中共有多少作品等额外信息，尽量防止信息泄漏

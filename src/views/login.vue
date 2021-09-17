@@ -90,7 +90,7 @@ export default {
           })
       },
       tapRegister () {
-          this.$router.push({ name: 'logout' })
+          this.$router.push({ name: 'register' })
       },
       tapResetPassword () {
           this.$router.push({ name: 'resetPassword' })

@@ -13,7 +13,7 @@ export default {
         style={{ lineHeight: '64px', display: 'inline-block' }}
       >
         <a-menu-item key="dingtalk" >
-          <a-popover title="👨🏻‍💻👩🏻‍💻欢迎加入鲁班-H5交流群">
+          <a-popover title="👨🏻‍💻👩🏻‍💻欢迎加入YIMA-H5交流群">
             <template slot="content">
               <p>For users in other languages(not zh-CN), <br />please keep using Github issue tracker. 🤟 </p>
               <p>扫描二维码加入 钉钉 讨论组</p>
@@ -23,19 +23,19 @@ export default {
             <span style={{ color: 'white', lineHeight: '64px', height: '64px', display: 'inline-block' }}><a-icon type="qrcode" />{this.$t('header.chat')}</span>
           </a-popover>
         </a-menu-item>
-        <a-menu-item key="document">
-          {/* <a href="https://ly525.github.io/luban-h5" target="_blank" rel="noopener" style={{ color: 'white' }}><a-icon type="read" />文档</a> */}
-          <a href="https://ly525.github.io/luban-h5/zh/" target="_blank" rel="noopener" style={{ color: 'white' }}><a-icon type="read" />{this.$t('header.chineseDocument')}</a>
-        </a-menu-item>
-        <a-menu-item key="document-en">
-          <a href="https://ly525.github.io/luban-h5" target="_blank" rel="noopener" style={{ color: 'white' }}><a-icon type="read" />Document(En)</a>
-        </a-menu-item>
-        <a-menu-item key="gitee">
-          <a href="https://gitee.com/ly525/luban-h5" target="_blank" rel="noopener" style={{ color: 'white' }}>Gitee</a>
-        </a-menu-item>
-        <a-menu-item key="github">
-          <a href="https://github.com/ly525/luban-h5" target="_blank" rel="noopener" style={{ color: 'white' }}><a-icon type="github" />Github</a>
-        </a-menu-item>
+        {/*<a-menu-item key="document">*/}
+        {/*  /!* <a href="https://ly525.github.io/luban-h5" target="_blank" rel="noopener" style={{ color: 'white' }}><a-icon type="read" />文档</a> *!/*/}
+        {/*  <a href="https://ly525.github.io/luban-h5/zh/" target="_blank" rel="noopener" style={{ color: 'white' }}><a-icon type="read" />{this.$t('header.chineseDocument')}</a>*/}
+        {/*</a-menu-item>*/}
+        {/*<a-menu-item key="document-en">*/}
+        {/*  <a href="https://ly525.github.io/luban-h5" target="_blank" rel="noopener" style={{ color: 'white' }}><a-icon type="read" />Document(En)</a>*/}
+        {/*</a-menu-item>*/}
+        {/*<a-menu-item key="gitee">*/}
+        {/*  <a href="https://gitee.com/ly525/luban-h5" target="_blank" rel="noopener" style={{ color: 'white' }}>Gitee</a>*/}
+        {/*</a-menu-item>*/}
+        {/*<a-menu-item key="github">*/}
+        {/*  <a href="https://github.com/ly525/luban-h5" target="_blank" rel="noopener" style={{ color: 'white' }}><a-icon type="github" />Github</a>*/}
+        {/*</a-menu-item>*/}
       </a-menu>
     )
   }

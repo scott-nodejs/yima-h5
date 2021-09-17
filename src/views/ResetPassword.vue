@@ -11,10 +11,10 @@
           <form>
 
             <div class="input-prepend email-view">
-              <input placeholder="邮箱"
+              <input placeholder="手机号"
                      type="text"
                      class="send-email-input account"
-                     v-model="formData.email">
+                     v-model="formData.phone">
               <i class="el-icon-message"></i>
               <send-code :isSend="isSendCodeSuccess"
                          v-model="isSendCode"
@@ -76,7 +76,7 @@ export default {
       isSendCode: false,
       isSendCodeSuccess: false,
       formData: {
-        email: '',
+        phone: '',
         code: '',
         loginType: 'email',
         password: '',
@@ -92,19 +92,16 @@ export default {
             this.$router.push({ name: 'signUp' })
         },
         sendCode () { // 发送注册验证码
+          if(this.formData.phone === ''){
+            this.$message.warning("手机号不能为空")
+          }else {
             this.isSendCodeSuccess = true
-            this.$store.dispatch('sign/RESET_PASSWORD_CODE', {
-                email: this.formData.email,
-                type: '2'
-            })
-                .then(res => {
-                    this.isSendCodeSuccess = false
-                    if (res.code === 200) {
-                        this.isSendCode = true
-                    } else {
-                        this.$message.warning(res.msg);
-                    }
-                })
+            this.userSendCode({phone: this.formData.phone, type: 1}).then(
+                    this.isSendCodeSuccess = false,
+                    this.isSendCode = true
+            )
+          }
+
         },
         resetSubmit () {
             this.$store.dispatch('sign/RESET_PASSWORD', this.formData)

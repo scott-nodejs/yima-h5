@@ -12,7 +12,7 @@ const router = new Router({
   routes: [
       {
         path: '/',
-        redirect: '/login'
+        redirect: '/home'
       },
       {
         path: '/home',
@@ -38,8 +38,8 @@ const router = new Router({
           component: Login
       },
       {
-          path: '/logout',
-          name: 'logout',
+          path: '/register',
+          name: 'register',
           component: () => import('./views/SignUp.vue')
       },
       {
@@ -55,16 +55,16 @@ const router = new Router({
   ]
 });
 
-// router.beforeEach((to, from, next)=>{
-//     let islogin = cookie.get("islogin")
-//     console.log(to.name)
-//     if(to.name !== 'login' && islogin === '1'){
-//         next()
-//     }else if(islogin === 'undefined'){
-//         next({ name : 'login'})
-//     }else{
-//         next()
-//     }
-// })
+router.beforeEach((to, from, next)=>{
+    let islogin = cookie.get("islogin")
+    console.log(to.name)
+    if(to.name !== 'login' && islogin !== '1'){
+        if(to.name === 'resetPassword' || to.name === 'register'){
+            return next()
+        }
+        return next('/login')
+    }
+    next()
+})
 
 export default router
