@@ -103,8 +103,11 @@
                 'userSendCode'
             ]),
             sendCode () { // 发送注册验证码
+                var reg = 11 && /^((13|14|15|17|18)[0-9]{1}\d{8})$/;
                 if(this.formData.phone === ''){
                     this.$message.warning("手机号不能为空")
+                }else if(!reg.test(this.formData.phone)){
+                  this.$message.warning("手机号格式不正确")
                 }else {
                     this.isSendCodeSuccess = true
                     this.userSendCode({phone: this.formData.phone, type: 1}).then(
@@ -117,7 +120,7 @@
                 this.userRegister(this.formData).then(data=> {
                    if(data.code === 200){
                        this.$refs.register.reset(),
-                           this.$router.push({ name: 'login' })
+                       this.$router.push({ name: 'login' })
                    }
                 })
             },

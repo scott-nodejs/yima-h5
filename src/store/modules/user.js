@@ -29,6 +29,14 @@ const actions = {
             successMsg: '注册成功'
         }).put('register', data)
     },
+    resetPassword({commit,dispatch, state}, data = {}){
+        return new AxiosWrapper({
+            dispatch,
+            commit,
+            loading_name: 'deleteWork_loading',
+            successMsg: '重置成功'
+        }).post('findPassword', data)
+    },
     userSendCode({commit,dispatch, state}, data = {}){
         return new AxiosWrapper({
             dispatch,
