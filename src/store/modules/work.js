@@ -81,6 +81,17 @@ export const actions = {
       }
     })
   },
+  preview ({ commit, dispatch, state }, {loadingName = 'saveWork_loading', successMsg = '' } = {}) {
+       return new AxiosWrapper({
+                dispatch,
+                commit,
+                loading_name: loadingName,
+                successMsg,
+                customRequest: strapi.updateEntry.bind(strapi)
+       }).put('works/preview', '1', state.config).then(entry=>{
+          localStorage.setItem('uid',entry.data.uid)
+       }).catch(handleError)
+  },
   fetchWork ({ commit, state }, workId) {
     return strapi.getEntry('works', workId).then(entry => {
       commit('setWork', entry)

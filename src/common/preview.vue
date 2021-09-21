@@ -35,14 +35,11 @@
     data() {
       return {
         visible: this.show,
-        previewUrl: this.viewUrl
+        previewUrl: ''
       }
     },
     watch: {
       show() {
-        // if (val && document.getElementById('ifr-preview')) {
-        //   document.getElementById('ifr-preview').contentWindow.location.reload(true)
-        // }
         this.visible = this.show
       }
     },

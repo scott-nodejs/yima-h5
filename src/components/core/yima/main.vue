@@ -71,7 +71,7 @@
         </div>
       </div>
 
-      <preview-dialog :show.sync="previewShow" :viewUrl="viewUrl"></preview-dialog>
+      <preview-dialog :show.sync="previewShow" :viewUrl="previewUrl"></preview-dialog>
 
       <submit-dialog :show.sync="submitShow" v-on:submitConfig="submitConfig"></submit-dialog>
 
@@ -125,7 +125,7 @@
         clickShow: false,
         previewShow: false,
         submitShow: false,
-        viewUrl: 'http://yima.appshuo.club/h5/?clientId=6',
+        previewUrl: '',
         click: {
           index: 0,
           tabs: []
@@ -200,7 +200,8 @@
       ...mapActions('editor', [
         'saveWork',
         'fetchWork',
-        'updateData'
+        'updateData',
+         'preview'
       ]),
       showPageSet() {
         this.resetCompUnchecked()
@@ -211,8 +212,11 @@
         this.submitShow = true
       },
       showPreview() {
-        this.previewShow = true
-        this.viewUrl = ''
+          this.preview()
+          this.previewShow = true
+          let uid = localStorage.getItem("uid")
+          this.previewUrl = 'http://localhost/h5/pages/preview/index?uid='+uid;
+          localStorage.removeItem('uid')
       },
       submitConfig(data){
         this.updateData({client: data})
