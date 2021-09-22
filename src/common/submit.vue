@@ -64,12 +64,10 @@
                 this.fetchClient()
             },
             handle(){
-                console.log(this.clientId)
                 this.$emit("submitConfig",{"clientId": this.clientId})
             },
             changeClient(data){
                 this.clientId = data;
-                console.log(data)
             }
         }
     }

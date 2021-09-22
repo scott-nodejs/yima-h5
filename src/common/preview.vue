@@ -8,7 +8,7 @@
              width="395px">
     <el-row>
       <el-col :span="12" style="text-align: center;width:375px;background-color:#f2f3f4;">
-        <iframe id="ifr-preview" allowtransparency="yes" :src="previewUrl"></iframe>
+        <iframe id="ifr-preview" :src="previewUrl"></iframe>
 
         <div class="pre-desc">
           <h3 style="color:red;">预览说明：</h3>
@@ -39,7 +39,10 @@
       }
     },
     watch: {
-      show() {
+      show(val) {
+        if(val){
+          this.previewUrl = this.viewUrl
+        }
         this.visible = this.show
       }
     },

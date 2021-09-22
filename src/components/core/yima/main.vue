@@ -201,7 +201,7 @@
         'saveWork',
         'fetchWork',
         'updateData',
-         'preview'
+        'preview'
       ]),
       showPageSet() {
         this.resetCompUnchecked()
@@ -215,7 +215,7 @@
           this.preview()
           this.previewShow = true
           let uid = localStorage.getItem("uid")
-          this.previewUrl = 'http://localhost/h5/pages/preview/index?uid='+uid;
+          this.previewUrl = 'http://yima.appshuo.club/h5/?preview=1&uid='+uid;
           localStorage.removeItem('uid')
       },
       submitConfig(data){
