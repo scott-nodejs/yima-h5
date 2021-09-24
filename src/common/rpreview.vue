@@ -18,7 +18,7 @@
         computed: {
             previewUrl () {
                 console.log(this.work)
-                return `http://yima.appshuo.club/h5/?clientId=${this.work.clientId}`
+                return `http://yima.hazer.top/h5/?clientId=${this.work.clientId}`
             }
         },
         data: () => ({

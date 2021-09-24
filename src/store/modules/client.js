@@ -35,6 +35,15 @@ const actions = {
             customRequest: strapi.updateEntry.bind(strapi)
         }).put('company/client','', state.client)
     },
+    deleteClient({commit, dispatch, state}){
+        return new AxiosWrapper({
+            dispatch,
+            commit,
+            loading_name: 'saveWork_loading',
+            successMsg : '删除成功',
+            customRequest: strapi.updateEntry.bind(strapi)
+        }).delete('company/client'+state.client.id)
+    },
     updateClient ({ commit, state }, payload = {}) {
         // update work with strapi
         const client = {

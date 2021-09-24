@@ -38,7 +38,8 @@ export default {
   },
   methods: {
     ...mapActions('client', [
-      'fetchClient'
+      'fetchClient',
+      'deleteClient'
     ]),
       handleOk(e) {
         this.confirmLoading = true;
@@ -65,7 +66,8 @@ export default {
     return (
       <div class="works-wrapper" style="background-color:white;padding: 12px;margin-top: 24px;">
           <a-button onClick={() => {
-                this.visible = true
+                this.visible = true,
+                this.type = 0
           }}>新建客户</a-button>
           <CreateClient
               visible={this.visible}
@@ -73,7 +75,7 @@ export default {
               handleClose={() => { this.visible = false }}
           />
         <a-table size="middle" columns={columns} dataSource={this.computedWorks} row-key="id"
-                 scopedSlots={{
+                 // scopedSlots={{
           // id: (props) => {
           //   return (
           //     <router-link to={{ name: 'editor', params: { workId: props.id } }} target="_blank" title={this.$t('workCard.view')}>
@@ -82,15 +84,23 @@ export default {
           //     </router-link>
           //   )
           // },
-          action: () => {
-            // 查看数据
-            return [<a onClick={() => {
-                this.visible = true
-            }}>{that.$t('basicData.viewData')}</a>]
-          }
-        }}
+          // action: () => {
+          //   // 查看数据
+          //   return [<a onClick={() => {
+          //       this.visible = true,
+          //       this.type = 1
+          //   }}>{that.$t('basicData.viewData')}</a>]
+          // }
+        // }}
         >
-
+            <template slot="operation" slot-scope="text, record">
+                <a-popconfirm
+                    if="dataSource.length"
+                    title="确定要删除?"
+                    onConfirm={this.deleteClient()}>
+                <a href="#">删除</a>
+            </a-popconfirm>
+        </template>
         </a-table>
       </div>
     )

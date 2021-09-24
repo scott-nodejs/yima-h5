@@ -25,6 +25,11 @@ export const columns = [
         dataIndex: 'address',
         key: 'address'
     },
+  {
+    title: '操作',
+    dataIndex: 'operation',
+    scopedSlots: { customRender: 'operation' },
+  }
     // {
     //   title: 'operation',
     //   dataIndex: 'operation',
@@ -47,11 +52,11 @@ export const columns = [
   //   dataIndex: 'formCount',
   //   align: 'center'
   // },
-  {
-    title: 'Action',
-    key: 'action',
-    scopedSlots: { customRender: 'action' }
-  }
+  // {
+  //   title: 'Action',
+  //   key: 'action',
+  //   scopedSlots: { customRender: 'action' }
+  // }
 ]
 
 export const data = [

@@ -23,7 +23,7 @@ export default {
       return displayTime
     },
     genQRCodeUrl (work) {
-      const url = `http://yima.appshuo.club/h5/?clientId=${work.clientId}`
+      const url = `http://yima.hazer.top/h5/?clientId=${work.clientId}`
       console.log(url)
       QRCode.toDataURL(url, (err, url) => {
         if (err) console.log(err)
@@ -31,7 +31,7 @@ export default {
       })
     },
     downloadQRCodeUrl(work){
-      const url = `http://yima.appshuo.club/h5/?clientId=${work.clientId}`
+      const url = `http://yima.hazer.top/h5/?clientId=${work.clientId}`
       QRCode.toDataURL(url, (err, url) => {
         if (err) console.log(err)
         const imgUrl = url

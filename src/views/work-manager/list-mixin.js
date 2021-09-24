@@ -17,7 +17,7 @@ export default {
   data: () => ({
     activeWork: null,
     previewVisible: false,
-    viewUrl: 'http://yima.appshuo.club/h5/?clientId=6',
+    viewUrl: 'http://yima.hazer.top/h5/?clientId=6',
     useTemplateDialogVisible: false,
     clonedWorkFromTemplate: null,
     pagination: {

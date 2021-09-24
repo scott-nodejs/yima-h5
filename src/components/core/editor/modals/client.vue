@@ -25,16 +25,21 @@ export default {
     //   work: state => state.work
     // }),
     previewUrl () {
+
       return `${window.location.origin}/works/preview/${this.work.id}?view_mode=preview`
     }
   },
   data: () => ({
     confirmLoading: false
   }),
-  methods: {
+  created() {
+      console.log(this.editType)
+  },
+    methods: {
     ...mapActions('client', [
       'saveClient',
-        'updateClient'
+      'updateClient',
+      'fetchClient'
     ]),
     handleOk (e) {
       this.updateClient(this.client)
@@ -42,6 +47,7 @@ export default {
       this.saveClient().then(res => {
         this.handleClose()
         this.confirmLoading = false
+        this.fetchClient()
       })
     },
       autoSave (info) {
