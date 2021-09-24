@@ -21,6 +21,7 @@ export default {
   },
   data: () => ({
       visible: false,
+      type: 0,
       confirmLoading: false,
   }),
   computed: {
@@ -50,6 +51,14 @@ export default {
           console.log('Clicked cancel button');
           this.visible = false;
       },
+      handleChange(value, key, column) {
+          const newData = [...this.data];
+          const target = newData.filter(item => key === item.key)[0];
+          if (target) {
+              target[column] = value;
+              this.data = newData;
+          }
+      },
   },
   render (h) {
     const that = this
@@ -60,22 +69,28 @@ export default {
           }}>新建客户</a-button>
           <CreateClient
               visible={this.visible}
+              editType={this.type}
               handleClose={() => { this.visible = false }}
           />
-        <a-table size="middle" columns={columns} dataSource={this.computedWorks} row-key="id" scopedSlots={{
-          id: (props) => {
-            return (
-              <router-link to={{ name: 'editor', params: { workId: props.id } }} target="_blank" title={this.$t('workCard.view')}>
-                {props.id}
-                <a-icon type="link" title={this.$t('workCard.view')} class="ml-3" />
-              </router-link>
-            )
-          },
-          action: (props) => {
+        <a-table size="middle" columns={columns} dataSource={this.computedWorks} row-key="id"
+                 scopedSlots={{
+          // id: (props) => {
+          //   return (
+          //     <router-link to={{ name: 'editor', params: { workId: props.id } }} target="_blank" title={this.$t('workCard.view')}>
+          //       {props.id}
+          //       <a-icon type="link" title={this.$t('workCard.view')} class="ml-3" />
+          //     </router-link>
+          //   )
+          // },
+          action: () => {
             // 查看数据
-            return [<router-link to={{ name: 'stat-detail', params: { id: props.id } }} >{that.$t('basicData.viewData')}</router-link>]
+            return [<a onClick={() => {
+                this.visible = true
+            }}>{that.$t('basicData.viewData')}</a>]
           }
-        }}>
+        }}
+        >
+
         </a-table>
       </div>
     )

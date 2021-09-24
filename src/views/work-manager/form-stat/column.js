@@ -1,10 +1,10 @@
 export const columns = [
-  {
-    title: 'Id',
-    // dataIndex: 'id',
-    key: 'id',
-    scopedSlots: { customRender: 'id' }
-  },
+  // {
+  //   title: 'Id',
+  //   // dataIndex: 'id',
+  //   key: 'id',
+  //   scopedSlots: { customRender: 'id' }
+  // },
   {
     title: '客户',
     dataIndex: 'company',
@@ -25,6 +25,11 @@ export const columns = [
         dataIndex: 'address',
         key: 'address'
     },
+    // {
+    //   title: 'operation',
+    //   dataIndex: 'operation',
+    //   scopedSlots: { customRender: 'operation' },
+    // },
   // {
   //   title: 'PV',
   //   dataIndex: 'pv',

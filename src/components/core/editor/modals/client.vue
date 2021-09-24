@@ -15,6 +15,9 @@ export default {
     client: {
       type: Object,
       default: () => ({})
+    },
+    editType:{
+        default: 0
     }
   },
   computed: {
@@ -62,7 +65,7 @@ export default {
         okText="保存"
       >
           <a-form class="preview-wrapper" label-col={{ span: 5 }} wrapper-col={{ span: 12 }} onSubmit={this.handleSubmit}>
-              <a-form-item label="客户名称">
+              <a-form-item label="门店名称">
                   <a-input
                       onChange={e => this.autoSave({ company: e.target.value })}
                       v-decorator="['note', { rules: [{ required: true, message: 'Please input your note!' }] }]"

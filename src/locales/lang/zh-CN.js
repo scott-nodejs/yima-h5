@@ -38,7 +38,7 @@ export default {
     confirmDeleteTip: '确认删除 {tip}？'
   },
   basicData: {
-    viewData: '查看数据'
+    viewData: '编辑'
   },
   editor: {
     sidebar: {

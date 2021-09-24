@@ -8,7 +8,7 @@
              width="395px">
     <el-row>
       <el-col :span="12" style="text-align: center;width:375px;background-color:#f2f3f4;">
-        <iframe id="ifr-preview" :src="previewUrl"></iframe>
+        <iframe id="ifr-preview" allowtransparency="yes" src="http://yima.appshuo.club/h5/?preview=1&uid=3"></iframe>
 
         <div class="pre-desc">
           <h3 style="color:red;">预览说明：</h3>
@@ -40,8 +40,9 @@
     },
     watch: {
       show(val) {
-        if(val){
+        if(val && document.getElementById('ifr-preview')){
           this.previewUrl = this.viewUrl
+          document.getElementById('ifr-preview').contentWindow.location.reload(true)
         }
         this.visible = this.show
       }
