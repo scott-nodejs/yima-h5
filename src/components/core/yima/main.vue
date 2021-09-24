@@ -215,7 +215,7 @@
           this.preview()
           this.previewShow = true
           let uid = localStorage.getItem("uid")
-          this.previewUrl = 'http://yima.appshuo.club/h5/?preview=1&uid='+uid;
+          this.previewUrl = 'http://yima.hazer.top/h5/?preview=1&uid='+uid;
           localStorage.removeItem('uid')
       },
       submitConfig(data){
