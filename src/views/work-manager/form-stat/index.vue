@@ -22,10 +22,11 @@ export default {
   data: () => ({
       visible: false,
       type: 0,
+      id: 0,
       confirmLoading: false,
   }),
   computed: {
-    ...mapState('client', ['clientList']),
+    ...mapState('client', ['clientList','client']),
     computedWorks () {
       return this.clientList.map(w => ({
         id: w.id,
@@ -39,7 +40,8 @@ export default {
   methods: {
     ...mapActions('client', [
       'fetchClient',
-      'deleteClient'
+      'deleteClient',
+      'updateClient'
     ]),
       handleOk(e) {
         this.confirmLoading = true;
@@ -51,6 +53,11 @@ export default {
       handleCancel(e) {
           console.log('Clicked cancel button');
           this.visible = false;
+      },
+
+      delete(){
+        this.updateClient({'id':6})
+        this.deleteClient()
       },
       handleChange(value, key, column) {
           const newData = [...this.data];
@@ -72,10 +79,11 @@ export default {
           <CreateClient
               visible={this.visible}
               editType={this.type}
+              client={this.client}
               handleClose={() => { this.visible = false }}
           />
         <a-table size="middle" columns={columns} dataSource={this.computedWorks} row-key="id"
-                 // scopedSlots={{
+                 scopedSlots={{
           // id: (props) => {
           //   return (
           //     <router-link to={{ name: 'editor', params: { workId: props.id } }} target="_blank" title={this.$t('workCard.view')}>
@@ -84,23 +92,16 @@ export default {
           //     </router-link>
           //   )
           // },
-          // action: () => {
-          //   // 查看数据
-          //   return [<a onClick={() => {
-          //       this.visible = true,
-          //       this.type = 1
-          //   }}>{that.$t('basicData.viewData')}</a>]
-          // }
-        // }}
+          action: (props) => {
+            // 查看数据
+            return [<a onClick={() => {
+                this.visible = true,
+                this.type = 1
+                this.id = props.id
+            }}>{that.$t('basicData.viewData')}</a>]
+          }
+        }}
         >
-            <template slot="operation" slot-scope="text, record">
-                <a-popconfirm
-                    if="dataSource.length"
-                    title="确定要删除?"
-                    onConfirm={this.deleteClient()}>
-                <a href="#">删除</a>
-            </a-popconfirm>
-        </template>
         </a-table>
       </div>
     )

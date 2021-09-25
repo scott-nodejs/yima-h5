@@ -1,149 +1,131 @@
 <template>
-    <a-table :columns="columns" :data-source="this.computedWorks" bordered>
-        <template
-                v-for="col in ['company', 'phone','nickname', 'address']"
-                :slot="col"
-                slot-scope="text, record, index"
-        >
-            <div :key="col">
-                <a-input
-                        v-if="record.editable"
-                        style="margin: -5px 0"
-                        :value="text"
-                        @change="e => handleChange(e.target.value, record.key, col)"
-                />
-                <template v-else>
-                    {{ text }}
-                </template>
-            </div>
-        </template>
-        <template slot="operation" slot-scope="text, record, index">
-            <div class="editable-row-operations">
-        <span v-if="record.editable">
-          <a @click="() => save(record.key)">Save</a>
-          <a-popconfirm title="Sure to cancel?" @confirm="() => cancel(record.key)">
-            <a>Cancel</a>
-          </a-popconfirm>
-        </span>
-                <span v-else>
-          <a :disabled="editingKey !== ''" @click="() => edit(record.key)">Edit</a>
-        </span>
-            </div>
-        </template>
-    </a-table>
+    <div class="myComponent">
+        <el-button @click="handleClick(0)" type="primary" size="small">创建客户</el-button>
+    <el-table
+            v-loading="loading"
+            :data="this.computedWorks"
+            stripe
+            style="width: 100%">
+        <el-table-column
+                prop="name"
+                label="门店名称"
+                width="180">
+        </el-table-column>
+        <el-table-column
+                prop="phone"
+                label="电话"
+                width="180">
+        </el-table-column>
+        <el-table-column
+                prop="nickname"
+                label="联系人"
+                width="180">
+        </el-table-column>
+        <el-table-column
+                prop="address"
+                label="地址">
+        </el-table-column>
+        <el-table-column
+                fixed="right"
+                label="操作"
+                width="100">
+            <template slot-scope="scope">
+                <el-button @click="handleClick(scope.row)" type="text" size="small">编辑</el-button>
+                <el-button @click="deleteClick(scope.row.id)" type="text" size="small">删除</el-button>
+            </template>
+        </el-table-column>
+    </el-table>
+        <div class="paginationClass">
+            <el-pagination
+                    @size-change="handleSizeChange1"
+                    @current-change="handleCurrentChange1" :current-page="this.currentPage"
+                    :page-sizes="[10,20,30,40]"
+                    :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper"
+                    :total="this.total">
+            </el-pagination>
+
+        </div>
+
+    <component-dialog :dialogVisible="dialogVisible" :flag="flag" :dialogInfo="dialogInfo" @update:dialogVisible="dialogVisibles"></component-dialog>
+    </div>
 </template>
 <script>
-    import {mapActions, mapState} from "vuex";
+    import componentDialog from 'core/editor/modals/dialog'
+    import { mapState, mapActions } from 'vuex'
+    import { message } from 'ant-design-vue'
 
-    const columns = [
-        {
-            title: '门店名称',
-            dataIndex: 'name',
-            width: '25%',
-            scopedSlots: { customRender: 'company' },
-        },
-        {
-            title: '电话',
-            dataIndex: 'phone',
-            width: '15%',
-            scopedSlots: { customRender: 'phone' },
-        },
-        {
-            title: '联系人',
-            dataIndex: 'nickname',
-            width: '20%',
-            scopedSlots: { customRender: 'nickname' },
-        },
-        {
-            title: '地址',
-            dataIndex: 'address',
-            width: '30%',
-            scopedSlots: { customRender: 'address' },
-        },
-        {
-            title: '操作',
-            dataIndex: 'operation',
-            width: '20%',
-            scopedSlots: { customRender: 'operation' },
-        },
-    ];
     export default {
+        components: {
+            componentDialog,
+            message
+        },
         data() {
             return {
-                columns,
-                editingKey: '',
-            };
-        },
-        computed: {
-            ...mapState('client', ['clientList']),
-            computedWorks: {
-                get() {
-                    return this.clientList.map(w => ({
-                        key: w.id.toString(),
-                        name: w.name,
-                        phone: w.phone || '',
-                        nickname: w.nickname || '',
-                        address: w.address || ''
-                    }))
-                },
-                set(newVal){
-                    this.computedWorks = newVal
-                }
+                dialogVisible: false,
+                dialogInfo:{},
+                flag: 0,
+                loading: true,
+                pageSize:10
             }
-        },
-        created () {
-            this.fetchClient()
         },
         methods: {
             ...mapActions('client', [
-                'fetchClient'
+                'getClient',
+                'deleteClient',
+                'updateClient'
             ]),
-            handleChange(value, key, column) {
-                const newData = [...this.data];
-                const target = newData.filter(item => key === item.key)[0];
-                if (target) {
-                    target[column] = value;
-                    this.data = newData;
+            handleClick(info) {
+                console.log(info)
+                this.dialogVisible = true;
+                if(info == 0){
+                    this.flag = 0
+                    this.dialogInfo = {}
+                }else {
+                    this.flag = 1
+                    this.dialogInfo = info
                 }
             },
-            edit(key) {
-                console.log(key)
-                const newData = [...this.computedWorks];
-                const target = this.computedWorks.filter(item => key === item.key)[0];
-                this.editingKey = key;
-                if (target) {
-                    target.editable = true;
-                    console.log(this.computedWorks)
-                }
+            deleteClick(id){
+                this.updateClient({'id':id})
+                this.deleteClient().then(
+                    this.getClient({'page':1, 'pageSize': 10}),
+                    message.success("删除成功"),
+                )
             },
-            save(key) {
-                const newData = [...this.clientList];
-                const newCacheData = [...this.cacheData];
-                const target = newData.filter(item => key === item.key)[0];
-                const targetCache = newCacheData.filter(item => key === item.key)[0];
-                if (target && targetCache) {
-                    delete target.editable;
-                    this.data = newData;
-                    Object.assign(targetCache, target);
-                    this.cacheData = newCacheData;
-                }
-                this.editingKey = '';
+            dialogVisibles(v){
+                this.dialogVisible = v
             },
-            cancel(key) {
-                const newData = [...this.computedWorks];
-                const target = newData.filter(item => key === item.key)[0];
-                this.editingKey = '';
-                if (target) {
-                    Object.assign(target, this.computedWorks.filter(item => key === item.key)[0]);
-                    delete target.editable;
-                    this.data = newData;
-                }
+            handleSizeChange1: function(pageSize) { // 每页条数切换
+                console.log(pageSize)
+                this.pageSize = pageSize
+                this.handleCurrentChange1(this.currentPage);
+            },
+            handleCurrentChange1: function(currentPage) {//页码切换
+                console.log(currentPage)
+                this.currentPage = currentPage
+                this.currentChangePage()
+            },
+            //分页方法（重点）
+            currentChangePage() {
+                let from = this.currentPage;
+                let to = this.pageSize;
+                this.getClient({'page':from,'pageSize':to});
             },
         },
-    };
-</script>
-<style scoped>
-    .editable-row-operations a {
-        margin-right: 8px;
+        computed: {
+            ...mapState('client', ['clientList','total','currentPage']),
+            computedWorks () {
+                return this.clientList.map(w => ({
+                    id: w.id,
+                    name: w.name,
+                    phone: w.phone || '',
+                    nickname: w.nickname || '',
+                    address: w.address || ''
+                }))
+            }
+        },
+        created () {
+            this.getClient({'page':this.currentPage, 'pageSize': this.pageSize}).then(this.loading = false)
+        }
     }
-</style>
+</script>

@@ -24,7 +24,7 @@ const router = new Router({
             {
                 path: '/work-manager/form-stat',
                 name: 'form-stat',
-                component: () => import('@/views/work-manager/form-stat/index.vue')
+                component: () => import('@/views/work-manager/form-stat/index1.vue')
             },
         ]
       },

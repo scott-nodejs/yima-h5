@@ -18,22 +18,24 @@ export default {
     },
     editType:{
         default: 0
+    },
+    id:{
+        default: 0
     }
   },
   computed: {
-    // ...mapState('editor', {
-    //   work: state => state.work
-    // }),
     previewUrl () {
-
       return `${window.location.origin}/works/preview/${this.work.id}?view_mode=preview`
     }
   },
   data: () => ({
     confirmLoading: false
   }),
+  mounted(){
+
+  },
   created() {
-      console.log(this.editType)
+
   },
     methods: {
     ...mapActions('client', [
@@ -70,7 +72,7 @@ export default {
         width="35%"
         okText="保存"
       >
-          <a-form class="preview-wrapper" label-col={{ span: 5 }} wrapper-col={{ span: 12 }} onSubmit={this.handleSubmit}>
+          <a-form class="preview-wrapper" label-col={{ span: 5 }} wrapper-col={{ span: 12 }}>
               <a-form-item label="门店名称">
                   <a-input
                       onChange={e => this.autoSave({ company: e.target.value })}
@@ -80,6 +82,7 @@ export default {
               <a-form-item label="客户电话">
                   <a-input
                       onChange={e => this.autoSave({ phone: e.target.value })}
+                      text={this.client.phone}
                       v-decorator="['note', { rules: [{ required: true, message: 'Please input your note!' }] }]"
                   />
               </a-form-item>

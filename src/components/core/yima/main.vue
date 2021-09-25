@@ -71,7 +71,7 @@
         </div>
       </div>
 
-      <preview-dialog :show.sync="previewShow" :viewUrl="previewUrl"></preview-dialog>
+      <preview-dialog :show.sync="previewShow" :viewUrl="previewUrl" ></preview-dialog>
 
       <submit-dialog :show.sync="submitShow" v-on:submitConfig="submitConfig"></submit-dialog>
 
@@ -221,6 +221,7 @@
       submitConfig(data){
         this.updateData({client: data})
         this.saveWork({ isSaveCover: true })
+
       },
       readLocalData() {
         const tmp = localStorage.getItem('pageDateSet')

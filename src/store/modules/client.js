@@ -4,7 +4,10 @@ import Client from 'core/models/client'
 
 // initial state
 const state = {
+    clients:[],
     clientList: [],
+    total:0,
+    currentPage:0,
     client: new Client()
 }
 
@@ -15,15 +18,16 @@ const getters = {
 
 // actions
 const actions = {
-    fetchClient ({ commit, state }) {
+    fetchClient ({ commit, state },payload = {}) {
+        console.log(payload)
         return strapi.getEntries('company/clients').then(entry => {
-            commit('setClient', entry)
+            commit('setClients', entry)
         }).catch(handleError)
     },
-    getClient ({ commit, state }) {
-        return strapi.getEntries('company/client').then(entry => {
+    getClient ({ commit, state },payload = {}) {
+        return strapi.getEntries('company/client?page='+payload.page+'&pageSize='+payload.pageSize).then(entry => {
             console.log(entry)
-            commit('setClient', entry['data']['list'])
+            commit('setClient', entry)
         }).catch(handleError)
     },
     saveClient({commit, dispatch, state}) {
@@ -33,16 +37,22 @@ const actions = {
             loading_name: 'saveWork_loading',
             successMsg : '保存成功',
             customRequest: strapi.updateEntry.bind(strapi)
-        }).put('company/client','', state.client)
+        }).put('company/client','', state.client).catch(handleError)
     },
-    deleteClient({commit, dispatch, state}){
+    fixClient({commit, dispatch, state}) {
         return new AxiosWrapper({
             dispatch,
             commit,
             loading_name: 'saveWork_loading',
-            successMsg : '删除成功',
+            successMsg: '修改成功',
             customRequest: strapi.updateEntry.bind(strapi)
-        }).delete('company/client'+state.client.id)
+        }).post('company/client/update', '', state.client).catch(handleError)
+    },
+    deleteClient({commit, dispatch, state}){
+        return strapi.deleteEntry('company/client',state.client.id).then(entry => {
+            this.$message.info('删除成功')
+            this.fetchClient
+        }).catch(handleError)
     },
     updateClient ({ commit, state }, payload = {}) {
         // update work with strapi
@@ -57,8 +67,13 @@ const actions = {
 // mutations
 const mutations = {
     setClient(state, data){
-         state.clientList = data['data'];
+         state.clientList = data.data.list;
+         state.total = data['data']['total'];
+         state.currentPage = data['data']['pageNum']
          console.log(state.clientList)
+    },
+    setClients(state, data){
+        state.clients = data['data']
     },
     addClient(state, data){
         state.client = new Client(data)

@@ -10,7 +10,7 @@
             <el-form-item label="选择客户">
                 <el-select v-model="clientId" placeholder="请选择客户" @change="changeClient">
                     <el-option
-                       v-for="clt in clientList"
+                       v-for="clt in clients"
                        :key="clt.id"
                        :label="clt.name"
                        :value="clt.id"
@@ -34,10 +34,10 @@
             show: {
                 type: Boolean,
                 default: false
-            }
+            },
         },
         created() {
-            this.getClient()
+            this.fetchClient()
         },
         watch:{
             show(){
@@ -51,7 +51,7 @@
             };
         },
         computed:{
-            ...mapState('client',["clientList"])
+            ...mapState('client',["clients"])
         },
         methods: {
             ...mapActions('client',[
@@ -60,11 +60,9 @@
             cancel() {
                 this.visible = false
             },
-            getClient(){
-                this.fetchClient()
-            },
             handle(){
                 this.$emit("submitConfig",{"clientId": this.clientId})
+                this.visible = false
             },
             changeClient(data){
                 this.clientId = data;
