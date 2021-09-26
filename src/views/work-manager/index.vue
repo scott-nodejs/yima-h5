@@ -7,7 +7,7 @@ import LogoOfHeader from '@/components/common/header/logo.js'
 import Header from '@/components/common/header/index'
 import Links from '@/components/common/header/links.js'
 import LangSelect from '@/components/common/header/LangSelect.vue'
-import {mapActions} from 'vuex'
+import {mapState,mapActions} from 'vuex'
 import {cookie} from "../../utils/cookie";
 
 const sidebarMenus = [
@@ -36,6 +36,14 @@ const sidebarMenus = [
             }
         ]
     },
+    {
+        label: '账号中心',
+        i18nLabel: 'sidebar.accountCenter',
+        value: 'personCenter',
+        antIcon: 'appstore',
+        key: '3',
+        routerName: 'setting'
+    }
 ]
 
 export default {
@@ -45,6 +53,12 @@ export default {
     LogoOfHeader,
     Links,
     LangSelect
+  },
+  computed:{
+      ...mapState('user',['user']),
+      getUserName(){
+         return this.user.userName
+      }
   },
   methods: {
       ...mapActions('user', ['logout']),
@@ -100,13 +114,9 @@ export default {
               }}
             >
               <a-menu-item key="1">
-                <span>someone@luban</span>
+                <span>{this.getUserName}</span>
               </a-menu-item>
               <a-menu-divider />
-              <a-menu-item key="2">
-                <a-icon type="setting" />
-                账号设置
-              </a-menu-item>
               <a-menu-item key="3" onClick={e=>{
                   strapi.clearToken()
                   cookie.delete('islogin')

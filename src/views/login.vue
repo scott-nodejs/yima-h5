@@ -76,10 +76,11 @@ export default {
     }
   },
   methods: {
-      ...mapActions("user",['userLogin']),
+      ...mapActions("user",['userLogin','genUser']),
       login () {
           this.userLogin(this.formData).then(res=>{
               if(res.code == 200){
+                  this.genUser({'userName': this.formData.username})
                   strapi.setToken(res['data'])
                   cookie.set('islogin', '1', 7)
                   this.$refs.login.reset()
