@@ -27,6 +27,11 @@ const router = new Router({
                 component: () => import('@/views/work-manager/form-stat/index1.vue')
             },
             {
+                path: '/work-manager/form-table',
+                name: 'form-table',
+                component: () => import('@/views/work-manager/form-stat/formTable.vue')
+            },
+            {
                 path: '/work-manager/setting',
                 name: 'setting',
                 component: () => import('@/views/work-manager/setting/Setting.vue'),

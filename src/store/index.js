@@ -4,6 +4,7 @@ import loading from './modules/loading'
 import editor from './modules/editor'
 import client from './modules/client'
 import user from './modules/user'
+import form from './modules/form'
 
 Vue.use(Vuex)
 
@@ -21,6 +22,7 @@ export default new Vuex.Store({
     editor,
     loading,
     client,
-    user
+    user,
+    form
   }
 })

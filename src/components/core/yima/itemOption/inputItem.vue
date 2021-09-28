@@ -98,7 +98,10 @@
       },
       addInput() {
         if (this.inputs.length < 10) {
-          this.inputs.push(util.copyObj(this.defaultConf.action.config[0]))
+          let item = util.copyObj(this.defaultConf.action.config[0]);
+          let name = this.defaultConf.action.config[0].name;
+          item.name = name + this.inputs.length;
+          this.inputs.push(item)
         } else {
           this.$alert('最多添加10个表单项！')
         }

@@ -24,7 +24,8 @@ export default {
     basicData: '客户数据',
     templateCenter: '模板中心',
     freeTemplates: '模板列表',
-    accountCenter: '账号中心'
+    accountCenter: '账号中心',
+    formTable:'form数据'
   },
   workCard: {
     description: '描述',

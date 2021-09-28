@@ -43,6 +43,14 @@ const sidebarMenus = [
         antIcon: 'appstore',
         key: '3',
         routerName: 'setting'
+    },
+    {
+        label: 'form数据',
+        i18nLabel: 'sidebar.formTable',
+        value: 'personCenter',
+        antIcon: 'snippets',
+        key: '4',
+        routerName: 'form-table'
     }
 ]
 

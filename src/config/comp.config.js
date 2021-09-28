@@ -622,7 +622,7 @@ module.exports = {
       config: [{
         desc: '字段描述：',
         type: 'text',
-        name: 'name',
+        name: 'Item',
         val:'',
         placeholder: '请填写内容',
         isNecessary: 1
