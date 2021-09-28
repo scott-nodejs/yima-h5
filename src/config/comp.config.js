@@ -623,7 +623,8 @@ module.exports = {
         desc: '字段描述：',
         type: 'text',
         name: 'name',
-        placeholder: '',
+        val:'',
+        placeholder: '请填写内容',
         isNecessary: 1
       }]
     }
