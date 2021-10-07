@@ -221,7 +221,6 @@
       submitConfig(data){
         this.updateData({client: data})
         this.saveWork({ isSaveCover: true })
-
       },
       readLocalData() {
         const tmp = localStorage.getItem('pageDateSet')

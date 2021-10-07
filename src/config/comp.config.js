@@ -28,7 +28,7 @@ module.exports = {
       {
         type: 'font',
         label: '字体',
-        attr: ['font-weight', 'text-decoration', 'font-style', 'text-align'],
+        attr: ['font-weight', 'text-decoration', 'font-style', 'textAlign'],
         val: ['400', 'none', 'inherit', 'left'],
         isNecessary: false
       }, {
@@ -76,7 +76,7 @@ module.exports = {
       }, {
         type: 'input-number',
         label: '字体大小',
-        attr: 'font-size',
+        attr: 'fontSize',
         val: 12,
         unit: 'px',
         step: 1,
@@ -624,6 +624,11 @@ module.exports = {
         type: 'text',
         name: 'Item',
         val:'',
+        options:[{
+          is_default:1,
+          name:'option',
+          val:'是'
+        }],
         placeholder: '请填写内容',
         isNecessary: 1
       }]

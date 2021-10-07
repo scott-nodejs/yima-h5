@@ -17,6 +17,16 @@
             </el-option>
           </el-select>
         </el-form-item>
+        <el-form-item class="small" label="选项：" v-if="input.type === 'radio' || input.type === 'checkbox' || input.type === 'select'">
+          <div v-for="(item,ix) in input.options">
+            <div class="list-option-opt">
+             <el-input v-model="item.val" :maxlength="50" style="width: 80px" placeholder="填写选项文案"></el-input>
+              <a href="javascript:;" v-if="ix > 0"
+                 @click="delOption(idx)"><i class="el-icon-delete"></i></a>
+            </div>
+          </div>
+          <el-button icon="el-icon-plus" @click="addOption(idx)">添加选项</el-button>
+        </el-form-item>
         <el-form-item class="small" label="是否必填：">
           <el-radio v-model="input.isNecessary" :label="1">是</el-radio>
           <el-radio v-model="input.isNecessary" :label="0">否</el-radio>
@@ -105,7 +115,21 @@
         } else {
           this.$alert('最多添加10个表单项！')
         }
-      }
+      },
+      addOption(idx){
+          if (this.inputs[idx].options.length < 4) {
+              let item = util.copyObj(this.defaultConf.action.config[0].options[0]);
+              let name = this.defaultConf.action.config[0].options[0].name;
+              item.name = name + this.inputs[idx].options.length;
+              item.is_default = 0;
+              this.inputs[idx].options.push(item)
+          } else {
+              this.$alert('最多添加4个选项！')
+          }
+      },
+      delOption(idx) {
+         this.inputs[idx].options.splice(idx, 1)
+      },
     }
   }
 </script>

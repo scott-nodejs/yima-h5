@@ -6,13 +6,33 @@
            :style="{marginTop: component.others.config[4].val + 'px'}"
            v-if="inputs.length" v-for="input in inputs">
         <label :style="labelStyle">{{input.desc}}</label>
-        <input class="item-input" v-if="input.type !== 'select'"
+        <div v-if="input.type === 'radio'">
+          <div v-for="(item,ix) in input.options">
+            <!--<label>{{item.val}}<input class="item-input"-->
+                   <!--:style="inputStyle"-->
+                   <!--:type="input.type"-->
+                   <!--:placeholder="input.placeholder ? input.placeholder : input.isNecessary ? '必填' : '非必填'">-->
+            <!--</label>-->
+            <el-radio style="display: flex" v-model="radio" label="1">{{item.val}}</el-radio>
+          </div>
+        </div>
+        <div v-else-if="input.type === 'checkbox'">
+          <div v-for="(item,ix) in input.options" style="display: flex;">
+            <el-checkbox v-model="checked">{{item.val}}</el-checkbox>
+          </div>
+        </div>
+        <input class="item-input" v-else-if="input.type !== 'select'"
                :style="inputStyle"
                :type="input.type"
                :placeholder="input.placeholder ? input.placeholder : input.isNecessary ? '必填' : '非必填'">
-        <select class="item-input" v-else>
-          <option></option>
-        </select>
+        <el-select v-model="value" placeholder="请选择" v-else>
+          <el-option
+                  v-for="item in input.options"
+                  :key="item.name"
+                  :label="item.val"
+                  :value="item.name">
+          </el-option>
+        </el-select>
       </div>
       <div v-else class="image-placeholder"><i class="fa fa-list"></i></div>
       <div class="form-btn" :style="buttonStyle">提 交</div>

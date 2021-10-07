@@ -225,6 +225,16 @@
           font-size: 12px;
         }
       }
+
+      .list-option-opt {
+        text-align: left;
+
+        > a {
+          margin-left: 10px;
+          color: #2aa7ff;
+          font-size: 12px;
+        }
+      }
     }
   }
 }
