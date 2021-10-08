@@ -5,5 +5,6 @@ export default class Config {
         this.client = config.client || { clientId: 0}
         this.clientId = config.clientId || 0
         this.configList = config.configList || []
+        this.pageConfig = config.pageConfig || {}
     }
 }

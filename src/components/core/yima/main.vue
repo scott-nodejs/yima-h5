@@ -219,7 +219,7 @@
           localStorage.removeItem('uid')
       },
       submitConfig(data){
-        this.updateData({client: data})
+        this.updateData({client: data, pageConfig: this.pageConfig})
         this.saveWork({ isSaveCover: true })
       },
       readLocalData() {

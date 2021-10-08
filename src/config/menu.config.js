@@ -15,23 +15,28 @@ module.exports = [
         key: 'base-form',
         text: '表单',
         icon: 'fa-list'
-      }, {
-        key: 'floor-menu',
-        text: '楼层导航',
-        icon: 'fa-list-ol'
-      }, {
-        key: 'timeout',
-        text: '倒计时',
-        icon: 'fa-hourglass-start'
-      }, {
-        key: 'bottom-menu',
-        text: '底部导航',
-        icon: 'fa-adjust'
-      }, {
-        key: 'grid-menu',
-        text: '金刚位',
-        icon: 'fa-th'
-      }, {
+      },
+      // {
+      //   key: 'floor-menu',
+      //   text: '楼层导航',
+      //   icon: 'fa-list-ol'
+      // },
+      // {
+      //   key: 'timeout',
+      //   text: '倒计时',
+      //   icon: 'fa-hourglass-start'
+      // },
+      // {
+      //   key: 'bottom-menu',
+      //   text: '底部导航',
+      //   icon: 'fa-adjust'
+      // },
+      // {
+      //   key: 'grid-menu',
+      //   text: '金刚位',
+      //   icon: 'fa-th'
+      // },
+      {
         key: 'base-video',
         text: '视频',
         icon: 'fa-file-video-o'
@@ -41,37 +46,39 @@ module.exports = [
         icon: 'fa-vcard'
       }
     ]
-  }, {
-    title: '样式模块',
-    collapse: true,
-    items: [
-      {
-        key: 'page-title',
-        text: '标题模块',
-        icon: 'fa-header'
-      }, {
-        key: 'page-paragraph',
-        text: '段落模块',
-        icon: 'fa-paragraph'
-      }, {
-        key: 'page-intro',
-        text: '引言模块',
-        icon: 'fa-quote-left'
-      }, {
-        key: 'page-faq',
-        text: 'FAQ模块',
-        icon: 'fa-quora'
-      }, {
-        key: 'page-guide',
-        text: '步骤模块',
-        icon: 'fa-step-forward'
-      }, {
-        key: 'page-footer',
-        text: '页脚模块',
-        icon: 'fa-copyright'
-      }
-    ]
-  }, {
+  },
+  // {
+  //   title: '样式模块',
+  //   collapse: true,
+  //   items: [
+  //     {
+  //       key: 'page-title',
+  //       text: '标题模块',
+  //       icon: 'fa-header'
+  //     }, {
+  //       key: 'page-paragraph',
+  //       text: '段落模块',
+  //       icon: 'fa-paragraph'
+  //     }, {
+  //       key: 'page-intro',
+  //       text: '引言模块',
+  //       icon: 'fa-quote-left'
+  //     }, {
+  //       key: 'page-faq',
+  //       text: 'FAQ模块',
+  //       icon: 'fa-quora'
+  //     }, {
+  //       key: 'page-guide',
+  //       text: '步骤模块',
+  //       icon: 'fa-step-forward'
+  //     }, {
+  //       key: 'page-footer',
+  //       text: '页脚模块',
+  //       icon: 'fa-copyright'
+  //     }
+  //   ]
+  // },
+  {
     title: '轮播组件',
     collapse: true,
     items: [
@@ -79,11 +86,12 @@ module.exports = [
         key: 'swiper-banner',
         text: '轮播图',
         icon: 'fa-caret-square-o-right'
-      }, {
-        key: 'scroll-left',
-        text: '横向滚动',
-        icon: 'fa-exchange'
-      }
+      },
+      // {
+      //   key: 'scroll-left',
+      //   text: '横向滚动',
+      //   icon: 'fa-exchange'
+      // }
     ]
   }, {
     title: '图文列表',
