@@ -242,7 +242,7 @@ module.exports = {
         placeholder: '填写电话',
         isNecessary: false
       },{
-        type: 'text',
+        type: 'button',
         label: '地址',
         attr: 'address',
         val: '',

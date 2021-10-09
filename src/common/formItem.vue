@@ -48,6 +48,22 @@
     </el-form-item>
 
     <el-form-item class="small"
+                  v-if="item.type === 'button'"
+                  :label="item.label + ': '"
+                >
+      <el-button icon="el-icon-search" type="primary" @click="toMap">添加</el-button>
+    </el-form-item>
+
+    <el-dialog title="我的地图" :visible.sync="mapVisible" width="495px">
+      <el-row>
+        <el-col :span="12" style="text-align: center;width:450px;background-color:#f2f3f4;">
+          <div id="map" style="width: 450px;height: 350px;"></div>
+        </el-col>
+      </el-row>
+
+    </el-dialog>
+
+    <el-form-item class="small"
                   v-if="item.type === 'input-number'"
                   :label="item.label + '：'">
       <el-input-number v-model="item.val"
@@ -98,7 +114,6 @@
             :visible="item.visible"
             v-on:change="change"
     >
-
     </videoGallery>
 
     <el-form-item class="small" v-if="item.type == 'desc'" :label="item.label + '：'">
@@ -111,8 +126,13 @@
 <script>
   import upload from '@/common/upload.vue'
   import videoGallery from '@/common/video-gallery/gallery.js'
-
+  let map = null;
   export default {
+    data() {
+      return{
+        mapVisible: false
+      }
+    },
     props: {
       item: {
         type: Object
@@ -153,6 +173,32 @@
       },
       change(url){
 
+      },
+      getMap(){
+        let _this = this;
+         map = new AMap.Map("map",{
+           zoom: 13,
+           center: [120,33]
+         });
+         map.on("click", showInfoClick);
+         function showInfoClick(e) {
+             map.clearMap();
+             let lng = e.lnglat.getLng();
+             let lat = e.lnglat.getLat();
+             let marker = new AMap.Marker({
+               position: [lng, lat],
+               offset: new AMap.Pixel(-13, -30)
+             });
+             _this.lnglat = lng +","+lat;
+             map.add(marker);
+             map.setFitView();
+         }
+      },
+      toMap(){
+        this.mapVisible = true
+        setTimeout(()=>{
+          this.getMap()
+        }, 0);
       }
     }
   }
