@@ -14,7 +14,7 @@
 
       <template v-if="option.base && option.base.length">
         <template v-for="(item, idx) in option.base">
-          <form-item :item="item" :index="idx"></form-item>
+          <form-item :item="item" :option="option" :index="idx"></form-item>
         </template>
       </template>
 

@@ -242,13 +242,6 @@ module.exports = {
         placeholder: '填写电话',
         isNecessary: false
       },{
-        type: 'button',
-        label: '地址',
-        attr: 'address',
-        val: '',
-        placeholder: '填写地址',
-        isNecessary: false
-      },{
         type: 'text',
         label: '公司名称',
         attr: 'company',
@@ -262,7 +255,29 @@ module.exports = {
         val: '',
         placeholder: '填写微信名',
         isNecessary: false
-      }
+      },
+        {
+            type: 'button',
+            label: '选择地址',
+            attr: 'button',
+            val: '',
+            placeholder: '填写地址',
+            isNecessary: false
+        },{
+            type: 'disText',
+            label: '地址',
+            attr: 'address',
+            val: '',
+            placeholder: '自动填充地址',
+            isNecessary: false
+        },{
+            type: 'disText',
+            label: '经纬度',
+            attr: 'lnglat',
+            val: '',
+            placeholder: '自动填充经纬度',
+            isNecessary: false
+        },
     ],
     style: [
       {

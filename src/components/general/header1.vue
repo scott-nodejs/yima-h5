@@ -36,9 +36,9 @@
         imgUrl: this.component.style[0].val,
         userName: this.component.base[0].val,
         phone: this.component.base[1].val,
-        address: this.component.base[2].val,
-        company: this.component.base[3].val,
-        weixin: this.component.base[4].val
+        address: this.component.base[5].val,
+        company: this.component.base[2].val,
+        weixin: this.component.base[3].val
       }
     },
     computed: {
@@ -57,9 +57,9 @@
           this.imgUrl = this.component.style[0].val,
           this.userName = this.component.base[0].val,
           this.phone = this.component.base[1].val,
-          this.address = this.component.base[2].val,
-          this.company = this.component.base[3].val,
-          this.weixin = this.component.base[4].val
+          this.address = this.component.base[5].val,
+          this.company = this.component.base[2].val,
+          this.weixin = this.component.base[3].val
         },
         deep: true
       }

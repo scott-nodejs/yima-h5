@@ -48,6 +48,13 @@
     </el-form-item>
 
     <el-form-item class="small"
+                  v-if="item.type === 'disText'"
+                  :label="item.label + '：'">
+      <el-input v-model="item.val"
+                :placeholder="item.placeholder"></el-input>
+    </el-form-item>
+
+    <el-form-item class="small"
                   v-if="item.type === 'button'"
                   :label="item.label + ': '"
                 >
@@ -56,11 +63,22 @@
 
     <el-dialog title="我的地图" :visible.sync="mapVisible" width="495px">
       <el-row>
+        <el-col :span="4">地址: </el-col>
+        <el-col :span="12"><el-input id="mapInput" placeholder="输入门店地点" :span="12" v-model="address" @input="placeAutoInput('mapInput')"></el-input></el-col>
+        <el-col :span="5"><el-button @click="geoCode">搜索</el-button></el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="4">经纬值: </el-col>
+        <el-col :span="12"><el-input :span="12" placeholder="自动匹配经纬度" v-model="mylnglat"></el-input></el-col>
+      </el-row>
+      <el-row>
         <el-col :span="12" style="text-align: center;width:450px;background-color:#f2f3f4;">
           <div id="map" style="width: 450px;height: 350px;"></div>
         </el-col>
       </el-row>
-
+      <el-row>
+        <el-button @click="saveAddress" type="primary">提交地址</el-button>
+      </el-row>
     </el-dialog>
 
     <el-form-item class="small"
@@ -119,18 +137,42 @@
     <el-form-item class="small" v-if="item.type == 'desc'" :label="item.label + '：'">
       <span class="form-item-desc" v-html="item.val"></span>
     </el-form-item>
-
+    <place-search class="place-wrap"
+                  ref="placeSearch"
+                  v-if="resultVisible"
+                  :result="result"
+                  :left="offsetLeft"
+                  :top="offsetTop"
+                  :width="inputWidth"
+                  :height="inputHeight"
+                  @getLocation="getPlaceLocation"></place-search>
   </div>
 </template>
 
 <script>
   import upload from '@/common/upload.vue'
+  import compConfig from '@/config/comp.config.js'
   import videoGallery from '@/common/video-gallery/gallery.js'
+  import placeSearch from './placeSearch.vue'
   let map = null;
+  let geocoder = new AMap.Geocoder({
+      city: "010", //城市设为北京，默认：“全国”
+  });
   export default {
     data() {
       return{
-        mapVisible: false
+        mapVisible: false,
+        address: '',
+        mylnglat: '',
+          inputId: '', // 地址搜索input对应的id
+          result: [], // 地址搜索结果
+          resultVisible: false, // 地址搜索结果显示标识
+          inputWidth: 0, // 搜索框宽度
+          inputHeight: 0, // 搜索框高度
+          offsetLeft: 0, // 搜索框的左偏移值
+          offsetTop: 0, // 搜索框的上偏移值
+          snameMap: null,  // 上车地点地图选址
+          snameMapShow: false,  // 上车地点地图选址显示
       }
     },
     props: {
@@ -139,11 +181,15 @@
       },
       index: {
         type: Number
+      },
+      option: {
+        type: Object
       }
     },
     components: {
       upload,
-        videoGallery
+      videoGallery,
+      placeSearch
     },
     methods: {
       setFont(item, attr) {
@@ -175,10 +221,12 @@
 
       },
       getMap(){
+        this.address = '';
+        this.mylnglat = '';
         let _this = this;
          map = new AMap.Map("map",{
-           zoom: 13,
-           center: [120,33]
+           resizeEnable: true,
+           zoom: 13
          });
          map.on("click", showInfoClick);
          function showInfoClick(e) {
@@ -186,12 +234,19 @@
              let lng = e.lnglat.getLng();
              let lat = e.lnglat.getLat();
              let marker = new AMap.Marker({
-               position: [lng, lat],
-               offset: new AMap.Pixel(-13, -30)
+               position: [lng, lat]
              });
-             _this.lnglat = lng +","+lat;
+             _this.mylnglat = lng +","+lat;
+             geocoder.getAddress([lng,lat], function(status, result) {
+                 if (status === 'complete'&&result.regeocode) {
+                     var address = result.regeocode.formattedAddress;
+                     _this.address = address;
+                 }else{
+                     this.$alert('根据经纬度查询地址失败')
+                 }
+             });
              map.add(marker);
-             map.setFitView();
+             map.setFitView(marker);
          }
       },
       toMap(){
@@ -199,6 +254,90 @@
         setTimeout(()=>{
           this.getMap()
         }, 0);
+      },
+      geoCode() {
+          let _this = this;
+          var marker = new AMap.Marker();
+          console.log(geocoder);
+          geocoder.getLocation(this.address, function(status, result){
+              if (status === 'complete'&& result.geocodes.length) {
+                  var lnglat = result.geocodes[0].location
+                  _this.mylnglat = lnglat.lng+","+lnglat.lat;
+                  marker.setPosition(lnglat);
+                  map.add(marker);
+                  map.setFitView(marker);
+              }else{
+                  this.$alert('根据地址查询位置失败');
+              }
+          });
+      },
+        placeAutoInput(inputId) {
+            let currentDom = document.getElementById(inputId);// 获取input对象
+            let keywords = currentDom.value;
+            if(keywords.trim().length === 0) {
+                this.resultVisible = false;
+            }
+            AMap.plugin('AMap.Autocomplete', () => {
+                // 实例化Autocomplete
+                let autoOptions = {
+                    city: '全国'
+                };
+                let autoComplete = new AMap.Autocomplete(autoOptions); // 初始化autocomplete
+                // 开始搜索
+                autoComplete.search(keywords, (status, result) => {
+                    // 搜索成功时，result即是对应的匹配数据
+                    if(result.info === 'OK') {
+                        let sizeObj = currentDom.getBoundingClientRect(); // 取得元素距离窗口的绝对位置
+                        this.inputWidth = currentDom.clientWidth;// input的宽度
+                        this.inputHeight = currentDom.clientHeight + 2;// input的高度，2是上下border的宽
+                        // input元素相对于页面的绝对位置 = 元素相对于窗口的绝对位置
+                        this.offsetTop = sizeObj.top + this.inputHeight; // 距顶部
+                        this.offsetLeft = sizeObj.left; // 距左侧
+                        this.result = result.tips;
+                        this.inputId = inputId;
+                        this.resultVisible = true;
+                    }
+                })
+            })
+        },
+        getPlaceLocation(item) {
+            if(item) {
+                let _this = this;
+                this.resultVisible = false;
+                console.log(item)
+                let lat = item.location.lat;
+                let lng = item.location.lng;
+                let marker = new AMap.Marker({
+                    position: [lng, lat]
+                });
+                _this.mylnglat = lng +","+lat;
+                geocoder.getAddress([lng,lat], function(status, result) {
+                    if (status === 'complete'&&result.regeocode) {
+                        var address = result.regeocode.formattedAddress;
+                        _this.address = address;
+                    }else{
+                        this.$alert('根据经纬度查询地址失败')
+                    }
+                });
+                map.add(marker);
+                map.setFitView(marker);
+            }
+        },
+      saveAddress(){
+          let base = this.option.base
+          console.log(base)
+          for(let i = 0; i < base.length; i++){
+              let item = base[i]
+              if(item['type'] === 'disText' && item['attr'] === 'address'){
+                  console.log(item['val'])
+                  item['val'] = this.address;
+                  console.log(item['val'])
+              }
+              if(item['type'] === 'disText' && item['attr'] === 'lnglat'){
+                  item['val'] = this.mylnglat;
+              }
+          }
+          this.mapVisible = false;
       }
     }
   }
