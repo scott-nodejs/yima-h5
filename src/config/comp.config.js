@@ -306,6 +306,17 @@ module.exports = {
         val: '',
         isNecessary: false
       }, {
+        type: 'upload',
+        label: '上传海报',
+        attr: 'poster',
+        val: '',
+        /* limit: {
+          w: 750,
+          h: 200,
+          s: 500
+        },*/
+        isNecessary: true
+      },{
         type: 'uploadVideo',
         label: '上传视频',
         attr: 'src',

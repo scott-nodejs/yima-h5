@@ -26,11 +26,11 @@ module.exports = [
       //   text: '倒计时',
       //   icon: 'fa-hourglass-start'
       // },
-      // {
-      //   key: 'bottom-menu',
-      //   text: '底部导航',
-      //   icon: 'fa-adjust'
-      // },
+      {
+        key: 'bottom-menu',
+        text: '底部导航',
+        icon: 'fa-adjust'
+      },
       // {
       //   key: 'grid-menu',
       //   text: '金刚位',

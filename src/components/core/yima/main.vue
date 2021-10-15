@@ -234,7 +234,7 @@
             center: true
           }).then(() => {
             this.compList = localData.config
-            this.updateData({configList: this.compList})
+            this.updateData({configList: this.compList, bottomMenu: this.bottomMenu})
             this.bottomMenu = localData.menu
             this.resetCompUnchecked()
           }).catch(() => {
@@ -392,7 +392,7 @@
             this.$message.warning('没有查询到该组件的配置信息。。。')
           }
         }
-        this.updateData({configList: this.compList})
+        this.updateData({configList: this.compList,bottomMenu: this.bottomMenu})
       },
       dragPhoneLeave() {
         const target = document.querySelector('.place-holder:last-child')
