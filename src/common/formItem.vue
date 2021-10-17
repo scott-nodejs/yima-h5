@@ -41,6 +41,15 @@
     </el-form-item>
 
     <el-form-item class="small"
+                  v-if="item.type === 'rtextarea'"
+                  :label="item.label + '：'">
+      <el-input type="textarea"
+                v-model="item.val"
+                :rows="10"
+                :placeholder="item.placeholder"></el-input>
+    </el-form-item>
+
+    <el-form-item class="small"
                   v-if="item.type === 'text'"
                   :label="item.label + '：'">
       <el-input v-model="item.val"
@@ -89,6 +98,30 @@
                        :max="item.max"
                        :step="item.step">
       </el-input-number>
+    </el-form-item>
+
+    <el-dialog title="富文本编辑器" :visible.sync="richVisible" width="695px" style="height: 600px">
+      <el-row>
+        <!--<quill-editor v-model="richtxt" ></quill-editor>-->
+        <editor
+                v-model="tinymceHtml"
+                id="tinymce"
+                api-key="no-api-key"
+                :disabled="editorOptions.disabled"
+                :init="editorOptions.editorInit"
+                output-format="html"
+                @onChange="handleChange"
+        />
+      </el-row>
+      <el-row>
+        <el-button @click="saveRich" type="primary">提交</el-button>
+      </el-row>
+    </el-dialog>
+
+    <el-form-item class="small"
+                  v-if="item.type === 'richtext'"
+                  :label="item.label + '：'">
+      <el-button type="primary" @click="toRich">填写内容</el-button>
     </el-form-item>
 
     <el-form-item class="small"
@@ -153,7 +186,21 @@
   import upload from '@/common/upload.vue'
   import compConfig from '@/config/comp.config.js'
   import videoGallery from '@/common/video-gallery/gallery.js'
+  import TEditor from '@/common/TEditor.vue'
   import placeSearch from './placeSearch.vue'
+  import tinymce from 'tinymce/tinymce'
+  import Editor from '@tinymce/tinymce-vue'
+  import 'tinymce/icons/default/icons' // 解决了icons.js 报错Unexpected token '<'
+  // 引入富文本编辑器主题的js和css
+  import 'tinymce/themes/silver/theme.min.js'
+  import 'tinymce/skins/ui/oxide/skin.min.css'
+  // 扩展插件
+  import 'tinymce/plugins/link'
+  import 'tinymce/plugins/lists'
+  import 'tinymce/plugins/image'
+  import 'tinymce/plugins/code'
+  import 'tinymce/plugins/table'
+  import 'tinymce/plugins/wordcount'
   let map = null;
   let geocoder = new AMap.Geocoder({
       city: "010", //城市设为北京，默认：“全国”
@@ -162,17 +209,43 @@
     data() {
       return{
         mapVisible: false,
+        richVisible: false,
         address: '',
+        tinymceHtml: '',
         mylnglat: '',
-          inputId: '', // 地址搜索input对应的id
-          result: [], // 地址搜索结果
-          resultVisible: false, // 地址搜索结果显示标识
-          inputWidth: 0, // 搜索框宽度
-          inputHeight: 0, // 搜索框高度
-          offsetLeft: 0, // 搜索框的左偏移值
-          offsetTop: 0, // 搜索框的上偏移值
-          snameMap: null,  // 上车地点地图选址
-          snameMapShow: false,  // 上车地点地图选址显示
+        inputId: '', // 地址搜索input对应的id
+        result: [], // 地址搜索结果
+        resultVisible: false, // 地址搜索结果显示标识
+        inputWidth: 0, // 搜索框宽度
+        inputHeight: 0, // 搜索框高度
+        offsetLeft: 0, // 搜索框的左偏移值
+        offsetTop: 0, // 搜索框的上偏移值
+        snameMap: null,  // 上车地点地图选址
+        snameMapShow: false,  // 上车地点地图选址显
+          editorOptions: {
+              disabled: false, // 编辑器是否只读
+              editorInit: {
+                  selector: '#tinymce', // 容器
+                  language_url: '/tinymce/langs/zh_CN.js',
+                  language: 'zh_CN',
+                  skin_url: '/tinymce/skins/ui/oxide', // 主题
+                  height: 300,
+                  plugins: 'link lists image code table wordcount', // 用到的插件：链接、列表、图片、代码块、表格、字数
+                  toolbar: 'undo redo | bold italic underline strikethrough | formatselect fontsizeselect | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist | outdent indent blockquote | link unlink table image | removeformat', // 工具栏
+                  images_upload_handler: (blobInfo, success, failure) => { // 图片上传
+                      console.log(blobInfo, success, failure, '上传图片====--==-')
+                      const img = 'data:image/jpeg;base64,' + blobInfo.base64()
+                      success(img)
+                      // this.handleImgUpload(blobInfo, success, failure)
+                  },
+                  statusbar: false, // 底部的状态栏
+                  menubar: false, // 最上方的菜单
+                  branding: false, // 水印“Powered by TinyMCE”
+                  toolbar: true,
+                  max_height: 500,
+                  min_height: 300
+              }
+          }
       }
     },
     props: {
@@ -189,8 +262,12 @@
     components: {
       upload,
       videoGallery,
-      placeSearch
+      placeSearch,
+      Editor
     },
+      mounted () {
+          tinymce.init({})
+      },
     methods: {
       setFont(item, attr) {
         if (attr === 'font-weight') {
@@ -219,6 +296,9 @@
       },
       change(url){
 
+      },
+      getRichTxt(){
+          console.log(this.richtxt)
       },
       getMap(){
         this.address = '';
@@ -255,6 +335,12 @@
           this.getMap()
         }, 0);
       },
+        toRich(){
+            this.richVisible = true
+            setTimeout(()=>{
+                this.getMap()
+            }, 0);
+        },
       geoCode() {
           let _this = this;
           var marker = new AMap.Marker();
@@ -338,7 +424,32 @@
               }
           }
           this.mapVisible = false;
-      }
+      },
+      saveRich(){
+          let base = this.option.base
+          console.log(base)
+          for(let i = 0; i < base.length; i++){
+              let item = base[i]
+              if(item['type'] === 'rtextarea'){
+                  console.log(this.tinymceHtml)
+                  item['val'] = this.tinymceHtml;
+              }
+          }
+          this.richVisible = false;
+      },
+        handleChange (e, editor) {
+            console.log(e, editor, '===change事件')
+        }
+        // 图片上传
+        // handleImgUpload (blobInfo, success, failure) {
+        //   this.baseUrl = process.env.VUE_APP_BASE_URL
+        //   const imgBase64 = `data:${blobInfo.blob().type};base64,${blobInfo.base64()}`
+        //   const data = { img: [imgBase64] }
+        //   uploadImgage (data).then(res => {
+        //     // 传入success回调里的数据就是富文本编辑器里插入图片的src的值
+        //     success(`${this.baseUrl}/${res.data[0]}`)
+        //   }).catch(() => { failure('error') })
+        // }
     }
   }
 </script>

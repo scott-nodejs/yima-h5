@@ -8,6 +8,7 @@ import BaseForm from './general/form'
 import GridMenu from './general/grid-menu'
 import BaseImage from './general/image'
 import BaseText from './general/text'
+import RichText from './general/richText'
 import Timeout from './general/timeout'
 import BaseVideo from './general/video'
 
@@ -46,5 +47,6 @@ export default {
     Vue.component(PageTitle.name, PageTitle)
     Vue.component(BaseVideo.name, BaseVideo)
     Vue.component(Header1.name, Header1)
+    Vue.component(RichText.name, RichText)
   }
 }

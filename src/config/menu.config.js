@@ -8,6 +8,10 @@ module.exports = [
         text: '文本',
         icon: 'fa-file-text-o'
       }, {
+            key: 'rich-text',
+            text: '富文本',
+            icon: 'fa-file-text-o'
+        },{
         key: 'base-image',
         text: '图片',
         icon: 'fa-file-image-o'

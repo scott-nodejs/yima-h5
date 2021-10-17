@@ -145,6 +145,27 @@ module.exports = {
       }
     ]
   },
+  'rich-text': {
+        title: '富文本',
+        domId: '',
+        domName: '',
+        base: [
+            {
+                type: 'richtext',
+                attr: 'txt',
+                label: '文本内容',
+                val: '默认文本',
+                isNecessary: true
+            },
+            {
+                type: 'rtextarea',
+                attr: 'txt',
+                label: '文本内容',
+                val: '默认文本',
+                isNecessary: true
+            }
+        ]
+    },
   'base-image': {
     title: '图片',
     domId: '',
