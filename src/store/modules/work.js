@@ -179,6 +179,16 @@ export const actions = {
       successMsg: '上传封面图成功!',
     }).post(`/upload/`, formData)
   },
+  uploadImg ({ commit, state, dispatch }, data) {
+    return new AxiosWrapper({
+      dispatch,
+      commit,
+      headers:{'content-type': 'application/json'},
+      name: '',
+      loading_name: 'uploadWorkCover_loading',
+      successMsg: '上传图片成功!',
+    }).post(`/uploadImg/`, JSON.stringify(data))
+  }
 }
 
 // mutations

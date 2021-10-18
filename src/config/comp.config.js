@@ -1127,6 +1127,7 @@ module.exports = {
       title: '点击项配置',
       config: [{
         val: '',
+        txt: '',
         click: null
       }]
     }

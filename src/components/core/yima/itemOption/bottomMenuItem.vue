@@ -12,6 +12,9 @@
             <span style="word-break: break-all;">{{menu.click.href}}</span>
           </el-form-item>
         </template>
+        <el-form-item class="small" label="图标文本: ">
+          <el-input v-model="menu.txt" :maxlength="128" placeholder="图标文本"></el-input>
+        </el-form-item>
         <el-form-item class="small" label="点击配置：">
           <el-button icon="el-icon-edit" round @click="showClick(menu, idx)">配置跳转</el-button>
         </el-form-item>

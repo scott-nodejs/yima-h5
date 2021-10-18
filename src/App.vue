@@ -15,4 +15,8 @@
     margin: 0;
     padding: 0;
   }
+
+  .tox-tinymce-aux {
+    z-index: 9999 !important;
+  }
 </style>

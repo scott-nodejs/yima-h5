@@ -30,5 +30,13 @@
   }
   .text-box {
     display: block;
+    p img {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+  .text-box >>> img {
+    max-width: 100%;
+    height: auto;
   }
 </style>
