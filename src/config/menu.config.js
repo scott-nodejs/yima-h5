@@ -2,6 +2,7 @@ module.exports = [
   {
     title: '通用组件',
     collapse: false,
+    isDrag: true,
     items: [
       {
         key: 'base-text',
@@ -85,6 +86,7 @@ module.exports = [
   {
     title: '轮播组件',
     collapse: true,
+    isDrag: true,
     items: [
       {
         key: 'swiper-banner',
@@ -100,6 +102,7 @@ module.exports = [
   }, {
     title: '图文列表',
     collapse: true,
+    isDrag: true,
     items: [
       {
         key: 'horizontal-list',
@@ -114,11 +117,30 @@ module.exports = [
   }, {
     title: '动画效果',
     collapse: true,
+    isDrag: true,
     items: [
       {
         key: 'news-marquee',
         text: '滚动新闻',
         icon: 'fa-newspaper-o'
+      }
+    ]
+  },{
+    title: '创建页(不可以拖动)',
+    collapse: true,
+    isDrag: false,
+    items: [
+      {
+        key: '1',
+        text: '页',
+        type: 'txt',
+        icon: 'fa-file-text-o'
+      },
+      {
+        key: 'new-page',
+        text: '新增页面',
+        type: 'btn',
+        icon: 'fa-file-text-o'
       }
     ]
   }

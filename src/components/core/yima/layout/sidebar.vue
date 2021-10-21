@@ -9,33 +9,87 @@
         <div v-show="!menu.collapse" class="menu-group-list">
           <div class="menu-item"
                :data-key="item.key"
-               draggable="true"
+               :draggable= 'menu.isDrag'
                @dragstart="menuDrag($event, item.key)"
                v-for="item in menu.items">
-            <div class="item-icon-box">
+            <div v-if="menu.isDrag" class="item-icon-box">
               <i :class="['fa', item.icon]" aria-hidden="true"></i>
             </div>
-            <p class="item-text-box">{{item.text}}</p>
+            <div v-else class="item-icon-box">
+              <i v-if="item.type === 'btn'" :class="['fa', item.icon]" @click="addPage" aria-hidden="true"></i>
+              <i v-else :class="['fa', item.icon]" aria-hidden="true" @click="lookPage(item.key)"></i>
+            </div>
+            <p v-if="menu.isDrag" class="item-text-box">{{item.text}}</p>
+            <p v-else class="item-text-box">{{item.type == 'txt' ? item.key+item.text : item.text}}</p>
           </div>
         </div>
       </el-collapse-transition>
     </div>
+    <el-dialog
+            title="提示"
+            :visible.sync="dialogVisible"
+            width="30%">
+      <span>切换页面后会自动保存当前页面</span>
+      <span slot="footer" class="dialog-footer">
+    <el-button type="primary" @click="handleClose">切换页面</el-button>
+  </span>
+    </el-dialog>
   </div>
+
 </template>
 
 <script>
   // 左侧菜单配置
   import menuConfig from '@/config/menu.config.js'
+  import {mapActions} from "vuex";
   export default {
     name: 'AppSide',
     data() {
       return {
-        menuData: menuConfig
+        menuData: menuConfig,
+        dialogVisible: false,
+        index: 0,
+        currentIndex: 0
       }
     },
     methods: {
+      ...mapActions('editor', [
+        'updatePage',
+        'setConfigList'
+      ]),
       menuDrag(e, key) {
         e.dataTransfer.setData('cmp-type', key)
+      },
+      addPage() {
+        const obj = {
+          key: '1',
+          text: '页',
+          type: 'txt',
+          icon: 'fa-file-text-o'
+        };
+        for(let i = 0; i < menuConfig.length; i++){
+          if(!menuConfig[i].isDrag){
+            let index = menuConfig[i].items.length;
+            this.currentIndex = index - 1;
+            let page = {pageNum: index-1, pageCode: 'card'+(index-1), config: ''};
+            this.updatePage(page);
+            obj.key = index;
+            menuConfig[i].items.splice(index -1, 0, obj)
+            this.$emit('clearComp')
+          }
+        }
+      },
+      lookPage(i){
+        this.dialogVisible = true
+        this.index = i
+      },
+      handleClose() {
+        this.dialogVisible = false
+        let page = {pageNum: this.currentIndex, pageCode: 'card' + this.currentIndex, config: ''};
+        this.updatePage(page);
+        this.setConfigList(this.index)
+        this.$emit('changeComp')
+        this.currentIndex = this.index;
       }
     }
   }

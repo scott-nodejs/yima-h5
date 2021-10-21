@@ -5,6 +5,7 @@ import Work from 'core/models/work'
 import Config from 'core/models/config'
 import { AxiosWrapper, handleError } from '@/utils/http.js'
 import router from '@/router.js'
+import util from '@/utils/util.js'
 import { takeScreenshot, downloadPoster } from '@/utils/canvas-helper.js'
 
 function setLoading (commit, loadingName, isLoading) {
@@ -47,6 +48,23 @@ export const actions = {
     const config = {
       ...state.config,
       ...data
+    }
+    commit('setConfig', config)
+  },
+  updatePage ({commit, state}, data = {}) {
+    data['config'] = util.copyObj(state.config.configList);
+    let page = state.config.pageListConfig;
+    page.push(data)
+    const config = {
+      ...state.config,
+      pageListConfig: page
+    }
+    commit('setPage', config)
+  },
+  setConfigList({commit, state}, index){
+    state.config.configList = state.config.pageListConfig[index-1]['config'];
+    const config = {
+      ...state.config
     }
     commit('setConfig', config)
   },
@@ -231,6 +249,11 @@ export const mutations = {
   setConfig (state, data){
     let conf = Object.assign({}, {coverImage: state.config.coverImage}, data)
     console.log(conf)
+    state.config = new Config(conf)
+  },
+  setPage (state, data){
+    let conf = Object.assign({}, {coverImage: state.config.coverImage}, data, {configList: []})
+    console.log(conf.configList)
     state.config = new Config(conf)
   },
   setWork (state, work){

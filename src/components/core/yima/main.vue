@@ -2,7 +2,7 @@
   <div id="app" class="app-wrapper">
     <app-header></app-header>
     <div class="app-body">
-      <app-sidebar></app-sidebar>
+      <app-sidebar v-on:clearComp="clearComp" v-on:changeComp="changeComp"></app-sidebar>
       <div class="app-main">
         <app-toolbar v-on:showPageSet="showPageSet"
                      v-on:savePageSet="savePageSet"
@@ -147,9 +147,9 @@
       }
     },
     computed: {
-      ...mapState('editor', ['editingElement', 'work']),
+      ...mapState('editor', ['editingElement', 'work', 'config']),
       compList(){
-        this.updateData({configList: this.work.config})
+        //this.updateData({configList: this.work.config})
         return this.work.config;
       }
     },
@@ -346,6 +346,34 @@
         this.compList.splice(idx, 2)
         // 显示页面配置参数
         this.showPageSet()
+      },
+      clearComp(){
+        this.compList.splice(0, this.compList.length)
+        this.compList.splice(1, 0, {
+          type: 'placeholder',
+          active: false
+        })
+      },
+      changeComp(){
+        this.compList.splice(0, this.compList.length);
+        this.compList.splice(1, 0, {
+          type: 'placeholder',
+          active: false
+        })
+        for(let index = 0; index < this.config.configList.length; index++){
+          const comp = util.copyObj(this.config.configList[index])
+          if(comp.type === 'placeholder'){
+            continue;
+          }
+          this.compList.splice(index + 1, 0, comp)
+          // 再插入一个占位控件
+          this.compList.splice(index + 2, 0, {
+            type: 'placeholder'
+          })
+          // 显示配置项
+          this.currentIndex = index + 1
+          this.currentConfig = comp
+        }
       },
       dragover(e) {
         const target = e.target
