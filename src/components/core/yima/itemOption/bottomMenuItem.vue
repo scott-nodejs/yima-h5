@@ -13,7 +13,10 @@
           </el-form-item>
         </template>
         <el-form-item class="small" label="图标文本: ">
-          <el-input v-model="menu.txt" :maxlength="128" placeholder="图标文本"></el-input>
+          <el-input v-model="menu.name" :maxlength="128" placeholder="图标文本"></el-input>
+        </el-form-item>
+        <el-form-item class="small" label="表单类型：">
+          <el-input v-model="menu.model" :maxlength="128" placeholder="code"></el-input>
         </el-form-item>
         <el-form-item class="small" label="点击配置：">
           <el-button icon="el-icon-edit" round @click="showClick(menu, idx)">配置跳转</el-button>
@@ -36,11 +39,13 @@
   import util from '@/utils/util.js'
   import compConfig from '@/config/comp.config.js'
   import upload from '@/common/upload.vue'
+  import {mapState} from "vuex";
   export default {
     data() {
       return {
         defaultConf: util.copyObj(compConfig['bottom-menu']),
-        menus: this.items
+        menus: this.items,
+        selects: ['card1', 'card2']
       }
     },
     components: {
@@ -57,6 +62,12 @@
           this.menus = val
         },
         deep: true
+      }
+    },
+    computed: {
+      ...mapState('editor', ['config']),
+      config(){
+        return this.config();
       }
     },
     methods: {

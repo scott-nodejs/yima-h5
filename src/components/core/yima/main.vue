@@ -361,7 +361,7 @@
           active: false
         })
         for(let index = 0; index < this.config.configList.length; index++){
-          const comp = util.copyObj(this.config.configList[index])
+          const comp = this.config.configList[index]
           if(comp.type === 'placeholder'){
             continue;
           }

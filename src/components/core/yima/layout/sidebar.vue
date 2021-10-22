@@ -70,7 +70,7 @@
         for(let i = 0; i < menuConfig.length; i++){
           if(!menuConfig[i].isDrag){
             let index = menuConfig[i].items.length;
-            this.currentIndex = index - 1;
+            this.currentIndex = index;
             let page = {pageNum: index-1, pageCode: 'card'+(index-1), config: ''};
             this.updatePage(page);
             obj.key = index;
@@ -84,6 +84,7 @@
         this.index = i
       },
       handleClose() {
+        console.log(this.currentIndex+"========"+this.index)
         this.dialogVisible = false
         let page = {pageNum: this.currentIndex, pageCode: 'card' + this.currentIndex, config: ''};
         this.updatePage(page);

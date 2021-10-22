@@ -52,9 +52,27 @@ export const actions = {
     commit('setConfig', config)
   },
   updatePage ({commit, state}, data = {}) {
-    data['config'] = util.copyObj(state.config.configList);
     let page = state.config.pageListConfig;
-    page.push(data)
+    let indx = -1;
+    let del = false;
+    for (let i = 0; i < page.length; i++) {
+      if (page[i]['pageNum'] == data['pageNum']) {
+        indx = i;
+        del = true;
+        break;
+      }
+    }
+    if(del){
+      page.splice(indx, 1);
+      data['config'] = util.copyObj(state.config.configList);
+      console.log("---: "+JSON.stringify(data))
+      page.push(data)
+      del = false
+    }else{
+      data['config'] = util.copyObj(state.config.configList);
+      console.log("+++: "+JSON.stringify(data))
+      page.push(data)
+    }
     const config = {
       ...state.config,
       pageListConfig: page
@@ -62,11 +80,16 @@ export const actions = {
     commit('setPage', config)
   },
   setConfigList({commit, state}, index){
-    state.config.configList = state.config.pageListConfig[index-1]['config'];
-    const config = {
-      ...state.config
+    let page = state.config.pageListConfig;
+    for(let i = 0; i < page.length; i++){
+        if(page[i]['pageNum'] == index){
+          state.config.configList = page[i]['config'];
+          const config = {
+            ...state.config
+          }
+          commit('setConfig', config)
+        }
     }
-    commit('setConfig', config)
   },
   /**
   * isSaveCover {Boolean} 保存作品时，是否保存封面图
