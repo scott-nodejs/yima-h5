@@ -80,6 +80,7 @@ export const actions = {
     commit('setPage', config)
   },
   setConfigList({commit, state}, index){
+    console.log('setConfigList: =====>'+index)
     let page = state.config.pageListConfig;
     for(let i = 0; i < page.length; i++){
         if(page[i]['pageNum'] == index){
@@ -88,6 +89,7 @@ export const actions = {
             ...state.config
           }
           commit('setConfig', config)
+          break;
         }
     }
   },
@@ -271,13 +273,13 @@ export const mutations = {
   },
   setConfig (state, data){
     let conf = Object.assign({}, {coverImage: state.config.coverImage}, data)
-    console.log(conf)
     state.config = new Config(conf)
   },
   setPage (state, data){
     let conf = Object.assign({}, {coverImage: state.config.coverImage}, data, {configList: []})
-    console.log(conf.configList)
+    console.log("111=>"+JSON.stringify(conf))
     state.config = new Config(conf)
+    console.log('00000==>'+JSON.stringify(state.config))
   },
   setWork (state, work){
     window.__work = work

@@ -23,7 +23,22 @@ module.exports = {
         }
       ],
       isNecessary: false
-    },
+    },{
+          type: 'radio',
+          label: '背景音乐',
+          attr: 'bgMusic',
+          val: false,
+          options: [
+              {
+                  name: '开启',
+                  val: true
+              }, {
+                  name: '不开启',
+                  val: false
+              }
+          ],
+          isNecessary: false
+      }
     // {
     //   type: 'text',
     //   label: '文件名称',

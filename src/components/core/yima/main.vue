@@ -2,7 +2,7 @@
   <div id="app" class="app-wrapper">
     <app-header></app-header>
     <div class="app-body">
-      <app-sidebar v-on:clearComp="clearComp" v-on:changeComp="changeComp"></app-sidebar>
+      <app-sidebar v-on:clearComp="clearComp" v-on:changeComp="changeComp" :pages="pages"></app-sidebar>
       <div class="app-main">
         <app-toolbar v-on:showPageSet="showPageSet"
                      v-on:savePageSet="savePageSet"
@@ -136,7 +136,8 @@
         bottomMenu: null,
         pageConfig: util.copyObj(pageOption),
         currentIndex: -1,
-        currentConfig: null
+        currentConfig: null,
+        pages: []
       }
     },
     created () {
@@ -149,8 +150,20 @@
     computed: {
       ...mapState('editor', ['editingElement', 'work', 'config']),
       compList(){
-        //this.updateData({configList: this.work.config})
-        return this.work.config;
+        // if(this.work.page == []) {
+            return this.work.config;
+        // }else {
+        //     this.pages = this.work.page;
+        //     let config = [{"type": "placeholder", "active": false}];
+        //     for (let i = 0; i < this.work.config.length; i++) {
+        //         if (this.work.config[i]['pageNum'] == 1) {
+        //             config = util.copyObj(this.work.config[i]['config']);
+        //             break;
+        //         }
+        //     }
+        //     this.updateData({pageListConfig: this.work.config, configList: config})
+        //     return config;
+        // }
       }
     },
     mounted() {
@@ -360,6 +373,7 @@
           type: 'placeholder',
           active: false
         })
+        console.log('changeComp:===>'+ JSON.stringify(this.config.configList))
         for(let index = 0; index < this.config.configList.length; index++){
           const comp = this.config.configList[index]
           if(comp.type === 'placeholder'){

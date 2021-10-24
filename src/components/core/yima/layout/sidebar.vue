@@ -15,9 +15,9 @@
             <div v-if="menu.isDrag" class="item-icon-box">
               <i :class="['fa', item.icon]" aria-hidden="true"></i>
             </div>
-            <div v-else class="item-icon-box">
-              <i v-if="item.type === 'btn'" :class="['fa', item.icon]" @click="addPage" aria-hidden="true"></i>
-              <i v-else :class="['fa', item.icon]" aria-hidden="true" @click="lookPage(item.key)"></i>
+            <div v-else class="item-icon-box" >
+              <i v-if="item.type === 'btn'" class="fa fa-plus" @click="addPage" aria-hidden="true"></i>
+              <i v-else class="fa fa-file-text-o" :class="{'buttom-active': currentIndex === item.key}" aria-hidden="true" @click="lookPage(item.key)"></i>
             </div>
             <p v-if="menu.isDrag" class="item-text-box">{{item.text}}</p>
             <p v-else class="item-text-box">{{item.type == 'txt' ? item.key+item.text : item.text}}</p>
@@ -42,6 +42,7 @@
   // 左侧菜单配置
   import menuConfig from '@/config/menu.config.js'
   import {mapActions} from "vuex";
+  import util from '@/utils/util.js'
   export default {
     name: 'AppSide',
     data() {
@@ -49,8 +50,46 @@
         menuData: menuConfig,
         dialogVisible: false,
         index: 0,
-        currentIndex: 0
+        currentIndex: 1
       }
+    },
+    props:{
+      pages:{
+          type: Array
+      }
+    },
+    watch: {
+        pages() {
+            const obj = {
+                key: '1',
+                text: '页',
+                type: 'txt',
+                icon: 'fa-file-text-o'
+            };
+            let menus = []
+            for(let i = 0; i < menuConfig.length; i++){
+                if(!menuConfig[i]['isDrag']){
+                    let menu = menuConfig[i]
+                    console.log('BBB==>'+this.pages.length)
+                    for(let j = 0; j < this.pages.length; j++){
+                        let index = this.pages[j]
+                        if(index == 1){
+                            menu.items.splice(0, 1, obj);
+                        }else {
+                            let oj = util.copyObj(obj);
+                            oj.key = index;
+                            menu.items.splice(index - 1, 0, oj)
+                        }
+                        console.log('AAA===>'+JSON.stringify(menu));
+                    }
+                    //console.log('AAA===>'+JSON.stringify(menu));
+                    menus.push(menu);
+                }else{
+                    menus.push(menuConfig[i])
+                }
+            }
+            this.menuData = menus;
+       }
     },
     methods: {
       ...mapActions('editor', [
@@ -84,7 +123,7 @@
         this.index = i
       },
       handleClose() {
-        console.log(this.currentIndex+"========"+this.index)
+        console.log(this.index)
         this.dialogVisible = false
         let page = {pageNum: this.currentIndex, pageCode: 'card' + this.currentIndex, config: ''};
         this.updatePage(page);
@@ -97,6 +136,9 @@
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
+.buttom-active {
+  background: #868484;
+}
 
 .app-sidebar {
   width: 290px;

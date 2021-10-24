@@ -117,6 +117,7 @@
   import marqueeItem from 'core/yima/itemOption/marqueeItem.vue'
   import pageParagraphItem from 'core/yima/itemOption/pageParagraphItem.vue'
   import pageFaqItem from 'core/yima/itemOption/pageFaqItem.vue'
+  import {mapState} from "vuex";
 
   export default {
     name: 'AppOption',
@@ -125,6 +126,12 @@
         imageClickShow: false,
         timeoutClickShow: false
       }
+    },
+    computed: {
+       ...mapState('editor', ['config']),
+       config(){
+          return this.config.pageListConfig;
+       }
     },
     components: {
       formItem,

@@ -2,6 +2,10 @@
   <div class="bottom-menu" :style="getStyle">
     <div class="menu-item" :style="{width: 750 / menus.length + 'px'}" v-for="item in menus">
       <img v-if="item.val" :src="item.val">
+      <div v-else-if="item.icon" class="image-placeholder">
+        <i class="ft22 iconfont" :class="item.icon"></i>
+        <span v-if="item.name" class="cfont">{{item.name}}</span>
+      </div>
       <div v-else class="image-placeholder"><i class="fa fa-adjust"></i></div>
     </div>
   </div>
@@ -80,6 +84,9 @@
           color: #83c0ff;
           font-size: 40px;
           vertical-align: middle;
+        }
+        > .cfont {
+          font-size: 8px;
         }
       }
     }

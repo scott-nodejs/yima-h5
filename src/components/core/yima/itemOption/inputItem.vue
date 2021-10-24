@@ -10,12 +10,12 @@
         </el-form-item>
         <el-form-item class="small" label="表单类型：">
           <el-select v-model="input.type" placeholder="默认选项">
-            <el-option v-for="opt in inputTypes"
-                       :key="opt.val"
-                       :label="opt.name"
-                       :value="opt.val">
-            </el-option>
-          </el-select>
+          <el-option v-for="opt in inputTypes"
+                     :key="opt.val"
+                     :label="opt.name"
+                     :value="opt.val">
+          </el-option>
+        </el-select>
         </el-form-item>
         <el-form-item class="small" label="选项：" v-if="input.type === 'radio' || input.type === 'checkbox' || input.type === 'select'">
           <div v-for="(item,ix) in input.options">
