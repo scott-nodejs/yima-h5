@@ -80,15 +80,16 @@ export const actions = {
     commit('setPage', config)
   },
   setConfigList({commit, state}, index){
-    console.log('setConfigList: =====>'+index)
     let page = state.config.pageListConfig;
     for(let i = 0; i < page.length; i++){
         if(page[i]['pageNum'] == index){
           state.config.configList = page[i]['config'];
+          console.log('setConfigList: =====>'+JSON.stringify(state.config))
           const config = {
             ...state.config
           }
-          commit('setConfig', config)
+          let conf = Object.assign({}, {coverImage: state.config.coverImage}, config)
+          state.config = new Config(conf)
           break;
         }
     }
@@ -100,6 +101,34 @@ export const actions = {
   * 因为 loading 效果要放在不同的按钮上
   */
   saveWork ({ commit, dispatch, state }, { isSaveCover = false, loadingName = 'saveWork_loading', successMsg = '保存作品成功' } = {}) {
+    let data = {pageNum: state.config.currentPage, pageCode: 'card' + state.config.currentPage, config: ''};
+    let page = state.config.pageListConfig;
+    let indx = -1;
+    let del = false;
+    for (let i = 0; i < page.length; i++) {
+      if (page[i]['pageNum'] == data['pageNum']) {
+        indx = i;
+        del = true;
+        break;
+      }
+    }
+    if(del){
+      page.splice(indx, 1);
+      data['config'] = util.copyObj(state.config.configList);
+      console.log("---: "+JSON.stringify(data))
+      page.push(data)
+      del = false
+    }else{
+      data['config'] = util.copyObj(state.config.configList);
+      console.log("+++: "+JSON.stringify(data))
+      page.push(data)
+    }
+    const config = {
+      ...state.config,
+      pageListConfig: page
+    }
+    commit('setPage', config)
+
     const fn = (callback) => {
       new AxiosWrapper({
         dispatch,
@@ -107,7 +136,7 @@ export const actions = {
         loading_name: loadingName,
         successMsg,
         customRequest: strapi.updateEntry.bind(strapi)
-      }).put('qrConfig/insert', state.work.id, state.config).then(callback)
+      }).put('qrConfig/insert', state.config.id, state.config).then(callback)
     }
     return new Promise((resolve, reject) => {
       if (isSaveCover) {
@@ -136,10 +165,12 @@ export const actions = {
        }).catch(handleError)
   },
   fetchWork ({ commit, state }, workId) {
-    return strapi.getEntry('works', workId).then(entry => {
-      commit('setWork', entry)
-      //commit('setEditingPage')
-    }).catch(handleError)
+    return strapi.getEntry('works', workId)
+    //     .then(entry => {
+    //   commit('setWork', entry)
+    //   //commit('setEditingPage')
+    // })
+        .catch(handleError)
   },
   fetchCount ({ commit, dispatch, state }, payload = { is_template: false }) {
     return new AxiosWrapper({
@@ -274,6 +305,7 @@ export const mutations = {
   setConfig (state, data){
     let conf = Object.assign({}, {coverImage: state.config.coverImage}, data)
     state.config = new Config(conf)
+    console.log('setConfig==>'+JSON.stringify(state.config))
   },
   setPage (state, data){
     let conf = Object.assign({}, {coverImage: state.config.coverImage}, data, {configList: []})

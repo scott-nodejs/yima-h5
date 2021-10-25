@@ -94,7 +94,8 @@
     methods: {
       ...mapActions('editor', [
         'updatePage',
-        'setConfigList'
+        'setConfigList',
+        'updateData'
       ]),
       menuDrag(e, key) {
         e.dataTransfer.setData('cmp-type', key)
@@ -110,6 +111,7 @@
           if(!menuConfig[i].isDrag){
             let index = menuConfig[i].items.length;
             this.currentIndex = index;
+            this.updateData({currentPage: this.currentIndex});
             let page = {pageNum: index-1, pageCode: 'card'+(index-1), config: ''};
             this.updatePage(page);
             obj.key = index;
@@ -130,6 +132,7 @@
         this.setConfigList(this.index)
         this.$emit('changeComp')
         this.currentIndex = this.index;
+        this.updateData({currentPage: this.currentIndex});
       }
     }
   }

@@ -130,9 +130,9 @@
           index: 0,
           tabs: []
         },
-        // compList: [{
-        //   type: 'placeholder'
-        // }],
+        compList: [{
+          type: 'placeholder'
+        }],
         bottomMenu: null,
         pageConfig: util.copyObj(pageOption),
         currentIndex: -1,
@@ -142,29 +142,33 @@
     },
     created () {
       if (this.workId) {
-        this.fetchWork(this.workId)
+        this.fetchWork(this.workId).then(res=>{
+          if(res.page.length != 0){
+            this.pages = res.page;
+            this.compList = res['config']
+            this.updateData({id: res.id, pageListConfig: res.pages, configList: res.config})
+            this.bottomMenu = res.bottumMenu;
+          }else{
+            this.updateData({id: 32255})
+          }
+        })
       } else {
         this.$message.error('no work id!')
       }
     },
     computed: {
       ...mapState('editor', ['editingElement', 'work', 'config']),
-      compList(){
-        // if(this.work.page == []) {
-            return this.work.config;
-        // }else {
-        //     this.pages = this.work.page;
-        //     let config = [{"type": "placeholder", "active": false}];
-        //     for (let i = 0; i < this.work.config.length; i++) {
-        //         if (this.work.config[i]['pageNum'] == 1) {
-        //             config = util.copyObj(this.work.config[i]['config']);
-        //             break;
-        //         }
-        //     }
-        //     this.updateData({pageListConfig: this.work.config, configList: config})
-        //     return config;
-        // }
-      }
+      // compList(){
+      //   console.log('compList====>'+this.work.page)
+      //   if(this.work.page.length == 0) {
+      //       return this.work.config;
+      //   }else {
+      //       console.log("执行了。。。。。。"+JSON.stringify(this.work))
+      //       this.updateData({pageListConfig: this.work.pages})
+      //       this.pages = this.work.page;
+      //       return this.work.config;
+      //   }
+      // }
     },
     mounted() {
       this.$bus.$on('click:show', (idx, tabs) => {
@@ -190,6 +194,7 @@
       compList: {
         handler(val) {
           if (val && val.length > 1) {
+            this.updateData({configList: val})
             localStorage.setItem('pageDateSet', JSON.stringify({
               time: Date.now(),
               menu: this.bottomMenu,
@@ -201,6 +206,7 @@
       },
       bottomMenu: {
         handler(val) {
+          this.updateData({bottomMenu: val})
           localStorage.setItem('pageDateSet', JSON.stringify({
             time: Date.now(),
             menu: val,
@@ -373,7 +379,7 @@
           type: 'placeholder',
           active: false
         })
-        console.log('changeComp:===>'+ JSON.stringify(this.config.configList))
+        console.log('changeComp:===>'+ JSON.stringify(this.config))
         for(let index = 0; index < this.config.configList.length; index++){
           const comp = this.config.configList[index]
           if(comp.type === 'placeholder'){
@@ -434,7 +440,6 @@
             this.$message.warning('没有查询到该组件的配置信息。。。')
           }
         }
-        this.updateData({configList: this.compList,bottomMenu: this.bottomMenu})
       },
       dragPhoneLeave() {
         const target = document.querySelector('.place-holder:last-child')
