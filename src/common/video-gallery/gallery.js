@@ -1,6 +1,6 @@
 import './gallery.scss'
 import PersonalTab from './tabs/personal.js'
-
+import ImageTab from './tabs/image.js'
 export default {
   name: 'lbs-video-gallery',
   components: {
@@ -23,6 +23,9 @@ export default {
       {
         value: 'personal',
         label: '我的视频'
+      },{
+        value: 'image',
+        label: '我的图库'
       }
     ],
     activeTab: 'personal',
@@ -54,7 +57,11 @@ export default {
     renderContent () {
       switch (this.activeTab) {
         case 'personal':
-          return <PersonalTab onChangeItem={item => {
+          return <PersonalTab mType={'video'} onChangeItem={item => {
+            this.handleSelectImage(item)
+          }}/>
+        case 'image':
+          return <ImageTab mType={'image'} onChangeItem={item => {
             this.handleSelectImage(item)
           }}/>
       }
@@ -90,7 +97,7 @@ export default {
         <slot>{this.renderDefaultActivator()}</slot>
         <a-modal
           closable
-          title="视频库"
+          title="媒体库"
           width="65%"
           visible={this.innerVisible}
           onOk={this.handleClose}

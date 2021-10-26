@@ -1,3 +1,4 @@
+import strapi from '@/utils/strapi'
 export default {
   props: {
     visible: {
@@ -18,6 +19,12 @@ export default {
     }
   },
   computed: {
+    headers(){
+      let token = strapi.axios.defaults.headers.common
+      return {
+        'Authorization': token['Authorization']
+      }
+    }
   },
   data: () => ({
     loading: false
@@ -46,6 +53,7 @@ export default {
       <a-upload
         name="files"
         action="/uploadVideo"
+        headers={this.headers}
         beforeUpload={this.handleBeforeUpload}
         onChange={this.handleChange}>
         <slot>

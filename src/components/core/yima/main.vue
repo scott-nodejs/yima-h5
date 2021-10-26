@@ -142,7 +142,9 @@
     },
     created () {
       if (this.workId) {
+        this.$loading.show()
         this.fetchWork(this.workId).then(res=>{
+          this.$loading.hide()
           if(res.page.length != 0){
             this.pages = res.page;
             this.compList = res['config']

@@ -92,6 +92,8 @@
 </template>
 
 <script>
+  import {mapActions} from "vuex";
+
   export default {
     name: 'upload',
     data() {
@@ -115,6 +117,9 @@
       }
     },
     methods: {
+      ...mapActions('editor', [
+        'uploadImg'
+      ]),
       upload(e) {
         const file = e.target.files[0]
         if (file) {
@@ -157,11 +162,17 @@
                 }
 
                 if (invalide) {
+                  this.baseUrl = 'http://img.hazer.top'
                   const width = 750
                   const height = img.height * (750 / img.width).toFixed(4)
                   this.item.width = width
                   this.item.height = height
-                  this.item.val = img.src
+                  const data = { img: img.src }
+                  this.uploadImg (data).then(res => {
+                    // 传入success回调里的数据就是富文本编辑器里插入图片的src的值
+                    this.item.val = `${this.baseUrl}/${res.msg}`
+                  }).catch(() => { console.log("上传图片失败") })
+                  //this.item.val = img.src
                   this.$emit('uploadSuccess', this.item, img, this.index)
                 }
               }

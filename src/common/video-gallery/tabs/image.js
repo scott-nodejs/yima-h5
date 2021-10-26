@@ -53,7 +53,7 @@ export default {
                 <a-list-item onClick={() => {
                   this.$emit('changeItem', item)
                 }}>
-                  <VideoItem item={item} />
+                  <Image width={200} src={item} />
                 </a-list-item>
               )}
             >

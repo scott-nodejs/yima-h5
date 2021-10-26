@@ -254,10 +254,11 @@ export const actions = {
     }).post(`/upload/`, formData)
   },
   uploadImg ({ commit, state, dispatch }, data) {
+    let token = strapi.axios.defaults.headers.common
     return new AxiosWrapper({
       dispatch,
       commit,
-      headers:{'content-type': 'application/json'},
+      headers:{'content-type': 'application/json','Authorization': token['Authorization']},
       name: '',
       loading_name: 'uploadWorkCover_loading',
       successMsg: '上传图片成功!',
@@ -308,7 +309,7 @@ export const mutations = {
     console.log('setConfig==>'+JSON.stringify(state.config))
   },
   setPage (state, data){
-    let conf = Object.assign({}, {coverImage: state.config.coverImage}, data, {configList: []})
+    let conf = Object.assign({}, {coverImage: state.config.coverImage}, data)
     console.log("111=>"+JSON.stringify(conf))
     state.config = new Config(conf)
     console.log('00000==>'+JSON.stringify(state.config))
