@@ -34,15 +34,20 @@ export default {
       return this.beforeUpload(file)
     },
     handleChange (info) {
+      console.log(info)
       this.loading = true
       const status = info.file.status
       if (status !== 'uploading') {
         console.log(info.file, info.fileList)
       }
       if (status === 'done') {
-        this.loading = false
-        this.uploadSuccess(info)
-        this.$message.success(`${info.file.name} file uploaded successfully.`)
+        if(info.file.response.code == 401){
+          this.$message.error(info.file.response.msg);
+        }else{
+          this.loading = false
+          this.uploadSuccess(info)
+          this.$message.success(`${info.file.name} file uploaded successfully.`)
+        }
       } else if (status === 'error') {
         this.$message.error(`${info.file.name} file upload failed.`)
       }

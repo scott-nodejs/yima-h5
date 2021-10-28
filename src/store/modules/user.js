@@ -1,10 +1,12 @@
 import strapi from "../../utils/strapi";
 import { AxiosWrapper, handleError } from '@/utils/http.js'
 import User from 'core/models/user'
+import Auth from 'core/models/auth'
 
 // initial state
 const state = {
-   user: new User()
+   user: new User(),
+   auth: new Auth()
 }
 
 // getters
@@ -67,6 +69,9 @@ const actions = {
     getUser ({ commit, state }) {
         return strapi.getEntries('user/get')
     },
+    getVipInfo ({ commit, state }) {
+        return strapi.getEntries('user/vip')
+    },
     genUser ({ commit, state }, payload = {}) {
         // update work with strapi
         const user = {
@@ -75,12 +80,33 @@ const actions = {
         }
         commit('setUser', user)
     },
+    setAuth({ commit, state }, payload = {}) {
+        // update work with strapi
+        const auth = {
+            ...state.auth,
+            ...payload
+        }
+        commit('setPermision', auth)
+    },
+    addOrder({ commit,dispatch, state }, vip = {}){
+        let token = strapi.axios.defaults.headers.common
+        return new AxiosWrapper({
+            dispatch,
+            commit,
+            headers:{'content-type': 'application/json','Authorization': token['Authorization']},
+            loading_name: 'deleteWork_loading',
+            successMsg: '创建成功',
+        }).put('order/create', JSON.stringify(vip))
+    }
 }
 
 // mutations
 const mutations = {
     setUser(state, data){
         state.user = data
+    },
+    setPermision(state, data){
+        state.auth = new Auth(data)
     },
 }
 

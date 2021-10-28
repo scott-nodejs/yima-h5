@@ -47,7 +47,7 @@ const sidebarMenus = [
     {
         label: 'form数据',
         i18nLabel: 'sidebar.formTable',
-        value: 'personCenter',
+        value: 'formData',
         antIcon: 'snippets',
         key: '4',
         routerName: 'form-table'
@@ -63,13 +63,18 @@ export default {
     LangSelect
   },
   computed:{
-      ...mapState('user',['user']),
+      ...mapState('user',['user','auth']),
       getUserName(){
          return this.user.userName
+      },
+      getMenus(){
+          return sidebarMenus.filter(router=>{
+              return sessionStorage.getItem("homeMenu").split(",").some(menu=>menu === router.value)
+          })
       }
   },
   methods: {
-      ...mapActions('user', ['logout']),
+    ...mapActions('user', ['logout']),
     renderSidebar (menus) {
       // const renderLabel = menu => menu.routerName ? <router-link class="default-router-link" to={{ name: menu.routerName }}>{menu.label}</router-link> : menu.label
       const renderLabel = menu =>
@@ -129,6 +134,7 @@ export default {
                   strapi.clearToken()
                   cookie.delete('islogin')
                   cookie.delete('jwt')
+                  sessionStorage.removeItem("homeMenu")
                   this.$router.push({ name : 'login'})
               }}>
                 <a-icon type="logout" />
@@ -148,7 +154,7 @@ export default {
               defaultOpenKeys={['1', '2', '3']}
               style="height: 100%"
             >
-              {this.renderSidebar(sidebarMenus)}
+              {this.renderSidebar(this.getMenus)}
             </a-menu>
           </a-layout-sider>
           <a-layout style="padding: 0 0 24px">

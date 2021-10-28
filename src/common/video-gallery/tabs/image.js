@@ -10,6 +10,7 @@
  */
 import axios from 'axios'
 import VideoItem from '@/common/video-gallery/components/video-item.js'
+import ImageItem from '@/common/video-gallery/components/image-item.js'
 import Uploader from '@/common/video-gallery/components//uploader.js'
 
 export default {
@@ -53,7 +54,7 @@ export default {
                 <a-list-item onClick={() => {
                   this.$emit('changeItem', item)
                 }}>
-                  <Image width={200} src={item} />
+                  <ImageItem item={item} />
                 </a-list-item>
               )}
             >

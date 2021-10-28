@@ -76,12 +76,15 @@ export default {
     }
   },
   methods: {
-      ...mapActions("user",['userLogin','genUser']),
+      ...mapActions("user",['userLogin','genUser','setAuth']),
       login () {
           this.userLogin(this.formData).then(res=>{
               if(res.code == 200){
                   this.genUser({'userName': this.formData.username})
-                  strapi.setToken(res['data'])
+                  strapi.setToken(res['data']['token'])
+                  let homeMenu = res['data']['homeAuth'];
+                  // this.setAuth({homeMenu: homeMenu})
+                  window.sessionStorage.setItem("homeMenu", homeMenu);
                   cookie.set('islogin', '1', 7)
                   this.$refs.login.reset()
                   this.$router.push({ name: 'home'})

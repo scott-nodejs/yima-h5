@@ -20,6 +20,12 @@
                     <i class="el-icon-lock"></i> 密码修改
                   </router-link>
                 </li>
+                <li>
+                  <router-link :to='{name:"settingVip"}'
+                               class="dropdown-item">
+                    <i class="el-icon-lock"></i> 升级会员
+                  </router-link>
+                </li>
               </ul>
             </div>
           </div>
