@@ -9,15 +9,19 @@
         </li>
         <li class="item-view">
           <span class="title">订单状态</span>
-          <span class="title">{{this.order.status}}</span>
+          <span class="title"><strong style="color:red">{{this.order.status}}</strong></span>
         </li>
         <li class="item-view">
           <span class="title">支付账号</span>
-          <span class="title">{{this.order.userId}}</span>
+          <span class="title">{{this.order.realName}}</span>
         </li>
         <li class="item-view">
           <span class="title">购买会员类型</span>
-          <span class="title">{{this.order.vipId}}</span>
+          <span class="title">{{this.order.vip}}</span>
+        </li>
+        <li class="item-view">
+          <span class="title">需支付金额</span>
+          <span class="title"><strong style="color:red">{{this.order.money}}</strong></span>
         </li>
       </ul>
       <div class="footer-view">
