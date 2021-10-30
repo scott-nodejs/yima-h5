@@ -46,8 +46,21 @@
   export default {
     name: 'AppSide',
     data() {
+      console.log(JSON.parse(sessionStorage.getItem("editorMenu")))
+      let menus = menuConfig.filter(router=>{
+            return JSON.parse(sessionStorage.getItem("editorMenu")).some(menu=>{
+                if(router.code == menu.code && menu.code != 'page') {
+                    console.log(router.code+" "+menu.code);
+                    let menus = router.items.filter(item => {
+                        return menu.children.some(c => c.code === item.key)
+                    });
+                    router.items = menus;
+                }
+                return menu.code === router.code;
+            })
+        });
       return {
-        menuData: menuConfig,
+        menuData: menus,
         dialogVisible: false,
         index: 0,
         currentIndex: 1

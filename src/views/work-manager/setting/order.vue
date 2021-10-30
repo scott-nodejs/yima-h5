@@ -25,8 +25,24 @@
         </li>
       </ul>
       <div class="footer-view">
-        <button class="button button-save"
-                @click="save">支付</button>
+        <!--<button class="button button-save"-->
+                <!--@click="save">支付</button>-->
+        <form method="post" action="https://www.payssion.com/payment/create.html">
+          <input type="hidden" name="source" value="whmcs" />
+          <input type="hidden" name="api_key" value="live_194aa3f913cf72c6" />
+          <input type="hidden" name="api_sig" value="a9cb31eab12badb2d96261345574ffce" />
+          <input type="hidden" name="pm_id" value="alipay_cn" />
+          <input type="hidden" name="payer_name" value="scott " />
+          <input type="hidden" name="payer_email" value="scott_nodejs@163.com" />
+          <input type="hidden" name="order_id" value="89051397" />
+          <input type="hidden" name="description" value="一枝红杏 - 账单编号89051397" />
+          <input type="hidden" name="amount" v-model="this.order.money" />
+          <input type="hidden" name="currency" value="CNY" />
+          <input type="hidden" name="notify_url" value="https://order.yizhihongxing.network//modules/gateways/callback/payssion.php" />
+          <input type="hidden" name="success_url" value="https://order.yizhihongxing.network/viewinvoice.php?id=89051397" />
+          <input type="hidden" name="redirect_url" value="https://order.yizhihongxing.network/viewinvoice.php?id=89051397" />
+          <input type="submit" value="确定支付" />
+        </form>
       </div>
 
     </div>
@@ -66,10 +82,10 @@ export default {
   },
   methods: {
     ...mapActions('user', [
-      'addOrder'
+      'getOrder'
     ]),
-    createOrder(vip){
-      this.addOrder({vip: vip}).then(res=>{
+    createOrder(id){
+      this.getOrder(id).then(res=>{
         if(res.code == 200){
           this.order = {
             ...res.data

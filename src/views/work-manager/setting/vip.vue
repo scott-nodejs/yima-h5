@@ -104,10 +104,15 @@ export default {
   },
   methods: {
     ...mapActions('user', [
-      'getVipInfo'
+      'getVipInfo',
+      'addOrder'
     ]),
     save () {
-      this.$router.push({ path: `order/${this.vip}` })
+        this.addOrder({vip: this.vip}).then(res=>{
+            if(res.code == 200){
+                this.$router.push({ path: `order/${res.msg}` })
+            }
+        })
     },
     getVip(){
       this.getVipInfo().then(res=>{

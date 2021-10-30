@@ -135,6 +135,7 @@ export default {
                   cookie.delete('islogin')
                   cookie.delete('jwt')
                   sessionStorage.removeItem("homeMenu")
+                  sessionStorage.removeItem("editorMenu")
                   this.$router.push({ name : 'login'})
               }}>
                 <a-icon type="logout" />

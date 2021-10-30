@@ -1,5 +1,6 @@
 module.exports = [
   {
+    code: 'common',
     title: '通用组件',
     collapse: false,
     isDrag: true,
@@ -84,6 +85,7 @@ module.exports = [
   //   ]
   // },
   {
+    code: 'banner',
     title: '轮播组件',
     collapse: true,
     isDrag: true,
@@ -100,6 +102,7 @@ module.exports = [
       // }
     ]
   }, {
+    code: 'pictrueList',
     title: '图文列表',
     collapse: true,
     isDrag: true,
@@ -115,6 +118,7 @@ module.exports = [
       }
     ]
   }, {
+    code: 'flash',
     title: '动画效果',
     collapse: true,
     isDrag: true,
@@ -126,6 +130,7 @@ module.exports = [
       }
     ]
   },{
+    code: 'page',
     title: '创建页(不可以拖动)',
     collapse: true,
     isDrag: false,

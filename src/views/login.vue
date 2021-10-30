@@ -83,8 +83,10 @@ export default {
                   this.genUser({'userName': this.formData.username})
                   strapi.setToken(res['data']['token'])
                   let homeMenu = res['data']['homeAuth'];
+                  let editorMenu = res['data']['editorMenu'];
                   // this.setAuth({homeMenu: homeMenu})
                   window.sessionStorage.setItem("homeMenu", homeMenu);
+                  window.sessionStorage.setItem("editorMenu", editorMenu);
                   cookie.set('islogin', '1', 7)
                   this.$refs.login.reset()
                   this.$router.push({ name: 'home'})

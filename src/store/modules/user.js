@@ -97,6 +97,9 @@ const actions = {
             loading_name: 'deleteWork_loading',
             successMsg: '创建成功',
         }).put('order/create', JSON.stringify(vip))
+    },
+    getOrder({ commit,dispatch, state }, id = {}){
+        return strapi.getEntries('order/getOrder/'+id)
     }
 }
 
