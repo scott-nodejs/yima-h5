@@ -46,9 +46,9 @@
   export default {
     name: 'AppSide',
     data() {
-      console.log(JSON.parse(sessionStorage.getItem("editorMenu")))
+      console.log("aaaaaaaa--->"+JSON.parse(localStorage.getItem("editorMenu")))
       let menus = menuConfig.filter(router=>{
-            return JSON.parse(sessionStorage.getItem("editorMenu")).some(menu=>{
+            return JSON.parse(localStorage.getItem("editorMenu")).some(menu=>{
                 if(router.code == menu.code && menu.code != 'page') {
                     console.log(router.code+" "+menu.code);
                     let menus = router.items.filter(item => {

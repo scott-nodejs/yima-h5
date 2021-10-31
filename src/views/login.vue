@@ -86,7 +86,7 @@ export default {
                   let editorMenu = res['data']['editorMenu'];
                   // this.setAuth({homeMenu: homeMenu})
                   window.sessionStorage.setItem("homeMenu", homeMenu);
-                  window.sessionStorage.setItem("editorMenu", editorMenu);
+                  window.localStorage.setItem("editorMenu", editorMenu);
                   cookie.set('islogin', '1', 7)
                   this.$refs.login.reset()
                   this.$router.push({ name: 'home'})
