@@ -145,6 +145,16 @@
     </el-form-item>
 
     <el-form-item class="small"
+                  v-if="item.type === 'formRadio'"
+                  :label="item.label + '：'">
+      <el-radio-group v-model="item.val" @change="agree(item, item.val)">
+        <template v-for="opt in item.options">
+          <el-radio  :label="opt.val">{{opt.name}}</el-radio>
+        </template>
+      </el-radio-group>
+    </el-form-item>
+
+    <el-form-item class="small"
                   v-if="item.type === 'datetime'"
                   :label="item.label + '：'">
       <el-date-picker type="datetime"
@@ -209,6 +219,7 @@
   export default {
     data() {
       return{
+        formItem : this.item,
         mapVisible: false,
         richVisible: false,
         address: '',
@@ -268,9 +279,14 @@
       mounted () {
           tinymce.init({})
       },
-    watch:{
-
-    },
+      watch: {
+          item: {
+              handler(val) {
+                  this.formItem = val
+              },
+              deep: true
+          }
+      },
     methods: {
       ...mapActions('editor', [
         'uploadImg'
@@ -455,6 +471,10 @@
             // 传入success回调里的数据就是富文本编辑器里插入图片的src的值
             success(`${this.baseUrl}/${res.msg}`)
           }).catch(() => { failure('error') })
+        },
+        agree(item, val){
+          console.log(val)
+          //this.$set(item.val, 2, val)
         }
     }
   }

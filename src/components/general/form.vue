@@ -2,7 +2,7 @@
   <div :class="['comp-content', component.active ? 'active' : '']"
        :style="style">
     <div class="form-box">
-      <div class="form-box-item"
+      <div :class="[method == 0 ? 'form-box-item' : 'form-box-item1']"
            :style="{marginTop: component.others.config[4].val + 'px'}"
            v-if="inputs.length" v-for="input in inputs">
         <label :style="labelStyle">{{input.desc}}</label>
@@ -54,7 +54,8 @@
         labelStyle: this.getLabelStyle(),
         inputStyle: this.getInputStyle(),
         buttonStyle: this.getButtonStyle(),
-        inputs: this.component.action.config
+        inputs: this.component.action.config,
+        method: this.component.dirWay
       }
     },
     methods: {
@@ -110,11 +111,13 @@
     watch: {
       component: {
         handler() {
+          console.log("aaa=>"+this.component.base[2].val)
           this.style = this.getStyle()
           this.labelStyle = this.getLabelStyle()
           this.inputStyle = this.getInputStyle()
           this.buttonStyle = this.getButtonStyle()
-          this.inputs = this.component.action.config
+          this.inputs = this.component.action.config,
+          this.method = this.component.base[2].val
         },
         deep: true
       }
@@ -141,6 +144,21 @@
 
     .form-box-item {
       display: flex;
+
+      > label {
+        display: block;
+      }
+
+      .item-input {
+        flex: 1;
+        padding: 5px 10px;
+        box-sizing: border-box;
+        border: 1px solid;
+        outline: 0;
+      }
+    }
+
+    .form-box-item1 {
 
       > label {
         display: block;

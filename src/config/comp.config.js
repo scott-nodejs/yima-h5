@@ -408,6 +408,7 @@ module.exports = {
     title: '表单',
     domId: '',
     domName: '',
+    dirWay: 0,
     assert: {
       script: ['./js/form/form.min.js'],
       style: ['./js/form/form.min.css']
@@ -431,7 +432,19 @@ module.exports = {
           val: 'POST'
         }],
         isNecessary: true
-      }
+      },{
+            type: 'formRadio',
+            label: '展示方式',
+            val: 0,
+            options: [{
+                name: '横向',
+                val: 0
+            }, {
+                name: '纵向',
+                val: 1
+            }],
+            isNecessary: true
+        }
     ],
     style: [
       {

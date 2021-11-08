@@ -85,13 +85,13 @@
       }
     },
     watch: {
-      forms: {
-        handler(val) {
-          this.inputs = val
-        },
-        deep: true
-      }
-    },
+          forms: {
+              handler(val) {
+                  this.inputs = val
+              },
+              deep: true
+          }
+      },
     methods: {
       upInput(idx) {
         const tmp = util.copyObj(this.inputs[idx])
