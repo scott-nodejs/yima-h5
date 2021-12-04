@@ -69,7 +69,7 @@ export default {
       },
       getMenus(){
           return sidebarMenus.filter(router=>{
-              return sessionStorage.getItem("homeMenu").split(",").some(menu=>menu === router.value)
+              return localStorage.getItem("homeMenu").split(",").some(menu=>menu === router.value)
           })
       }
   },

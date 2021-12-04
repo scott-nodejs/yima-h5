@@ -13,7 +13,7 @@ export default {
         style={{ lineHeight: '64px', display: 'inline-block' }}
       >
         <a-menu-item key="dingtalk" >
-          <a-popover title="👨🏻‍💻👩🏻‍💻欢迎加入YIMA-H5交流群">
+          <a-popover title="👨🏻‍💻👩🏻‍💻欢迎加入亿空间交流群">
             <template slot="content">
               <p>扫描二维码加入 亿码科技微信群</p>
               <img src="http://img.hazer.top/code_20211008112106.jpg" width="200" />

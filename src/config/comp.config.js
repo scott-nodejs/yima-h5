@@ -1683,7 +1683,7 @@ module.exports = {
       type: 'horizontal-item-click',
       title: '列表项配置',
       config: [{
-        val: 'https://yangyuji.github.io/h5-factory/static/img/logo.png',
+        val: 'https://yangyuji.github.io/h5-factory/static/img/favicon.ico',
         title: '默认标题',
         desc: '默认文案描述，默认文案描述，默认文案描述默认文案描述',
         click: null
@@ -1826,12 +1826,12 @@ module.exports = {
       type: 'vertical-item-click',
       title: '列表项配置',
       config: [{
-        val: 'https://yangyuji.github.io/h5-factory/static/img/logo.png',
+        val: 'https://yangyuji.github.io/h5-factory/static/img/favicon.ico',
         title: '默认标题',
         desc: '默认文案描述，默认文案描述，默认文案描述默认文案描述',
         click: null
       }, {
-        val: 'https://yangyuji.github.io/h5-factory/static/img/logo.png',
+        val: 'https://yangyuji.github.io/h5-factory/static/img/favicon.ico',
         title: '默认标题',
         desc: '默认文案描述，默认文案描述，默认文案描述默认文案描述',
         click: null

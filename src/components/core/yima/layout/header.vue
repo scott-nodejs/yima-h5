@@ -1,6 +1,6 @@
 <template>
   <header class="app-header">
-    <img class="header-logo" src="https://yangyuji.github.io/h5-factory/static/img/logo.png">yima-h5
+    <img class="header-logo" src="http://img.hazer.top/logo.png">亿空间
   </header>
 </template>
 
@@ -17,13 +17,13 @@
     line-height: 60px;
     padding-left: 20px;
     background: rgba(38, 38, 38, 1);
-    font-size: 18px;
+    font-size: 16px;
     color: #fff;
 
     .header-logo {
       display: inline-block;
-      width: 30px;
-      height: 30px;
+      width: 25px;
+      height: 25px;
       vertical-align: middle;
       margin-right: 15px;
     }

@@ -74,11 +74,19 @@
         return ret.join(';')
       },
       getLabelStyle() {
-        const ret = [
-          'width:' + this.component.others.config[0].val + 'px',
-          'height:' + this.component.others.config[1].val + 'px',
-          'line-height:' + this.component.others.config[1].val + 'px'
-        ]
+        console.log(this.component.base[2].val)
+        const ret = []
+        if(this.component.base[2].val !== 0){
+            ret.push(
+                'width: 300px',
+                'height: 24px',
+                'line-height:' + this.component.others.config[1].val + 'px'
+            )
+        }else{
+            ret.push('width:' + this.component.others.config[0].val + 'px',
+                'height:' + this.component.others.config[1].val + 'px',
+                'line-height:' + this.component.others.config[1].val + 'px')
+        }
         return ret.join(';')
       },
       getInputStyle() {

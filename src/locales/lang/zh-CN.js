@@ -10,7 +10,7 @@
  */
 export default {
   app: {
-    title: 'YIMA H5'
+    title: '亿空间'
   },
   header: {
     chineseDocument: '中文文档',

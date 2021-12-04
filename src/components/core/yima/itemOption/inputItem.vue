@@ -3,7 +3,7 @@
     <template v-if="inputs && inputs.length">
       <div class="form-list-panel" v-for="(input, idx) in inputs">
         <el-form-item class="small" label="字段描述：">
-          <el-input v-model="input.desc" :maxlength="8" placeholder="label名称"></el-input>
+          <el-input v-model="input.desc" :maxlength="60" placeholder="label名称"></el-input>
         </el-form-item>
         <el-form-item class="small" label="字段名称：">
           <el-input v-model="input.name" :maxlength="128" placeholder="接口对应的参数名"></el-input>
