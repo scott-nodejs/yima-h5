@@ -134,8 +134,8 @@ export default {
                   strapi.clearToken()
                   cookie.delete('islogin')
                   cookie.delete('jwt')
-                  sessionStorage.removeItem("homeMenu")
-                  sessionStorage.removeItem("editorMenu")
+                  localStorage.removeItem("homeMenu")
+                  localStorage.removeItem("editorMenu")
                   this.$router.push({ name : 'login'})
               }}>
                 <a-icon type="logout" />
