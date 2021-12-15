@@ -27,6 +27,11 @@ import PageTitle from './pageModule/page-title'
 
 import NewsMarquee from './animate/news-marquee'
 
+import Coupon from './general/coupon'
+
+import TScroll from './general/trans-scroll'
+import MyTebs from './general/Mytebs'
+
 export default {
   install(Vue) {
     Vue.component(BottomMenu.name, BottomMenu)
@@ -48,5 +53,8 @@ export default {
     Vue.component(BaseVideo.name, BaseVideo)
     Vue.component(Header1.name, Header1)
     Vue.component(RichText.name, RichText)
+    Vue.component(Coupon.name, Coupon)
+    Vue.component(TScroll.name, TScroll)
+    Vue.component(MyTebs.name, MyTebs)
   }
 }

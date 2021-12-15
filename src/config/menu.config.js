@@ -50,7 +50,15 @@ module.exports = [
         key: 'header1',
         text: 'header1',
         icon: 'fa-vcard'
-      }
+      },{
+            key: 'coupon',
+            text: '优惠券',
+            icon: 'fa-vcard'
+        },{
+            key: 'mytebs',
+            text: 'Teb导航',
+            icon: 'fa-vcard'
+        }
     ]
   },
   // {
@@ -95,11 +103,11 @@ module.exports = [
         text: '轮播图',
         icon: 'fa-caret-square-o-right'
       },
-      // {
-      //   key: 'scroll-left',
-      //   text: '横向滚动',
-      //   icon: 'fa-exchange'
-      // }
+      {
+        key: 'tscroll',
+        text: '横向滚动',
+        icon: 'fa-exchange'
+      }
     ]
   }, {
     code: 'pictrueList',

@@ -6,9 +6,9 @@
                 :index="idx"
                 :item="item">
         </upload>
-        <template v-if="item.click">
+        <template v-if="item.title">
           <el-form-item class="small" label="跳转到：">
-            <span style="word-break: break-all;">{{item.click.href}}</span>
+            <span style="word-break: break-all;">{{item.title}}</span>
           </el-form-item>
         </template>
         <el-form-item class="small" label="点击配置：">
@@ -35,7 +35,7 @@
   export default {
     data() {
       return {
-        defaultConf: util.copyObj(compConfig['scroll-left']),
+        defaultConf: util.copyObj(compConfig['tscroll']),
         items: this.scrolls
       }
     },

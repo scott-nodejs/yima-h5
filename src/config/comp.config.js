@@ -166,6 +166,39 @@ module.exports = {
             }
         ]
     },
+    'coupon': {
+        title: '优惠券',
+        domId: '',
+        domName: '',
+        base: [
+            {
+                type: 'text',
+                attr: 'condition',
+                label: '优惠条件',
+                val: '满199元使用',
+                isNecessary: true
+            },
+            {
+                type: 'text',
+                attr: 'money',
+                label: '优惠券金额',
+                val: '100',
+                isNecessary: true
+            },{
+                type: 'text',
+                attr: 'time',
+                label: '优惠时间',
+                val: '2021.11.01-11.10',
+                isNecessary: true
+            },{
+                type: 'text',
+                attr: 'shop',
+                label: '优惠商店',
+                val: '有家店铺',
+                isNecessary: true
+            }
+        ]
+    },
   'base-image': {
     title: '图片',
     domId: '',
@@ -832,7 +865,83 @@ module.exports = {
       }]
     }
   },
-  'scroll-left': {
+    'mytebs': {
+        title: 'Teb导航',
+        domId: '',
+        domName: '',
+        assert: {
+            script: ['./js/libs/iscroll.min.js', './js/body/floor-menu.js']
+        },
+        base:[
+            {
+                type: 'formRadio',
+                label: '导航方向',
+                val: 'top',
+                options: [{
+                    name: '横向',
+                    val: 'top'
+                }, {
+                    name: '纵向',
+                    val: 'left'
+                }],
+                isNecessary: false
+            }
+        ],
+        style: [
+            {
+                type: 'color-picker',
+                label: '默认背景',
+                attr: 'background-color',
+                val: '#ffffff',
+                isNecessary: true
+            }, {
+                type: 'color-picker',
+                label: '选中背景',
+                attr: 'background-color:hover',
+                val: '#ffffff',
+                isNecessary: true
+            }, {
+                type: 'color-picker',
+                label: '默认字体',
+                attr: 'color',
+                val: '#4a4a4a',
+                isNecessary: true
+            }, {
+                type: 'color-picker',
+                label: '选中字体',
+                attr: 'color:hover',
+                val: '#D0021B',
+                isNecessary: true
+            }
+        ],
+        action: {
+            type: 'floor-menu-click',
+            title: '导航项配置',
+            config: [{
+                text: '默认项1',
+                key: 'idx1',
+                content: {
+                    img: 'http://img.hazer.top/logo.top',
+                    title: '默认标题1'
+                }
+            },{
+                text: '默认项2',
+                key: 'idx2',
+                content: {
+                    img: 'http://img.hazer.top/logo.top',
+                    title: '默认标题2'
+                }
+            },{
+                text: '默认项3',
+                key: 'idx3',
+                content: {
+                    img: 'http://img.hazer.top/logo.top',
+                    title: '默认标题3'
+                }
+            }]
+        }
+    },
+  'tscroll': {
     title: '横向滚动',
     domId: '',
     domName: '',
@@ -867,9 +976,17 @@ module.exports = {
       title: '滚动项配置',
       config: [
         {
-          val: '',
-          click: null
-        }
+          title: '默认标题1',
+          val: 'http://img.hazer.top/logo.png'
+        },
+          {
+              title: '默认标题2',
+              val: 'http://img.hazer.top/logo.png'
+          },
+          {
+              title: '默认标题3',
+              val: 'http://img.hazer.top/logo.png'
+          },
       ]
     }
   },
