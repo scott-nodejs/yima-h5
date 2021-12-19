@@ -1,6 +1,19 @@
 <template>
     <el-dialog :title="this.title" :visible.sync="dialogVisible" :before-close="cancelDialog" >
         <el-form class="form" label-width="80px" :model="dialogInfo">
+            <el-form-item label="客户头像">
+                <el-upload
+                        v-model="dialogInfo.avatar"
+                        ref="upload"
+                        action="/upload"
+                        accept="image/png,image/gif,image/jpg,image/jpeg"
+                        list-type="picture-card"
+                        :http-request="uploadImage"
+                        :on-success="handleAvatarSuccess"
+                        :on-remove="handleRemove">
+                    <i class="el-icon-plus"></i>
+                </el-upload>
+            </el-form-item>
             <el-form-item label="门店名称 : ">
                 <el-input v-model="dialogInfo.name"></el-input>
             </el-form-item>
@@ -23,6 +36,7 @@
 
 <script>
     import { mapActions } from 'vuex'
+    import axios from 'axios'
     export default {//父组件 传 过来的 值
         props: {
             dialogVisible: {
@@ -53,6 +67,11 @@
         name: "componentDialog",
         data() {
             return {
+                dialogImageUrl: '',
+                dialogVisible: false,
+                formLabelWidth: '80px',
+                limitNum: 2,
+                form: {}
             };
         },
         created() {},
@@ -81,6 +100,55 @@
                         this.getClient({'page':1, 'pageSize': 10})
                     })
                 }
+            },
+            handleAvatarSuccess(res, file) {
+                this.imageUrl = URL.createObjectURL(file.raw);
+            },
+            handleBeforeUpload(file){
+                if(!(file.type === 'image/png' || file.type === 'image/gif' || file.type === 'image/jpg' || file.type === 'image/jpeg')) {
+                    this.$notify.warning({
+                        title: '警告',
+                        message: '请上传格式为image/png, image/gif, image/jpg, image/jpeg的图片'
+                    })
+                }
+                let size = file.size / 1024 / 1024 / 2
+                if(size > 2) {
+                    this.$notify.warning({
+                        title: '警告',
+                        message: '图片大小必须小于2M'
+                    })
+                }
+                this.$refs.upload.submit()
+            },
+            // 文件超出个数限制时的钩子
+            handleExceed(files, fileList) {
+
+            },
+            // 文件列表移除文件时的钩子
+            handleRemove(file, fileList) {
+                console.log(file, fileList);
+            },
+            // 点击文件列表中已上传的文件时的钩子
+            handlePictureCardPreview(file) {
+                this.dialogImageUrl = file.url;
+                this.dialogVisible = true;
+            },
+            uploadImage(param){
+                console.log(param)
+                var formData = new FormData();
+                formData.append("files", param.file);
+                axios.post(param.action,formData,
+                    { headers: { "Content-Type": "multipart/form-data" } }).then(response => {
+                    console.log('上传图片成功')
+                    this.dialogInfo.avatar = 'http://img.hazer.top/'+response.data.data
+                    param.onSuccess()  // 上传成功的图片会显示绿色的对勾
+                }).catch(response => {
+                    console.log('图片上传失败')
+                    param.onError()
+                })
+            },
+            uploadFile() {
+                this.$refs.upload.submit()
             }
         }
     };

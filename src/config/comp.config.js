@@ -348,6 +348,101 @@ module.exports = {
       }
     ]
   },
+    'header2':{
+        title: '头部2',
+        domId: '',
+        domName: '',
+        base:[
+            {
+                type: 'text',
+                label: '联系人',
+                attr: 'userName',
+                val: '',
+                placeholder: '填写联系人',
+                isNecessary: true
+            }, {
+                type: 'text',
+                label: '电话',
+                attr: 'phone',
+                val: '',
+                placeholder: '填写电话',
+                isNecessary: false
+            },{
+                type: 'text',
+                label: '公司名称',
+                attr: 'company',
+                val: '这里显示公司名称',
+                placeholder: '填写公司名称',
+                isNecessary: false
+            },{
+                type: 'text',
+                label: '微信',
+                attr: 'weixin',
+                val: '',
+                placeholder: '填写微信名',
+                isNecessary: false
+            },
+            {
+                type: 'button',
+                label: '选择地址',
+                attr: 'button',
+                val: '',
+                placeholder: '填写地址',
+                isNecessary: false
+            },{
+                type: 'disText',
+                label: '地址',
+                attr: 'address',
+                val: '',
+                placeholder: '自动填充地址',
+                isNecessary: false
+            },{
+                type: 'disText',
+                label: '经纬度',
+                attr: 'lnglat',
+                val: '',
+                placeholder: '自动填充经纬度',
+                isNecessary: false
+            },
+        ],
+        style: [
+            {
+                type: 'upload',
+                label: '上传图片',
+                attr: 'bgImg',
+                val: 'http://img.hazer.top/tag/h5-yima-1631004841960.jpeg',
+                /* limit: {
+                  w: 750,
+                  h: 200,
+                  s: 500
+                },*/
+                isNecessary: true
+            },
+            {
+                type: 'upload',
+                label: '上传头像',
+                attr: 'avatar',
+                val: 'http://img.hazer.top/logo.png',
+                /* limit: {
+                  w: 750,
+                  h: 200,
+                  s: 500
+                },*/
+                isNecessary: true
+            },{
+                type: 'upload',
+                label: '微信二维码',
+                attr: 'wxCode',
+                val: 'http://img.hazer.top/my.jpg',
+                /* limit: {
+                  w: 750,
+                  h: 200,
+                  s: 500
+                },*/
+                isNecessary: true
+            }
+        ]
+    },
   'base-video': {
     title: '视频',
     domId: '',

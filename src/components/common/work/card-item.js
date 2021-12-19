@@ -1,4 +1,5 @@
 import QRCode from 'qrcode'
+import QrCodeWithLogo from "qrcode-with-logos";
 import CardCover from './card-cover'
 
 export default {
@@ -25,21 +26,47 @@ export default {
     genQRCodeUrl (work) {
       const url = `http://yima.hazer.top/h5/?clientId=${work.clientId}`
       console.log(url)
-      QRCode.toDataURL(url, (err, url) => {
-        if (err) console.log(err)
-        this.qrcodeUrl = url
-      })
+      // QRCode.toDataURL(url, (err, url) => {
+      //   if (err) console.log(err)
+      //   this.qrcodeUrl = url
+      // })
+        let qrcode1 = new QrCodeWithLogo({
+            content: url,
+            width: 380,
+            //   download: true,
+            logo: {
+                src: "http://img.hazer.top//tag/h5-yima-1639879781612.jpeg"
+            }
+        });
+      qrcode1.getCanvas().then(canvas => {
+            this. qrcodeUrl = canvas.toDataURL()
+        });
     },
     downloadQRCodeUrl(work){
       const url = `http://yima.hazer.top/h5/?clientId=${work.clientId}`
-      QRCode.toDataURL(url, (err, url) => {
-        if (err) console.log(err)
-        const imgUrl = url
-        let a = document.createElement("a");
-        a.href = imgUrl;
-        a.setAttribute("download", work.title);
-        a.click();
-      })
+      // QRCode.toDataURL(url, (err, url) => {
+      //   if (err) console.log(err)
+      //   const imgUrl = url
+      //   let a = document.createElement("a");
+      //   a.href = imgUrl;
+      //   a.setAttribute("download", work.title);
+      //   a.click();
+      // })
+        let qrcode = new QrCodeWithLogo({
+            content: url,
+            width: 380,
+            //   download: true,
+            logo: {
+                src: "http://img.hazer.top//tag/h5-yima-1639879781612.jpeg"
+            }
+        });
+        qrcode.toCanvas().then(() => {
+            qrcode.toImage().then(() => {
+                setTimeout(() => {
+                    qrcode.downloadImage(work.title);
+                }, 100);
+            });
+        });
     }
   },
   render (h) {

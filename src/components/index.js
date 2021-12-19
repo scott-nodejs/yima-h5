@@ -13,6 +13,7 @@ import Timeout from './general/timeout'
 import BaseVideo from './general/video'
 
 import Header1 from './general/header1'
+import Header2 from './general/header2'
 
 import ScrollLeft from './swiper/scroll-left'
 import SwiperBanner from './swiper/swiper-banner'
@@ -52,6 +53,7 @@ export default {
     Vue.component(PageTitle.name, PageTitle)
     Vue.component(BaseVideo.name, BaseVideo)
     Vue.component(Header1.name, Header1)
+    Vue.component(Header2.name, Header2)
     Vue.component(RichText.name, RichText)
     Vue.component(Coupon.name, Coupon)
     Vue.component(TScroll.name, TScroll)

@@ -7,6 +7,14 @@
             stripe
             style="width: 100%">
         <el-table-column
+                prop="avatar"
+                label="logo头像"
+                width="180">
+            <template   slot-scope="scope">
+                <img :src="scope.row.avatar"  min-width="40" height="40" />
+            </template>
+        </el-table-column>
+        <el-table-column
                 prop="name"
                 label="门店名称"
                 width="180">
@@ -120,7 +128,8 @@
                     name: w.name,
                     phone: w.phone || '',
                     nickname: w.nickname || '',
-                    address: w.address || ''
+                    address: w.address || '',
+                    avatar: w.avatar || ''
                 }))
             }
         },

@@ -5,5 +5,6 @@ export default class Client {
         this.phone = client.phone || ''
         this.address = client.address || ''
         this.nickname = client.nickname || ''
+        this.avatar = client.avatar || ''
     }
 }

@@ -51,6 +51,10 @@ module.exports = [
         text: 'header1',
         icon: 'fa-vcard'
       },{
+            key: 'header2',
+            text: 'header2',
+            icon: 'fa-vcard'
+        },{
             key: 'coupon',
             text: '优惠券',
             icon: 'fa-vcard'
