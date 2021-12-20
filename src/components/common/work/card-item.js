@@ -35,7 +35,7 @@ export default {
             width: 380,
             //   download: true,
             logo: {
-                src: "http://img.hazer.top//tag/h5-yima-1639879781612.jpeg"
+                src: work.avatar
             }
         });
       qrcode1.getCanvas().then(canvas => {
@@ -57,7 +57,7 @@ export default {
             width: 380,
             //   download: true,
             logo: {
-                src: "http://img.hazer.top//tag/h5-yima-1639879781612.jpeg"
+                src: work.avatar
             }
         });
         qrcode.toCanvas().then(() => {

@@ -3,11 +3,11 @@
         <el-form class="form" label-width="80px" :model="dialogInfo">
             <el-form-item label="客户头像">
                 <el-upload
-                        v-model="dialogInfo.avatar"
                         ref="upload"
                         action="/upload"
                         accept="image/png,image/gif,image/jpg,image/jpeg"
                         list-type="picture-card"
+                        :file-list="fileList"
                         :http-request="uploadImage"
                         :on-success="handleAvatarSuccess"
                         :on-remove="handleRemove">
@@ -71,11 +71,15 @@
                 dialogVisible: false,
                 formLabelWidth: '80px',
                 limitNum: 2,
+                fileList: [],
                 form: {}
             };
         },
         created() {},
-        mounted() {},
+        mounted() {
+            console.log(this.dialogInfo.avatar)
+            this.fileList.put(this.dialogInfo.avatar)
+        },
         methods: {   //修改父组件传过来的值
             ...mapActions('client', [
                 'saveClient',
