@@ -185,16 +185,28 @@ module.exports = {
                 val: '100',
                 isNecessary: true
             },{
-                type: 'text',
-                attr: 'time',
-                label: '优惠时间',
-                val: '2021.11.01-11.10',
+                type: 'datetime',
+                attr: 'start_time',
+                label: '开始时间',
+                val: '2022-01-01 00:00:00',
+                isNecessary: true
+            },{
+                type: 'datetime',
+                attr: 'end_time',
+                label: '结束时间',
+                val: '2022-01-02 00:00:00',
                 isNecessary: true
             },{
                 type: 'text',
                 attr: 'shop',
                 label: '优惠商店',
                 val: '有家店铺',
+                isNecessary: true
+            },{
+                type: 'text',
+                attr: 'count',
+                label: '投放数量',
+                val: '100',
                 isNecessary: true
             }
         ]
