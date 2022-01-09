@@ -357,7 +357,18 @@ module.exports = {
           s: 500
         },*/
         isNecessary: true
-      }
+      },{
+            type: 'upload',
+            label: '微信二维码',
+            attr: 'wxCode',
+            val: 'http://img.hazer.top/my.jpg',
+            /* limit: {
+              w: 750,
+              h: 200,
+              s: 500
+            },*/
+            isNecessary: true
+        }
     ]
   },
     'header2':{
