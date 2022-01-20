@@ -144,25 +144,25 @@
                     this.$alert('图片大小不能超过 ' + this.item.limit.s + 'k', '提示')
                   }
                 } else {
-                  if (img.width > 750) {
-                    invalide = false
-                    this.$alert('图片宽度不能超过750px', '提示')
-                  }
+                  // if (img.width > 750) {
+                  //   invalide = false
+                  //   this.$alert('图片宽度不能超过750px', '提示')
+                  // }
                   if (file.type === 'image/gif') {
                     if (file.size / 1024 > 2048) {
                       invalide = false
                       this.$alert('gif图片不能超过2048k', '提示')
                     }
                   } else {
-                    if (file.size / 1024 > 512) {
+                    if (file.size / 1024 > 1024) {
                       invalide = false
-                      this.$alert('jpeg、png图片不能超过512k', '提示')
+                      this.$alert('jpeg、png图片不能超过1M', '提示')
                     }
                   }
                 }
 
                 if (invalide) {
-                  this.baseUrl = 'http://img.hazer.top'
+                  this.baseUrl = 'https://img.hazer.top'
                   const width = 750
                   const height = img.height * (750 / img.width).toFixed(4)
                   this.item.width = width
