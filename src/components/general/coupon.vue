@@ -11,7 +11,7 @@
               </div>
               <div>
                 <div class="tag-save">{{condition}}</div>
-                <div class="cl-w">{{time}}</div>
+                <div class="cl-w">{{start_time}}-{{end_time}}</div>
               </div>
             </div>
           </div>
@@ -26,6 +26,7 @@
 </template>
 
 <script>
+  import util from '@/utils/util'
   export default {
     name: 'coupon',
     props: {
@@ -37,8 +38,9 @@
           return {
               condition: this.component.base[0].val,
               money: this.component.base[1].val,
-              time: this.component.base[2].val,
-              shop: this.component.base[3].val
+              start_time: util.parseTime(this.component.base[2].val, '{y}.{m}.{d}'),
+              end_time: util.parseTime(this.component.base[3].val, '{m}.{d}'),
+              shop: this.component.base[4].val
           }
       },
     watch: {
@@ -46,8 +48,9 @@
             handler() {
                 this.condition = this.component.base[0].val,
                 this.money = this.component.base[1].val,
-                this.time = this.component.base[2].val,
-                this.shop = this.component.base[3].val
+                this.start_time = util.parseTime(this.component.base[2].val, '{y}.{m}.{d}'),
+                this.end_time = util.parseTime(this.component.base[3].val, '{m}.{d}'),
+                this.shop = this.component.base[4].val
             },
             deep: true
         }
