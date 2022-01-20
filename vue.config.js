@@ -16,6 +16,8 @@ const engineOutputDir = path.join(__dirname, '../../back-end/h5-api/public/engin
 const mainAppOutputDir = path.join(__dirname, '../../back-end/h5-api/build-editor')
 const coreEditorOutputDir = path.join(__dirname, '../../front-end/h5/src/components/core/dist')
 
+const CompressionWebpackPlugin = require("compression-webpack-plugin");
+
 let page
 switch (process.env.PAGE) {
   case 'ENGINE':
@@ -52,7 +54,13 @@ const configureWebpack = {
   },
   plugins: [
     // https://github.com/moment/moment/issues/2416
-    new webpack.ContextReplacementPlugin(/moment\/locale$/, /(zh-cn)$/)
+    new webpack.ContextReplacementPlugin(/moment\/locale$/, /(zh-cn)$/),
+      new CompressionWebpackPlugin({
+          test: /\.(js|css|less)$/, // 匹配文件名
+          threshold: 10240, // 对超过10k的数据压缩
+          minRatio: 0.8,
+          deleteOriginalAssets: true // 删除源文件
+      })
   ],
   externals: {
     echarts: 'echarts',
