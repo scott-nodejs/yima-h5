@@ -56,7 +56,7 @@
                 return this.flag === 0 ? '新增': '编辑';
             }
         },
-        watch: {　　//监听 弹窗显示， 可以用来写 请求接口
+        watch: {
             dialogVisible: function(newVal, oldVal) {
                 if (newVal) {
                     console.log(newVal);

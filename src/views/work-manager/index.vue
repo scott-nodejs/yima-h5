@@ -6,7 +6,6 @@ import 'core/styles/index.scss'
 import LogoOfHeader from '@/components/common/header/logo.js'
 import Header from '@/components/common/header/index'
 import Links from '@/components/common/header/links.js'
-import LangSelect from '@/components/common/header/LangSelect.vue'
 import {mapState,mapActions} from 'vuex'
 import {cookie} from "../../utils/cookie";
 
@@ -59,8 +58,7 @@ export default {
     // PreView,
     // Sidebar
     LogoOfHeader,
-    Links,
-    LangSelect
+    Links
   },
   computed:{
       ...mapState('user',['user','auth']),

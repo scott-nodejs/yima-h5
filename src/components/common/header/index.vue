@@ -4,19 +4,16 @@
     <div style="float:right;">
       <Links />
     <slot name="action-menu"></slot>
-    <LangSelect />
     </div>
   </a-layout-header>
 </template>
 <script>
 import LogoOfHeader from './logo.js'
-import LangSelect from './LangSelect'
 import Links from './links'
 export default {
   name: 'Header',
   components: {
     LogoOfHeader,
-    LangSelect,
     Links
   }
 }

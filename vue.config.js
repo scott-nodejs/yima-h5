@@ -18,6 +18,8 @@ const coreEditorOutputDir = path.join(__dirname, '../../front-end/h5/src/compone
 
 const CompressionWebpackPlugin = require("compression-webpack-plugin");
 
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
 let page
 switch (process.env.PAGE) {
   case 'ENGINE':
@@ -55,11 +57,12 @@ const configureWebpack = {
   plugins: [
     // https://github.com/moment/moment/issues/2416
     new webpack.ContextReplacementPlugin(/moment\/locale$/, /(zh-cn)$/),
+    new BundleAnalyzerPlugin(),
       new CompressionWebpackPlugin({
           test: /\.(js|css|less)$/, // 匹配文件名
           threshold: 10240, // 对超过10k的数据压缩
           minRatio: 0.8,
-          deleteOriginalAssets: true // 删除源文件
+          deleteOriginalAssets: false // 删除源文件
       })
   ],
   externals: {
@@ -91,7 +94,7 @@ module.exports = {
         'import': [
           // './src/theme'
         ]
-      }
+      },
     },
     extract: false
   },
