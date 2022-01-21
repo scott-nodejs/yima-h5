@@ -60,12 +60,12 @@ const configureWebpack = {
     // https://github.com/moment/moment/issues/2416
     new webpack.ContextReplacementPlugin(/moment\/locale$/, /(zh-cn)$/),
     new BundleAnalyzerPlugin(),
-      new CompressionWebpackPlugin({
+    new CompressionWebpackPlugin({
           test: /\.(js|css|less)$/, // 匹配文件名
           threshold: 10240, // 对超过10k的数据压缩
           minRatio: 0.8,
           deleteOriginalAssets: false // 删除源文件
-      })
+    })
   ],
   externals: {
     echarts: 'echarts',
@@ -97,6 +97,7 @@ module.exports = {
                 ak: oss.accessKeyId, // 不知道ak和sk的百度以下把～
                 sk: oss.accessKeySecret,
                 bucket: oss.bucket,  // bucket的name
+                deleteAll: true,
                 filter: function(asset) {
                     return !/\.html$/.test(asset) // 不上传index.html
                 }
