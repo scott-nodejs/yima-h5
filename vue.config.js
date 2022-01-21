@@ -17,7 +17,7 @@ const mainAppOutputDir = path.join(__dirname, '../../back-end/h5-api/build-edito
 const coreEditorOutputDir = path.join(__dirname, '../../front-end/h5/src/components/core/dist')
 
 const CompressionWebpackPlugin = require("compression-webpack-plugin");
-
+const oss = require('./oss.config');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 let page
@@ -44,6 +44,7 @@ switch (process.env.PAGE) {
       // outputDir: 'dist',
       outputDir: mainAppOutputDir,
       // publicPath: isProd ? '/main/' : '/'
+      publicPath: process.env.NODE_ENV !== 'development' ? ('http://cdn.appshuo.club/dist/') : './',
     }
 }
 
@@ -58,12 +59,12 @@ const configureWebpack = {
     // https://github.com/moment/moment/issues/2416
     new webpack.ContextReplacementPlugin(/moment\/locale$/, /(zh-cn)$/),
     new BundleAnalyzerPlugin(),
-      new CompressionWebpackPlugin({
+    new CompressionWebpackPlugin({
           test: /\.(js|css|less)$/, // 匹配文件名
           threshold: 10240, // 对超过10k的数据压缩
           minRatio: 0.8,
           deleteOriginalAssets: false // 删除源文件
-      })
+    })
   ],
   externals: {
     echarts: 'echarts',
@@ -85,6 +86,20 @@ module.exports = {
         ws: false
       }
     }
+  },
+  chainWebpack(config) {
+    config
+        .plugin('webpack-aliyun-oss-plugin')
+        .use(require('webpack-aliyun-oss-plugin'), [{
+          buildPath: 'dist/**',
+          region: oss.region, // 只是示例，如果是别的地区请填别的地区
+          ak: oss.accessKeyId, // 不知道ak和sk的百度以下把～
+          sk: oss.accessKeySecret,
+          bucket: oss.bucket,  // bucket的name
+          filter: function(asset) {
+            return !/\.html$/.test(asset) // 不上传index.html
+          }
+        }])
   },
   configureWebpack,
   css: {
