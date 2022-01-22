@@ -150,6 +150,7 @@
             this.compList = res['config']
             this.updateData({id: res.id, pageListConfig: res.pages, configList: res.config})
             this.bottomMenu = res.bottumMenu;
+            this.pageConfig = res.pageConfig;
           }else{
             this.updateData({id: 32255})
           }

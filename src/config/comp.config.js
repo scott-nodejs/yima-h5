@@ -1038,24 +1038,24 @@ module.exports = {
             config: [{
                 text: '默认项1',
                 key: 'idx1',
-                content: {
-                    img: 'http://img.hazer.top/logo.top',
+                content: [{
+                    val: 'https://img.hazer.top/logo.png',
                     title: '默认标题1'
-                }
+                }]
             },{
                 text: '默认项2',
                 key: 'idx2',
-                content: {
-                    img: 'http://img.hazer.top/logo.top',
+                content: [{
+                    val: 'https://img.hazer.top/logo.png',
                     title: '默认标题2'
-                }
+                }]
             },{
                 text: '默认项3',
                 key: 'idx3',
-                content: {
-                    img: 'http://img.hazer.top/logo.top',
+                content: [{
+                    val: 'https://img.hazer.top/logo.png',
                     title: '默认标题3'
-                }
+                }]
             }]
         }
     },

@@ -45,7 +45,7 @@ switch (process.env.PAGE) {
       // outputDir: 'dist',
       outputDir: mainAppOutputDir,
       // publicPath: isProd ? '/main/' : '/'
-      publicPath: process.env.NODE_ENV !== 'development' ? ('https://yima-jscss.oss-cn-beijing.aliyuncs.com/dist/') : './',
+      publicPath: process.env.NODE_ENV !== 'development' ? ('https://cdn.hazer.top/dist/') : './',
     }
 }
 
