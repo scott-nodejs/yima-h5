@@ -41,19 +41,19 @@ module.exports = {
         type: 'input-number',
         label: '容器高度',
         attr: 'height',
-        val: '',
+        val: 38,
         unit: 'px',
         isNecessary: false
       }, {
         type: 'upload',
         label: '背景图',
-        attr: 'background-image',
+        attr: 'backgroundImage',
         val: '',
         isNecessary: false
       }, {
         type: 'color-picker',
         label: '背景颜色',
-        attr: 'background-color',
+        attr: 'backgroundColor',
         val: '',
         isNecessary: false
       }, {

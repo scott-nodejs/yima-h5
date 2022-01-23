@@ -23,7 +23,7 @@
               item.attr.forEach((atr, i) => {
                 ret.push(atr + ':' + item.val[i])
               })
-            } else if (item.attr === 'background-image') {
+            } else if (item.attr === 'backgroundImage') {
               ret.push(item.attr + ':url(' + item.val + ')')
             } else {
               ret.push(item.attr + ':' + item.val + unit)

@@ -45,7 +45,7 @@ switch (process.env.PAGE) {
       // outputDir: 'dist',
       outputDir: mainAppOutputDir,
       // publicPath: isProd ? '/main/' : '/'
-      publicPath: process.env.NODE_ENV !== 'development' ? ('https://cdn.hazer.top/dist/') : './',
+      // publicPath: process.env.NODE_ENV !== 'development' ? ('https://cdn.hazer.top/dist/') : './',
     }
 }
 
@@ -88,21 +88,21 @@ module.exports = {
       }
     }
   },
-  chainWebpack(config) {
-        config
-            .plugin('webpack-aliyun-oss-plugin')
-            .use(require('webpack-aliyun-oss-plugin'), [{
-                buildPath: 'dist/**',
-                region: oss.region, // 只是示例，如果是别的地区请填别的地区
-                ak: oss.accessKeyId, // 不知道ak和sk的百度以下把～
-                sk: oss.accessKeySecret,
-                bucket: oss.bucket,  // bucket的name
-                deleteAll: true,
-                filter: function(asset) {
-                    return !/\.html$/.test(asset) // 不上传index.html
-                }
-            }])
-  },
+  // chainWebpack(config) {
+  //       config
+  //           .plugin('webpack-aliyun-oss-plugin')
+  //           .use(require('webpack-aliyun-oss-plugin'), [{
+  //               buildPath: 'dist/**',
+  //               region: oss.region, // 只是示例，如果是别的地区请填别的地区
+  //               ak: oss.accessKeyId, // 不知道ak和sk的百度以下把～
+  //               sk: oss.accessKeySecret,
+  //               bucket: oss.bucket,  // bucket的name
+  //               deleteAll: true,
+  //               filter: function(asset) {
+  //                   return !/\.html$/.test(asset) // 不上传index.html
+  //               }
+  //           }])
+  // },
   configureWebpack,
   css: {
     loaderOptions: {
