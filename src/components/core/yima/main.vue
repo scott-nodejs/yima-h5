@@ -154,7 +154,7 @@
             this.pageConfig = res.pageConfig;
         })
       } else {
-          this.updateData({id: 32255})
+          this.updateData({id: 0})
       }
     },
     computed: {
