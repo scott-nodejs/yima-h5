@@ -12,6 +12,7 @@ const path = require('path')
 const webpack = require('webpack')
 // const isProd = process.env.NODE_ENV === 'production'
 const target = 'http://localhost:9080/oneCode'
+//const oss = require('./oss.config.js');
 const engineOutputDir = path.join(__dirname, '../../back-end/h5-api/public/engine-assets')
 const mainAppOutputDir = path.join(__dirname, '../../back-end/h5-api/build-editor')
 const coreEditorOutputDir = path.join(__dirname, '../../front-end/h5/src/components/core/dist')
@@ -44,7 +45,7 @@ switch (process.env.PAGE) {
       // outputDir: 'dist',
       outputDir: mainAppOutputDir,
       // publicPath: isProd ? '/main/' : '/'
-      publicPath: process.env.NODE_ENV !== 'development' ? ('http://cdn.appshuo.club/dist/') : './',
+      // publicPath: process.env.NODE_ENV !== 'development' ? ('https://cdn.hazer.top/dist/') : './',
     }
 }
 
@@ -87,20 +88,21 @@ module.exports = {
       }
     }
   },
-  chainWebpack(config) {
-    config
-        .plugin('webpack-aliyun-oss-plugin')
-        .use(require('webpack-aliyun-oss-plugin'), [{
-          buildPath: 'dist/**',
-          region: oss.region, // 只是示例，如果是别的地区请填别的地区
-          ak: oss.accessKeyId, // 不知道ak和sk的百度以下把～
-          sk: oss.accessKeySecret,
-          bucket: oss.bucket,  // bucket的name
-          filter: function(asset) {
-            return !/\.html$/.test(asset) // 不上传index.html
-          }
-        }])
-  },
+  // chainWebpack(config) {
+  //       config
+  //           .plugin('webpack-aliyun-oss-plugin')
+  //           .use(require('webpack-aliyun-oss-plugin'), [{
+  //               buildPath: 'dist/**',
+  //               region: oss.region, // 只是示例，如果是别的地区请填别的地区
+  //               ak: oss.accessKeyId, // 不知道ak和sk的百度以下把～
+  //               sk: oss.accessKeySecret,
+  //               bucket: oss.bucket,  // bucket的name
+  //               deleteAll: true,
+  //               filter: function(asset) {
+  //                   return !/\.html$/.test(asset) // 不上传index.html
+  //               }
+  //           }])
+  // },
   configureWebpack,
   css: {
     loaderOptions: {

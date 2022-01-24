@@ -7,8 +7,8 @@
                 :item="item">
         </upload>
         <template v-if="item.title">
-          <el-form-item class="small" label="跳转到：">
-            <span style="word-break: break-all;">{{item.title}}</span>
+          <el-form-item class="small" label="标题：">
+            <el-input v-model="item.title" :maxlength="128"></el-input>
           </el-form-item>
         </template>
         <el-form-item class="small" label="点击配置：">

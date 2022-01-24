@@ -137,25 +137,24 @@
         pageConfig: util.copyObj(pageOption),
         currentIndex: -1,
         currentConfig: null,
-        pages: []
+        pages: [],
+        clientId: 0
       }
     },
     created () {
-      if (this.workId) {
+      if (this.workId != 32255) {
         this.$loading.show()
         this.fetchWork(this.workId).then(res=>{
-          this.$loading.hide()
-          if(res.page.length != 0){
+            this.$loading.hide()
             this.pages = res.page;
-            this.compList = res['config']
+            this.compList = res['config'];
+            this.clientId = res.clientId;
             this.updateData({id: res.id, pageListConfig: res.pages, configList: res.config})
             this.bottomMenu = res.bottumMenu;
-          }else{
-            this.updateData({id: 32255})
-          }
+            this.pageConfig = res.pageConfig;
         })
       } else {
-        this.$message.error('no work id!')
+          this.updateData({id: 32255})
       }
     },
     computed: {
@@ -230,7 +229,11 @@
         this.currentConfig = null
       },
       savePageSet() {
-        this.submitShow = true
+        if(this.workId == 32255){
+            this.submitShow = true
+        }else{
+            this.submitConfig({"clientId": this.clientId})
+        }
       },
       showPreview() {
           this.preview()

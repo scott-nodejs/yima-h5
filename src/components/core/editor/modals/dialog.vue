@@ -10,7 +10,9 @@
                         :file-list="fileList"
                         :http-request="uploadImage"
                         :on-success="handleAvatarSuccess"
-                        :on-remove="handleRemove">
+                        :on-remove="handleRemove"
+                        :limit="1"
+                        :on-exceed="handleExceed">
                     <i class="el-icon-plus"></i>
                 </el-upload>
             </el-form-item>
@@ -59,7 +61,12 @@
         watch: {
             dialogVisible: function(newVal, oldVal) {
                 if (newVal) {
-                    console.log(newVal);
+                    if(this.flag !== 0) {
+                        this.fileList.splice(0, this.fileList.length)
+                        this.fileList.push({'url': this.dialogInfo.avatar});
+                    }else{
+                        this.fileList.splice(0, this.fileList.length)
+                    }
                 }
             }
         },
@@ -75,10 +82,11 @@
                 form: {}
             };
         },
-        created() {},
+        created() {
+
+        },
         mounted() {
-            console.log(this.dialogInfo.avatar)
-            this.fileList.put(this.dialogInfo.avatar)
+
         },
         methods: {   //修改父组件传过来的值
             ...mapActions('client', [
@@ -126,7 +134,10 @@
             },
             // 文件超出个数限制时的钩子
             handleExceed(files, fileList) {
-
+                this.$notify.warning({
+                    title: '警告',
+                    message: '只允许上传一张logo'
+                })
             },
             // 文件列表移除文件时的钩子
             handleRemove(file, fileList) {

@@ -1,9 +1,9 @@
 <template>
     <el-tabs :tab-position="dire" v-model="activeName" @tab-click="handleClick">
         <el-tab-pane v-for="(item,ix) in list" :label="item.text" :name="item.key">
-            <div class="each-img">
-                <div class="bg"><div class="img" :style="{backgroundImage: 'url(' + item.content.img + ')'}"></div></div>
-                <div class="title">{{item.content.title}}</div>
+            <div class="each-img" v-for="(it, i) in item.content">
+                <div class="bg"><div class="img" :style="{backgroundImage: 'url(' + it.val + ')'}"></div></div>
+                <div class="title">{{it.title}}</div>
             </div>
 
         </el-tab-pane>

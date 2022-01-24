@@ -41,19 +41,19 @@ module.exports = {
         type: 'input-number',
         label: '容器高度',
         attr: 'height',
-        val: '',
+        val: 38,
         unit: 'px',
         isNecessary: false
       }, {
         type: 'upload',
         label: '背景图',
-        attr: 'background-image',
+        attr: 'backgroundImage',
         val: '',
         isNecessary: false
       }, {
         type: 'color-picker',
         label: '背景颜色',
-        attr: 'background-color',
+        attr: 'backgroundColor',
         val: '',
         isNecessary: false
       }, {
@@ -1038,24 +1038,24 @@ module.exports = {
             config: [{
                 text: '默认项1',
                 key: 'idx1',
-                content: {
-                    img: 'http://img.hazer.top/logo.top',
+                content: [{
+                    val: 'https://img.hazer.top/logo.png',
                     title: '默认标题1'
-                }
+                }]
             },{
                 text: '默认项2',
                 key: 'idx2',
-                content: {
-                    img: 'http://img.hazer.top/logo.top',
+                content: [{
+                    val: 'https://img.hazer.top/logo.png',
                     title: '默认标题2'
-                }
+                }]
             },{
                 text: '默认项3',
                 key: 'idx3',
-                content: {
-                    img: 'http://img.hazer.top/logo.top',
+                content: [{
+                    val: 'https://img.hazer.top/logo.png',
                     title: '默认标题3'
-                }
+                }]
             }]
         }
     },

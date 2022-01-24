@@ -11,14 +11,16 @@ import { Layout,
          Spin,
          Modal,
          Popover,
-         Radio
+         Radio,
+         Form,
+         Avatar
         } from 'ant-design-vue'
 // !#zh 请注意，务必使用 font-awesome@4.7.0 版本
 import 'font-awesome/css/font-awesome.min.css'
 
 const { Header,Sider,Content } = Layout;
 const { Meta } = Card;
-const { SubMenu, Item} = Menu;
+const { SubMenu, Item, Divider} = Menu;
 const { Group } = Radio;
 
 Vue.component(Layout.name, Layout);
@@ -39,8 +41,13 @@ Vue.component(Meta.name, Meta);
 Vue.component(Content.name, Content);
 Vue.component(SubMenu.name, SubMenu);
 Vue.component(Item.name, Item);
+Vue.component(Divider.name, Divider);
 Vue.component(Popover.name, Popover);
 Vue.component(Sider.name, Sider);
 
 Vue.component(Radio.name, Radio);
 Vue.component(Group.name, Group);
+
+Vue.component(Form.name, Form);
+Vue.component(Form.Item.name, Form.Item);
+Vue.component(Avatar.name, Avatar);
