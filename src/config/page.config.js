@@ -104,21 +104,21 @@ module.exports = {
     {
       type: 'text',
       label: '分享标题',
-      attr: 'page-share-title',
+      attr: 'pageShareTitle',
       placeholder: '微信分享的标题',
       val: '',
       isNecessary: true
     }, {
       type: 'textarea',
       label: '分享描述',
-      attr: 'page-share-desc',
+      attr: 'pageShareDesc',
       placeholder: '微信分享的描述文字',
       val: '',
       isNecessary: true
     }, {
       type: 'upload',
       label: '分享图标',
-      attr: 'page-share-icon',
+      attr: 'pageShareIcon',
       val: '',
       isNecessary: true
     },
