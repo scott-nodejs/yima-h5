@@ -1,7 +1,7 @@
 import QRCode from 'qrcode'
 import QrCodeWithLogo from "qrcode-with-logos";
 import CardCover from './card-cover'
-
+import { mapState, mapActions } from 'vuex'
 export default {
   props: {
     isTemplate: {
@@ -17,6 +17,9 @@ export default {
     qrcodeUrl: ''
   }),
   methods: {
+      ...mapActions('client', [
+          'genWxQrCode'
+      ]),
     timeFmt (date) {
       const dateTime = new Date(date)
       const displayTime = `${dateTime.getFullYear()}-${dateTime.getMonth() +
@@ -24,7 +27,7 @@ export default {
       return displayTime
     },
     genQRCodeUrl (work) {
-      const url = `http://yima.hazer.top/h5/?clientId=${work.clientId}`
+      const url = `http://yima.hazer.top/h5/#/subpkg/pages/index/index?clientId=${work.clientId}`
       console.log(url)
       // QRCode.toDataURL(url, (err, url) => {
       //   if (err) console.log(err)
@@ -43,7 +46,7 @@ export default {
         });
     },
     downloadQRCodeUrl(work){
-      const url = `http://yima.hazer.top/h5/?clientId=${work.clientId}`
+      const url = `http://yima.hazer.top/h5/#/subpkg/pages/index/index?clientId=${work.clientId}`
       // QRCode.toDataURL(url, (err, url) => {
       //   if (err) console.log(err)
       //   const imgUrl = url
@@ -67,7 +70,35 @@ export default {
                 }, 100);
             });
         });
-    }
+    },
+    downloadWechatQrCode(work){
+        this.genWxQrCode({'id': work.clientId}).then(entry=>{
+            const url = 'https://img.hazer.top/qr/'+work.clientId+'.png';
+            this.getUrlBase64(url).then(base64 => {
+                let link = document.createElement('a')
+                link.href = base64
+                link.download = work.title
+                link.click()
+            })
+        })
+    },
+      getUrlBase64(url) {
+          return new Promise(resolve => {
+              let canvas = document.createElement('canvas')
+              let ctx = canvas.getContext('2d')
+              let img = new Image()
+              img.crossOrigin = 'Anonymous' //允许跨域
+              img.src = url
+              img.onload = function() {
+                  canvas.height = 300
+                  canvas.width = 300
+                  ctx.drawImage(img, 0, 0, 300, 300)
+                  let dataURL = canvas.toDataURL('image/png')
+                  canvas = null
+                  resolve(dataURL)
+              }
+          })
+      },
   },
   render (h) {
     return (
@@ -110,9 +141,10 @@ export default {
           {
             this.qrcodeUrl
               ? <a-icon type="close-circle" onClick={() => { this.qrcodeUrl = '' }} />
-              : <a-icon type="qrcode" onClick={() => this.genQRCodeUrl(this.work)} />
+              : <a-icon type="qrcode" title={this.$t('workCard.qrCode')} onClick={() => this.genQRCodeUrl(this.work)} />
           }
-          <a-icon type="download" onClick={() => this.downloadQRCodeUrl(this.work)} />
+          <a-icon type="download" title={this.$t('workCard.download')} onClick={() => this.downloadQRCodeUrl(this.work)} />
+          <a-icon type="qrcode"  title={this.$t('workCard.wxQrCode')} onClick={() => this.downloadWechatQrCode(this.work)} />
         </template>
         <a-card-meta
         >

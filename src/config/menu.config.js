@@ -37,11 +37,11 @@ module.exports = [
         text: '底部导航',
         icon: 'fa-adjust'
       },
-      // {
-      //   key: 'grid-menu',
-      //   text: '金刚位',
-      //   icon: 'fa-th'
-      // },
+      {
+        key: 'grid-menu',
+        text: '金刚位',
+        icon: 'fa-th'
+      },
       {
         key: 'base-video',
         text: '视频',

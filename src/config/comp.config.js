@@ -164,7 +164,56 @@ module.exports = {
                 val: '默认文本',
                 isNecessary: true
             }
-        ]
+        ],
+      style: [
+          {
+              type: 'color-picker',
+              label: '背景颜色',
+              attr: 'backgroundColor',
+              val: '',
+              isNecessary: false
+          },{
+              type: 'input-number',
+              label: '上边距',
+              attr: 'paddingTop',
+              val: 10,
+              unit: 'px',
+              min: 0,
+              max: 50,
+              step: 1,
+              isNecessary: true
+          }, {
+              type: 'input-number',
+              label: '右边距',
+              attr: 'paddingRight',
+              val: 15,
+              unit: 'px',
+              min: 0,
+              max: 50,
+              step: 1,
+              isNecessary: true
+          }, {
+              type: 'input-number',
+              label: '下边距',
+              attr: 'paddingBottom',
+              val: 10,
+              unit: 'px',
+              min: 0,
+              max: 50,
+              step: 1,
+              isNecessary: true
+          }, {
+              type: 'input-number',
+              label: '左边距',
+              attr: 'paddingLeft',
+              val: 15,
+              unit: 'px',
+              min: 0,
+              max: 50,
+              step: 1,
+              isNecessary: true
+          }
+      ]
     },
     'coupon': {
         title: '优惠券',

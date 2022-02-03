@@ -30,6 +30,9 @@ const actions = {
             commit('setClient', entry)
         }).catch(handleError)
     },
+    genWxQrCode ({ commit, state },payload = {}) {
+        return strapi.getEntries('company/genQrCode/'+payload.id)
+    },
     saveClient({commit, dispatch, state}) {
         return new AxiosWrapper({
             dispatch,
