@@ -8,7 +8,8 @@ const state = {
     clientList: [],
     total:0,
     currentPage:0,
-    client: new Client()
+    client: new Client(),
+    labels: [],
 }
 
 // getters
@@ -65,6 +66,12 @@ const actions = {
         }
         commit('addClient', client)
     },
+    fetchLables ({ commit, state },payload = {}) {
+        console.log(payload)
+        return strapi.getEntries('company/tabs').then(entry => {
+            commit('setLabels', entry)
+        }).catch(handleError)
+    }
 }
 
 // mutations
@@ -79,7 +86,11 @@ const mutations = {
         state.clients = data['data']
     },
     addClient(state, data){
+        console.log(data)
         state.client = new Client(data)
+    },
+    setLabels(state, data){
+        state.labels = data['data']
     }
 }
 

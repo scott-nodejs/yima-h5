@@ -6,5 +6,7 @@ export default class Client {
         this.address = client.address || ''
         this.nickname = client.nickname || ''
         this.avatar = client.avatar || ''
+        this.labelId = client.labelId || 0
+        this.status = client.status
     }
 }

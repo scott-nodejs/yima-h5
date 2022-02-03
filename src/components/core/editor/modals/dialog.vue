@@ -16,6 +16,16 @@
                     <i class="el-icon-plus"></i>
                 </el-upload>
             </el-form-item>
+            <el-form-item label="行业">
+                <el-select v-model="dialogInfo.labelId" placeholder="请选择行业" @change="changeClient">
+                    <el-option
+                            v-for="clt in labels"
+                            :key="clt.id"
+                            :label="clt.label"
+                            :value="clt.id"
+                    />
+                </el-select>
+            </el-form-item>
             <el-form-item label="门店名称 : ">
                 <el-input v-model="dialogInfo.name"></el-input>
             </el-form-item>
@@ -28,6 +38,9 @@
             <el-form-item label="地址 : ">
                 <el-input v-model="dialogInfo.address"></el-input>
             </el-form-item>
+            <el-form-item>
+                <el-checkbox v-model="dialogInfo.status" @change="changeStatus">是否显示在首页</el-checkbox>
+            </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
             <el-button @click="cancelDialog">取 消</el-button>
@@ -37,7 +50,7 @@
 </template>
 
 <script>
-    import { mapActions } from 'vuex'
+    import {mapActions, mapState} from 'vuex'
     import axios from 'axios'
     export default {//父组件 传 过来的 值
         props: {
@@ -54,6 +67,7 @@
             }
         },
         computed:{
+            ...mapState('client',["labels"]),
             title(){
                 return this.flag === 0 ? '新增': '编辑';
             }
@@ -70,7 +84,8 @@
                 }
             }
         },
-        components: {},
+        components: {
+        },
         name: "componentDialog",
         data() {
             return {
@@ -79,11 +94,12 @@
                 formLabelWidth: '80px',
                 limitNum: 2,
                 fileList: [],
-                form: {}
+                form: {},
+                labelId: ''
             };
         },
         created() {
-
+            this.fetchLables();
         },
         mounted() {
 
@@ -93,7 +109,8 @@
                 'saveClient',
                 'updateClient',
                 'getClient',
-                'fixClient'
+                'fixClient',
+                'fetchLables'
             ]),
             cancelDialog() {
                 this.$emit("update:dialogVisible", false);
@@ -164,6 +181,13 @@
             },
             uploadFile() {
                 this.$refs.upload.submit()
+            },
+            changeClient(data){
+                this.dialogInfo.labelId = data;
+            },
+            changeStatus(data){
+                console.log(data)
+                this.dialogInfo.status = data;
             }
         }
     };

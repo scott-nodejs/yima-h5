@@ -110,7 +110,7 @@ const mutations = {
     },
     setPermision(state, data){
         state.auth = new Auth(data)
-    },
+    }
 }
 
 export default {

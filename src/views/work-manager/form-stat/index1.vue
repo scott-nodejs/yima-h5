@@ -129,7 +129,9 @@
                     phone: w.phone || '',
                     nickname: w.nickname || '',
                     address: w.address || '',
-                    avatar: w.avatar || ''
+                    avatar: w.avatar || '',
+                    labelId: w.labelId || '',
+                    status: w.status || ''
                 }))
             }
         },

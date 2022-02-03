@@ -81,7 +81,7 @@ module.exports = {
   pages: { index: page },
   devServer: {
     proxy: {
-      '^/login|send|findPassword|order|user|register|upload|uploadVideo|content-manager|users-permissions|works|qrConfig|company|scripts|datasources|admin|psd-files|workforms|third-libs|engine-assets/': {
+      '^/login|send|api|findPassword|order|user|register|upload|uploadVideo|content-manager|users-permissions|works|qrConfig|company|scripts|datasources|admin|psd-files|workforms|third-libs|engine-assets/': {
         target,
         changeOrigin: true,
         ws: false
