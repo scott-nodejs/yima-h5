@@ -1,6 +1,6 @@
 <template>
   <header class="app-header">
-    <img class="header-logo" src="https://img.hazer.top/logo.png">亿空间
+    <img class="header-logo" src="https://img.hazer.top/logo1.png">亿空间
   </header>
 </template>
 

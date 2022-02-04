@@ -63,6 +63,10 @@
           <horizontal-item :items="option.action.config"></horizontal-item>
         </template>
 
+        <template v-if="option.action.type === 'adjump-item-click'">
+          <adJump-item :items="option.action.config"></adJump-item>
+        </template>
+
         <template v-if="option.action.type === 'vertical-item-click'">
           <vertical-item :items="option.action.config"></vertical-item>
         </template>
@@ -110,6 +114,7 @@
   import bottomMenuItem from 'core/yima/itemOption/bottomMenuItem.vue'
   import floorMenuItem from 'core/yima/itemOption/floorMenuItem.vue'
   import horizontalItem from 'core/yima/itemOption/horizontalItem.vue'
+  import adJumpItem from 'core/yima/itemOption/adJumpItem.vue'
   import verticalItem from 'core/yima/itemOption/verticalItem.vue'
   import scrollItem from 'core/yima/itemOption/scrollItem.vue'
   import inputItem from 'core/yima/itemOption/inputItem.vue'
@@ -147,7 +152,8 @@
       gridMenuItem,
       marqueeItem,
       pageParagraphItem,
-      pageFaqItem
+      pageFaqItem,
+      adJumpItem
     },
     props: {
       option: {

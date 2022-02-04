@@ -32,6 +32,11 @@ module.exports = [
       //   text: '倒计时',
       //   icon: 'fa-hourglass-start'
       // },
+        {
+            key: 'ad-jump',
+            text: '广告位跳转',
+            icon: 'fa-hourglass-start'
+        },
       {
         key: 'bottom-menu',
         text: '底部导航',

@@ -18,7 +18,7 @@
         computed: {
             previewUrl () {
                 console.log(this.work)
-                return `http://yima.hazer.top/h5/?clientId=${this.work.clientId}`
+                return `https://yima.hazer.top/h5/#/subpkg/pages/index/index?clientId=${this.work.clientId}`
             }
         },
         data: () => ({
@@ -45,8 +45,8 @@
                     width="30%"
                 >
                     <div className="preview-wrapper">
-                        <a-row gutter={20}>
-                            <a-col span={14}>
+                        <a-row gutter={12}>
+                            <a-col span={12}>
                                 <div className="phone-wrapper" style={{transform: 'scale(0.9)'}}>
                                     <div className="phone">
                                         <iframe
@@ -56,14 +56,6 @@
                                             style="height: 568px;width: 320px;"
                                         ></iframe>
                                     </div>
-                                </div>
-                            </a-col>
-                            <a-col span = {6}>
-                                <div className="pre-desc" style="position: absolute;font-size: 12px;top:40%">
-                                    <h3 style="color:red;">预览说明：</h3>
-                                    <p>1、部分组件尚未实现预览；</p>
-                                    <p>2、组件尚未点击效果；</p>
-                                    <p>3、预览仅供参考，不代表真机效果；</p>
                                 </div>
                             </a-col>
                         </a-row>

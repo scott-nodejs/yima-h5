@@ -97,7 +97,7 @@
             text: '默认项'+(len+1),
             key: 'idx'+(len+1),
             content: [{
-                val: 'https://img.hazer.top/logo.png',
+                val: 'https://img.hazer.top/logo1.png',
                 title: '默认标题'+(len+1)
             }]
         };
@@ -109,7 +109,7 @@
       },
       addContent(index) {
          const obj = {
-             val: 'https://img.hazer.top/logo.png',
+             val: 'https://img.hazer.top/logo1.png',
              title: '默认标题1'
          };
          if (this.items[index].content.length < 5) {

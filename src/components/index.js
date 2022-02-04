@@ -32,6 +32,7 @@ import Coupon from './general/coupon'
 
 import TScroll from './general/trans-scroll'
 import MyTebs from './general/Mytebs'
+import AdJump from './general/adJump'
 
 export default {
   install(Vue) {
@@ -58,5 +59,6 @@ export default {
     Vue.component(Coupon.name, Coupon)
     Vue.component(TScroll.name, TScroll)
     Vue.component(MyTebs.name, MyTebs)
+    Vue.component(AdJump.name, AdJump)
   }
 }
