@@ -627,7 +627,7 @@ module.exports = {
                 type: 'upload',
                 label: '上传头像',
                 attr: 'avatar',
-                val: 'http://img.hazer.top/logo.png',
+                val: 'http://img.hazer.top/logo1.png',
                 /* limit: {
                   w: 750,
                   h: 200,
@@ -1221,21 +1221,21 @@ module.exports = {
                 text: '默认项1',
                 key: 'idx1',
                 content: [{
-                    val: 'https://img.hazer.top/logo.png',
+                    val: 'https://img.hazer.top/logo1.png',
                     title: '默认标题1'
                 }]
             },{
                 text: '默认项2',
                 key: 'idx2',
                 content: [{
-                    val: 'https://img.hazer.top/logo.png',
+                    val: 'https://img.hazer.top/logo1.png',
                     title: '默认标题2'
                 }]
             },{
                 text: '默认项3',
                 key: 'idx3',
                 content: [{
-                    val: 'https://img.hazer.top/logo.png',
+                    val: 'https://img.hazer.top/logo1.png',
                     title: '默认标题3'
                 }]
             }]
@@ -1277,15 +1277,15 @@ module.exports = {
       config: [
         {
           title: '默认标题1',
-          val: 'http://img.hazer.top/logo.png'
+          val: 'http://img.hazer.top/logo1.png'
         },
           {
               title: '默认标题2',
-              val: 'http://img.hazer.top/logo.png'
+              val: 'http://img.hazer.top/logo1.png'
           },
           {
               title: '默认标题3',
-              val: 'http://img.hazer.top/logo.png'
+              val: 'http://img.hazer.top/logo1.png'
           },
       ]
     }
