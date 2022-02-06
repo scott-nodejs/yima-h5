@@ -24,6 +24,7 @@
         </el-form-item>
       </div>
     </template>
+    <el-button icon="el-icon-plus" style="margin-top:15px;" round @click="addItem">添加列表项</el-button>
   </div>
 </template>
 
@@ -40,7 +41,7 @@
       return {
         clientId: '',
         list: this.items,
-        defaultConf: util.copyObj(compConfig['horizontal-list'])
+        defaultConf: util.copyObj(compConfig['ad-jump'])
       }
     },
     created() {
