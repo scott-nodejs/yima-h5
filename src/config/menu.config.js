@@ -102,6 +102,19 @@ module.exports = [
   //   ]
   // },
   {
+      code: 'activity',
+      title: '活动模块',
+      collapse: true,
+      isDrag: true,
+      items: [
+        {
+          key: 'lottery',
+          text: '大转盘',
+          icon: 'fa-header'
+        }
+      ]
+  },
+  {
     code: 'banner',
     title: '轮播组件',
     collapse: true,

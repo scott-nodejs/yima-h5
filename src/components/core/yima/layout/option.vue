@@ -32,6 +32,13 @@
         </template>
       </template>
 
+      <template v-if="option.other && option.other.config.length">
+        <h3><i class="el-icon-setting"></i> {{option.other.title}}</h3>
+        <template>
+          <lottery-button :lottery="option.other.config[0].buttons"></lottery-button>
+        </template>
+      </template>
+
       <template v-if="option.action">
         <h3><i class="el-icon-setting"></i> {{option.action.title}}</h3>
 
@@ -92,6 +99,10 @@
           <marquee-item :marquees="option.action.config"></marquee-item>
         </template>
 
+        <template v-if="option.action.type === 'lottery-click'">
+          <lottery-item :lotteryArr="option.action.config"></lottery-item>
+        </template>
+
         <template v-if="option.action.type === 'page-paragraph-list'">
           <page-paragraph-item :paragraphs="option.action.config"></page-paragraph-item>
         </template>
@@ -122,6 +133,8 @@
   import marqueeItem from 'core/yima/itemOption/marqueeItem.vue'
   import pageParagraphItem from 'core/yima/itemOption/pageParagraphItem.vue'
   import pageFaqItem from 'core/yima/itemOption/pageFaqItem.vue'
+  import lotteryItem from 'core/yima/itemOption/lotteryItem.vue'
+  import lotteryButton from 'core/yima/itemOption/lotterybutton.vue'
   import {mapState} from "vuex";
 
   export default {
@@ -153,7 +166,9 @@
       marqueeItem,
       pageParagraphItem,
       pageFaqItem,
-      adJumpItem
+      adJumpItem,
+      lotteryItem,
+      lotteryButton
     },
     props: {
       option: {

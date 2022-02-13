@@ -215,6 +215,198 @@ module.exports = {
           }
       ]
     },
+    'lottery': {
+        title: '大转盘',
+        domId: '',
+        domName: '',
+        base: [
+            {
+                type: 'text',
+                attr: 'activityName',
+                label: '活动名称',
+                val: '活动名称',
+                isNecessary: true
+            },
+            {
+                type: 'input-number',
+                label: '次数',
+                attr: 'times',
+                val: 3,
+                min: 0,
+                max: 10,
+                step: 1,
+                isNecessary: true
+            },
+            {
+                type: 'input-number',
+                label: '宽度',
+                attr: 'width',
+                val: 300,
+                min: 50,
+                max: 500,
+                step: 10,
+                isNecessary: true
+            },
+            {
+                type: 'input-number',
+                label: '高度',
+                attr: 'height',
+                val: 300,
+                min: 50,
+                max: 500,
+                step: 10,
+                isNecessary: true
+            },
+        ],
+        style: [
+            {
+                type: 'color-picker',
+                label: '背景颜色',
+                attr: 'background',
+                val: '#E74E4E',
+                isNecessary: false
+            },
+            {
+                type: 'input-number',
+                label: '内部边距',
+                attr: 'padding',
+                val: 15,
+                unit: 'px',
+                min: 0,
+                max: 50,
+                step: 1,
+                isNecessary: true
+            },
+            {
+                type: 'upload',
+                label: '上传图片',
+                attr: 'src',
+                val: '',
+                isNecessary: true
+            },{
+                type: 'input-number',
+                label: '上边距',
+                attr: 'paddingTop',
+                val: 10,
+                unit: 'px',
+                min: 0,
+                max: 100,
+                step: 1,
+                isNecessary: true
+            }, {
+                type: 'input-number',
+                label: '右边距',
+                attr: 'paddingRight',
+                val: 15,
+                unit: 'px',
+                min: 0,
+                max: 100,
+                step: 1,
+                isNecessary: true
+            }, {
+                type: 'input-number',
+                label: '下边距',
+                attr: 'paddingBottom',
+                val: 10,
+                unit: 'px',
+                min: 0,
+                max: 100,
+                step: 1,
+                isNecessary: true
+            }, {
+                type: 'input-number',
+                label: '左边距',
+                attr: 'paddingLeft',
+                val: 15,
+                unit: 'px',
+                min: 0,
+                max: 100,
+                step: 1,
+                isNecessary: true
+            }
+        ],
+        action: {
+            type: 'lottery-click',
+            title: '表单项配置',
+            config: [
+                {
+                    fonts: [{ text: '谢谢参与', top: '10%', fontSize: 22, fontColor: '#000000' }],
+                    background: '#e9e8fe',
+                    imgs:[
+                        {
+                            src: 'https://img.hazer.top/logo1.png',
+                            top: '40px',
+                            width: '30px',
+                            height: '30px'
+                        }],
+                    range: 50,
+                },
+                {
+                    fonts: [{ text: '优惠券1', top: '10%',fontSize: 22, fontColor: '#000000' }],
+                    background: '#b8c5f2',
+                    imgs:[
+                        {
+                            src: 'https://img.hazer.top/logo1.png',
+                            top: '40px',
+                            width: '30px',
+                            height: '30px'
+                        }],
+                    range: 30,
+                },
+                {
+                    fonts: [{ text: '优惠券2', top: '10%',fontSize: 22, fontColor: '#000000' }],
+                    background: '#e9e8fe',
+                    imgs:[
+                        {
+                            src: 'https://img.hazer.top/logo1.png',
+                            top: '40px',
+                            width: '30px',
+                            height: '30px'
+                        }],
+                    range: 20,
+                },
+                {
+                    fonts: [{ text: '优惠券3', top: '10%',fontSize: 22, fontColor: '#000000' }],
+                    background: '#b8c5f2',
+                    imgs:[
+                        {
+                            src: 'https://img.hazer.top/logo1.png',
+                            top: '40px',
+                            width: '30px',
+                            height: '30px'
+                        }],
+                    range: 10,
+                }
+            ]
+        },
+        other: {
+            type: 'lottery-button',
+            title: '开启按钮配置',
+            config: [
+                {
+                    buttons: [
+                        {
+                            radius: '40',
+                            background: '#869cfa',
+                            pointer: {
+                                val: true,
+                                options: [
+                                    {
+                                        name: '是',
+                                        val: true
+                                    }, {
+                                        name: '否',
+                                        val: false
+                                    }
+                                ]
+                            },
+                            fonts: [{ text: '开始\n抽奖', top: '-20px', fontSize: 16, fontColor:'#000000' }],
+                        },
+
+                    ]
+                }]
+        }
+    },
     'coupon': {
         title: '优惠券',
         domId: '',
@@ -398,6 +590,21 @@ module.exports = {
     domId: '',
     domName: '',
     style: [
+        {
+            type: 'radio',
+            label: '图片点击',
+            attr: 'imageType',
+            val: true,
+            options: [
+                {
+                    name: '点击看大图',
+                    val: true
+                }, {
+                    name: '点击跳转',
+                    val: false
+                }
+            ]
+        },
       {
         type: 'color-picker',
         label: '背景颜色',

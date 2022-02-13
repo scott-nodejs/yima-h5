@@ -34,6 +34,8 @@ import TScroll from './general/trans-scroll'
 import MyTebs from './general/Mytebs'
 import AdJump from './general/adJump'
 
+import Lottery from './general/lottery'
+
 export default {
   install(Vue) {
     Vue.component(BottomMenu.name, BottomMenu)
@@ -60,5 +62,6 @@ export default {
     Vue.component(TScroll.name, TScroll)
     Vue.component(MyTebs.name, MyTebs)
     Vue.component(AdJump.name, AdJump)
+    Vue.component(Lottery.name, Lottery)
   }
 }
