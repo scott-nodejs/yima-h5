@@ -591,10 +591,11 @@ module.exports = {
     domName: '',
     style: [
         {
-            type: 'radio',
+            type: 'image-radio',
             label: '图片点击',
             attr: 'imageType',
             val: true,
+            click: '',
             options: [
                 {
                     name: '点击看大图',

@@ -23,6 +23,13 @@
         </template>
       </template>
 
+      <template>
+        <h3><i class="el-icon-setting"></i> 弹窗配置</h3>
+        <template v-for="(item, idx) in option.popups">
+          <form-item :item="item" :index="idx"></form-item>
+        </template>
+      </template>
+
     </el-form>
   </div>
 </template>

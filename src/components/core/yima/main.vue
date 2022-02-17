@@ -224,6 +224,7 @@
         'preview'
       ]),
       showPageSet() {
+        console.log(this.pageConfig)
         this.resetCompUnchecked()
         this.currentIndex = -1
         this.currentConfig = null

@@ -136,5 +136,46 @@ module.exports = {
     //           msg: '不为空则提示该消息'
     //        }`
     // }
+  ],
+  popups:[
+    {
+      type: 'popup-radio',
+      label: '弹窗',
+      attr: 'popup',
+      val: false,
+      options: [
+        {
+          name: '开启',
+          val: true
+        }, {
+          name: '不开启',
+          val: false
+        }
+      ],
+      others:[
+        {
+          type: 'upload',
+          label: '弹窗图片',
+          attr: 'popupImage',
+          val: '',
+          isNecessary: true
+        },{
+          type: 'text',
+          label: '弹窗描述',
+          attr: 'popupDesc',
+          placeholder: '弹窗描述',
+          val: '',
+          isNecessary: true
+        },{
+          type: 'text',
+          label: '按钮描述',
+          attr: 'buttonDesc',
+          placeholder: '按钮描述',
+          val: '',
+          isNecessary: true
+        }
+      ],
+      isNecessary: false
+    }
   ]
 }

@@ -145,6 +145,53 @@
     </el-form-item>
 
     <el-form-item class="small"
+                  v-if="item.type === 'popup-radio'"
+                  :label="item.label + '：'">
+      <template v-for="opt in item.options">
+        <el-radio v-model="item.val" :label="opt.val">{{opt.name}}</el-radio>
+      </template>
+      <template v-if="item.val">
+        <el-form-item v-for="(it, index) in item.others">
+          <upload v-if="it.type === 'upload'"
+                  :id="index"
+                  :label="it.label"
+                  :item="it"
+                  v-on:uploadSuccess="uploadSuccess">
+          </upload>
+          <el-form-item v-if="it.attr === 'popupDesc'" :label="it.label + '：'">
+            <el-input  v-model="it.val"
+                      :placeholder="it.placeholder"></el-input>
+          </el-form-item>
+          <el-form-item v-if="it.attr === 'buttonDesc'" :label="it.label + '：'">
+            <el-input v-model="it.val"
+                      :placeholder="it.placeholder"></el-input>
+          </el-form-item>
+        </el-form-item>
+      </template>
+
+    </el-form-item>
+
+    <el-form-item class="small"
+                  v-if="item.type === 'image-radio'"
+                  :label="item.label + '：'">
+      <template v-for="opt in item.options">
+        <el-radio v-model="item.val" :label="opt.val">{{opt.name}}</el-radio>
+      </template>
+      <el-select v-if="!item.val " v-model="item.click" placeholder="请选择客户">
+        <el-option
+                v-for="clt in clients"
+                :key="clt.id"
+                :label="clt.name"
+                :value="clt.id"
+        />
+      </el-select>
+    </el-form-item>
+
+    <el-form-item class="small" v-if="selected" label="跳转：">
+
+    </el-form-item>
+
+    <el-form-item class="small"
                   v-if="item.type === 'formRadio'"
                   :label="item.label + '：'">
       <el-radio-group v-model="item.val" @change="agree(item, item.val)">
@@ -211,7 +258,7 @@
   import 'tinymce/plugins/code'
   import 'tinymce/plugins/table'
   import 'tinymce/plugins/wordcount'
-  import {mapActions} from "vuex";
+  import {mapActions, mapState} from "vuex";
   let map = null;
   let geocoder = new AMap.Geocoder({
       city: "010", //城市设为北京，默认：“全国”
@@ -225,6 +272,7 @@
         address: '',
         tinymceHtml: '',
         mylnglat: '',
+        selected: false,
         inputId: '', // 地址搜索input对应的id
         result: [], // 地址搜索结果
         resultVisible: false, // 地址搜索结果显示标识
@@ -276,6 +324,12 @@
       placeSearch,
       Editor
     },
+    created() {
+      this.fetchClient()
+    },
+    computed:{
+      ...mapState('client',["clients"])
+    },
       mounted () {
           tinymce.init({})
       },
@@ -288,8 +342,9 @@
           }
       },
     methods: {
-      ...mapActions('editor', [
-        'uploadImg'
+      ...mapActions('editor,client', [
+        'uploadImg',
+        'fetchClient'
       ]),
       setFont(item, attr) {
         if (attr === 'font-weight') {
@@ -472,9 +527,12 @@
             success(`${this.baseUrl}/${res.msg}`)
           }).catch(() => { failure('error') })
         },
-        agree(item, val){
+        agree(item, val) {
           console.log(val)
           //this.$set(item.val, 2, val)
+        },
+        changeClient(data){
+          this.list[0].click = data;
         }
     }
   }
