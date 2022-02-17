@@ -166,6 +166,23 @@
             <el-input v-model="it.val"
                       :placeholder="it.placeholder"></el-input>
           </el-form-item>
+          <el-form-item class="small"
+                        v-if="it.attr === 'startTime'"
+                        :label="it.label + '：'">
+            <el-date-picker type="datetime"
+                            v-model="it.val"
+                            value-format="yyyy-MM-dd HH:mm:ss"
+                            placeholder="选择日期"></el-date-picker>
+          </el-form-item>
+          <el-form-item class="small"
+                        v-if="it.attr === 'endTime'"
+                        :label="it.label + '：'">
+            <el-date-picker type="datetime"
+                            v-model="it.val"
+                            value-format="yyyy-MM-dd HH:mm:ss"
+                            placeholder="选择日期"></el-date-picker>
+          </el-form-item>
+
         </el-form-item>
       </template>
 
