@@ -257,6 +257,19 @@ module.exports = {
                 step: 10,
                 isNecessary: true
             },
+            {
+                type: 'datetime',
+                attr: 'startTime',
+                label: '开始时间',
+                val: '2022-01-01 00:00:00',
+                isNecessary: true
+            },{
+                type: 'datetime',
+                attr: 'endTime',
+                label: '结束时间',
+                val: '2022-01-02 00:00:00',
+                isNecessary: true
+            }
         ],
         style: [
             {
