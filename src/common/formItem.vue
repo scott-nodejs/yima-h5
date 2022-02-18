@@ -167,6 +167,18 @@
                       :placeholder="it.placeholder"></el-input>
           </el-form-item>
           <el-form-item class="small"
+                        v-if="it.type === 'select'"
+                        :label="it.label + '：'">
+            <el-select v-model="it.val" placeholder="选择活动">
+              <el-option
+                      v-for="clt in clients"
+                      :key="clt.id"
+                      :label="clt.name"
+                      :value="clt.id"
+              />
+            </el-select>
+          </el-form-item>
+          <el-form-item class="small"
                         v-if="it.attr === 'startTime'"
                         :label="it.label + '：'">
             <el-date-picker type="datetime"

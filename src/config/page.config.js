@@ -174,6 +174,13 @@ module.exports = {
           val: '',
           isNecessary: true
         },{
+          type: 'select',
+          label: '选择活动',
+          attr: 'activityId',
+          placeholder: '选择活动',
+          val: '',
+          isNecessary: true
+        },{
           type: 'datetime',
           attr: 'startTime',
           label: '开始时间',
