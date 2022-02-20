@@ -603,22 +603,6 @@ module.exports = {
     domId: '',
     domName: '',
     style: [
-        {
-            type: 'image-radio',
-            label: '图片点击',
-            attr: 'imageType',
-            val: true,
-            click: '',
-            options: [
-                {
-                    name: '点击看大图',
-                    val: true
-                }, {
-                    name: '点击跳转',
-                    val: false
-                }
-            ]
-        },
       {
         type: 'color-picker',
         label: '背景颜色',
@@ -676,7 +660,22 @@ module.exports = {
         max: 50,
         step: 1,
         isNecessary: true
-      }
+      },{
+            type: 'image-radio',
+            label: '图片点击',
+            attr: 'imageType',
+            val: true,
+            click: '',
+            options: [
+                {
+                    name: '点击看大图',
+                    val: true
+                }, {
+                    name: '点击跳转',
+                    val: false
+                }
+            ]
+        }
     ],
     action: {
       type: 'image-click',

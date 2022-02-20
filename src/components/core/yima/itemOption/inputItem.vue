@@ -117,14 +117,14 @@
         }
       },
       addOption(idx){
-          if (this.inputs[idx].options.length < 4) {
+          if (this.inputs[idx].options.length < 6) {
               let item = util.copyObj(this.defaultConf.action.config[0].options[0]);
               let name = this.defaultConf.action.config[0].options[0].name;
               item.name = name + this.inputs[idx].options.length;
               item.is_default = 0;
               this.inputs[idx].options.push(item)
           } else {
-              this.$alert('最多添加4个选项！')
+              this.$alert('最多添加6个选项！')
           }
       },
       delOption(idx) {

@@ -161,12 +161,19 @@ module.exports = {
           isNecessary: true
         },{
           type: 'text',
-          label: '弹窗描述',
+          label: '弹窗标题',
           attr: 'popupDesc',
-          placeholder: '弹窗描述',
+          placeholder: '弹窗标题',
           val: '',
           isNecessary: true
         },{
+              type: 'text',
+              label: '弹窗标题',
+              attr: 'popupSubDesc',
+              placeholder: '弹窗描述',
+              val: '',
+              isNecessary: true
+          },{
           type: 'text',
           label: '按钮描述',
           attr: 'buttonDesc',

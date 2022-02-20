@@ -162,6 +162,10 @@
             <el-input  v-model="it.val"
                       :placeholder="it.placeholder"></el-input>
           </el-form-item>
+          <el-form-item v-if="it.attr === 'popupSubDesc'" :label="it.label + '：'">
+            <el-input  v-model="it.val"
+                       :placeholder="it.placeholder"></el-input>
+          </el-form-item>
           <el-form-item v-if="it.attr === 'buttonDesc'" :label="it.label + '：'">
             <el-input v-model="it.val"
                       :placeholder="it.placeholder"></el-input>

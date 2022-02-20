@@ -18,7 +18,7 @@
     },
     data() {
       return {
-        imgUrl: this.component.style[2].val
+        imgUrl: this.component.style[1].val
       }
     },
     computed: {
@@ -34,7 +34,7 @@
     watch: {
       component: {
         handler() {
-          this.imgUrl = this.component.style[2].val
+          this.imgUrl = this.component.style[1].val
         },
         deep: true
       }
