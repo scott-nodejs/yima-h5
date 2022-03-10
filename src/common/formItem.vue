@@ -357,9 +357,6 @@
       placeSearch,
       Editor
     },
-    created() {
-      this.fetchClient()
-    },
     computed:{
       ...mapState('client',["clients"])
     },
@@ -375,9 +372,8 @@
           }
       },
     methods: {
-      ...mapActions('editor,client', [
-        'uploadImg',
-        'fetchClient'
+      ...mapActions('editor', [
+        'uploadImg'
       ]),
       setFont(item, attr) {
         if (attr === 'font-weight') {
