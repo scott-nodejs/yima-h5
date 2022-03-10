@@ -1781,6 +1781,21 @@ module.exports = {
         name: '',
         model:'',
         show:1,
+        vip:false,
+        isVip:{
+              type: 'radio',
+              attr: 'vip',
+              val: false,
+              options: [
+                  {
+                      name: '是',
+                      val: true
+                  }, {
+                      name: '否',
+                      val: false
+                  }
+              ]
+        },
         click: null
       }]
     }

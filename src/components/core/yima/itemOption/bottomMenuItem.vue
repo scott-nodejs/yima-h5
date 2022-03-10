@@ -21,6 +21,12 @@
         <el-form-item class="small" label="点击配置：">
           <el-button icon="el-icon-edit" round @click="showClick(menu, idx)">配置跳转</el-button>
         </el-form-item>
+        <el-form-item class="small"
+                      label="会员页面：">
+          <template v-for="opt in menu.isVip.options">
+            <el-radio v-model="menu.vip" :label="opt.val">{{opt.name}}</el-radio>
+          </template>
+        </el-form-item>
         <upload :label="'图片' + (idx + 1)"
                 :index="idx"
                 :item="menu"
